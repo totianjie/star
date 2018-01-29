@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        #box{
+            width:150px;
+            border:1px solid #000;
+            margin:100px auto;
+            text-align:center;
+            background:#ccc;
+            border-bottom:none;
+            cursor:pointer;
+        }
+        #box div{
+            height:50px;
+            line-height:50px;
+            border-bottom:1px solid #000;
+        }
+        #box ul{
+            display:none;
+        }
+        #box ul li{
+            height:50px;
+            line-height:50px;
+            border-bottom:1px solid #000;
+        }
+        li:hover{
+            background:#fef58c;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aDiv=oBox.children[0];
+            var aUl=oBox.children[1];
+            var aLi=aUl.children;
+
+            var bSign=true;
+            //阻止浏览器默认行为
+            document.oncontextmenu=function(){
+                return false;
+            };
+            aDiv.onclick=function(ev){
+                var oEvent=ev || event;
+                oEvent.cancelBubble=true;
+                if(bSign){
+                    aUl.style.display='block';
+                }else{
+                    aUl.style.display='none';
+                }
+                bSign=!bSign;
+
+            };
+            document.onclick=function(){
+                aUl.style.display='none';
+                bSign=true;
+                //bSign=!bSign;也可以
+            };
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].onclick=function(){
+                    aUl.style.display='none';
+                    aDiv.innerHTML=this.innerHTML;
+                    bSign=true;
+                };
+            }
+
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <div>请选择</div>
+    <ul>
+        <li>北京</li>
+        <li>广州</li>
+        <li>上海</li>
+        <li>深圳</li>
+        <li>天津</li>
+    </ul>
+</div>
+
+</body>
+</html>

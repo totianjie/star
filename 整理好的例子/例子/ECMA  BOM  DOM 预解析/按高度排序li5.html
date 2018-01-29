@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{margin:0;padding:0; list-style:none;}
+input{ padding:5px 10px;}
+li{width:100px; background:red; float:left; margin:10px; font-size:50px; color:#fff; text-align:center;}
+</style>
+<script>
+    function rnd(n,m){
+        return Math.floor(Math.random()*(m-n)+n);
+    }
+    window.onload=function(){
+        var oBtn=document.getElementById('btn1');
+        var oBtn2=document.getElementById('btn2');
+        var oUl=document.getElementById('ul1');
+        var aLi=oUl.children;
+
+        function load(){
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].style.height=rnd(100,400)+'px';
+            }
+        }
+        load();
+        oBtn2.onclick=function(){
+            load();
+        };
+
+        oBtn.onclick=function(){
+            //准备一个空的数组把所有的li装起来
+            var arr=[];
+            for(var i=0; i<aLi.length; i++){
+                arr.push(aLi[i]);
+            }
+            //排序
+            arr.sort(function(li1,li2){
+              return li1.offsetHeight-li2.offsetHeight;
+            });
+            oUl.innerHTML='';
+            for(var i=0; i<arr.length; i++){
+                 oUl.appendChild(arr[i]);
+            }
+        };
+    };
+</script>
+</head>
+
+<body>
+<input type="button" value="从小到大排" id="btn1">
+<input type="button" value="从新洗高度" id="btn2">
+<ul id="ul1">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+</ul>
+</body>
+</html>

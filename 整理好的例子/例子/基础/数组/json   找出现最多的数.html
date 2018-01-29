@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var str='aaddccd';
+        var arr=str.split('');
+        var json={};
+        for(var i=0; i<arr.length; i++){
+            if(json[arr[i]]){//看arr当中的每一个   在json里面有没有
+                json[arr[i]]++;//有的话  ++
+            }else{
+                json[arr[i]]=1;//没有的话就存一个进去   json中  json.name就是等于json的值
+            }
+        }
+        console.log(json);
+
+        var str2='';
+        var n=0;
+        for(var name in json){
+            if(json[name]>n){
+                n=json[name];
+                str2=name;
+            }
+        }
+        alert(str2+'出现最多 出现了'+n);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

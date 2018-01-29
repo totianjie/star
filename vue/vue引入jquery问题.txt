@@ -1,0 +1,37 @@
+博客地址：
+	https://forum-archive.vuejs.org/topic/4976/%E5%A6%82%E4%BD%95%E5%9C%A8-vue-%E9%A1%B9%E7%9B%AE%E9%87%8C%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%BC%95%E7%94%A8-jquery-%E5%92%8C-jquery-ui%E7%9A%84%E6%8F%92%E4%BB%B6
+
+
+使用vue-cli构建的vue项目，webpack的配置文件是分散在很多地方的，而我们需要修改的是build/webpack.base.conf.js，修改两处的代码
+
+// 在开头引入webpack，后面的plugins那里需要//---------------------------------------------------------------------->引入webpack
+var webpack = require('webpack')
+// resolve
+
+module.exports = {
+   // 其他代码...
+   resolve: {
+      extensions: ['', '.js', '.vue'],
+      fallback: [path.join(__dirname, '../node_modules')],
+      alias: {
+          'src': path.resolve(__dirname, '../src'),
+          'assets': path.resolve(__dirname, '../src/assets'),
+          'components': path.resolve(__dirname, '../src/components'),
+
+          // webpack 使用 jQuery，如果是自行下载的
+          // 'jquery': path.resolve(__dirname, '../src/assets/libs/jquery/jquery.min'),
+          // 如果使用NPM安装的jQuery
+          'jquery': 'jquery' //---------------------------------------------------------------------->第一个地方
+      }
+   },
+
+   // 增加一个plugins//---------------------------------------------------------------------->第二个地方
+   plugins: [
+      new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery"
+      })
+   ],
+
+   // 其他代码...
+}

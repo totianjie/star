@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width:200px;
+            height:200px;
+            background:#ccc;
+            position:absolute;
+            top:200px;
+            left:200px;
+        }
+    </style>
+    <script>
+        function getPos(obj){
+            var l=0;
+            var t=0;
+            while(obj){
+                l+=obj.offsetLeft;
+                t+=obj.offsetTop;
+                obj=obj.offsetParent;
+            }
+            return {left:l, top:t};
+        }
+        window.onload=function(){
+            var oDiv=document.getElementById('div1');
+            var bRight=false,
+                bLeft=false,
+                bUp=false,
+                bDown=false,
+                bSign=true;
+
+
+            //键盘按下时
+            document.onkeydown=function(ev){
+                var oEvent=ev || event;
+                //ctrl+Q  切换是否能拖拽
+                if(oEvent.ctrlKey && oEvent.keyCode==81){
+                    if(bSign){
+                        drag();
+                    }/*else{
+                        onDrag();
+                    }*/
+                    bSign=!bSign;
+                }
+
+                switch(oEvent.keyCode){
+                    //左
+                    case 37:
+                        bLeft=true;
+                        break;
+                    //右
+                    case 39:
+                        bRight=true;
+                        break;
+                    //上
+                    case 38:
+                        bUp=true;
+                        break;
+                    //下
+                    case 40:
+                        bDown=true;
+                        break;
+                }
+                //ctrl+↑  中心放大
+                if(oEvent.ctrlKey && oEvent.keyCode==38){
+                    bUp=false;
+                    centerToBig();
+                }
+                //ctrl+↓  中心放小
+                if(oEvent.ctrlKey && oEvent.keyCode==40){
+                    bDown=false;
+                    centerToSmall();
+                }
+            };
+            //键盘抬起时
+            document.onkeyup=function(ev){
+                var oEvent=ev || event;
+                switch(oEvent.keyCode){
+                    //左
+                    case 37:
+                        bLeft=false;
+                        break;
+                    //右
+                    case 39:
+                        bRight=false;
+                        break;
+                    //上
+                    case 38:
+                        bUp=false;
+                        break;
+                    //下
+                    case 40:
+                        bDown=false;
+                        break;
+                }
+            };
+            //定时器控制div走    有定时器就不会出现卡一下的向现
+            setInterval(function(){
+                if(bLeft){
+                    oDiv.style.left=oDiv.offsetLeft-10+'px';
+                }
+                if(bRight){
+                    oDiv.style.left=oDiv.offsetLeft+10+'px';
+                }
+                if(bUp){
+                    oDiv.style.top=oDiv.offsetTop-10+'px';
+                }
+                if(bDown){
+                    oDiv.style.top=oDiv.offsetTop+10+'px';
+                }
+            },30);
+
+            //关闭拖拽
+            function onDrag(){
+                oDiv.onmousedown=null;
+            }
+            //div拖拽
+            function drag(){
+                oDiv.onmousedown=function(ev){
+                    var oEvent=ev || event;
+                    var disX=oEvent.clientX-getPos(oDiv).left;
+                    var disY=oEvent.clientY-getPos(oDiv).top;
+                    document.onmousemove=function(ev){
+                        var oEvent=ev || event;
+                        var left=oEvent.clientX-disX;
+                        var top=oEvent.clientY-disY;
+                        oDiv.style.left=left+'px';
+                        oDiv.style.top=top+'px';
+                    };
+                    document.onmouseup=function(){
+                        document.onmousemove=null;
+                        document.onmouseup=null;
+                    };
+                    return false;
+                };
+            }
+
+            function centerToBig(){
+                oDiv.style.width=oDiv.offsetWidth+10+'px';
+                oDiv.style.height=oDiv.offsetHeight+10+'px';
+                //减去原本宽高  margin负的加宽高的一半就是在中心放大小
+                oDiv.style.marginTop=-(oDiv.offsetHeight-200)/2+'px';
+                oDiv.style.marginLeft=-(oDiv.offsetWidth-200)/2+'px';
+            }
+
+            /*
+            * 其实这里可以在全局定一个变量把原始的宽高存起来
+            * 我们可以直接去减这个变量    这样就比较好
+            *
+            *
+            * 怎么变都没事
+            * */
+            var w=oDiv.offsetWidth;
+            var h=oDiv.offsetHeight
+            function centerToSmall(){
+                oDiv.style.width=oDiv.offsetWidth-10+'px';
+                oDiv.style.height=oDiv.offsetHeight-10+'px';
+                /*oDiv.style.marginTop=-(oDiv.offsetHeight-200)/2+'px';
+                oDiv.style.marginLeft=-(oDiv.offsetWidth-200)/2+'px';*/
+
+                oDiv.style.marginTop=-(oDiv.offsetHeight-w)/2+'px';
+                oDiv.style.marginLeft=-(oDiv.offsetWidth-h)/2+'px';
+
+            }
+
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

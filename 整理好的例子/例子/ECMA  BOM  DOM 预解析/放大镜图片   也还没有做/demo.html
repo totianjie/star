@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{ margin:0; padding:0;}
+#box{ position:relative; left:100px; top:100px;}
+#small{ width:300px; height:193px; position:relative; overflow:hidden;}
+#small img{ display:block; width:300px; position:absolute;}
+#small .float{ width:50px; height:50px; background:#f00; position:absolute; z-index:2; display:inline-block; opacity:0.5; cursor:move; display:none;}
+#big{ width:300px; height:300px; position:absolute; display:none; left:320px; top:0; overflow:hidden;}
+#big img{ position:absolute; left:0; top:0;}
+</style>
+<script>
+	window.onload=function(){
+		var oSmall=document.getElementById('small');
+		var oBig=document.getElementById('big');
+		var oFloat=oSmall.children[0];
+
+
+		oSmall.onmouseover=function(){
+			oFloat.style.display='block';
+			oBig.style.display='block';
+		};
+		oSmall.onmouseout=function(){
+			oFloat.style.display='none';
+			oBig.style.display='none';
+		};
+	};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<div id="small">
+    	<div class="float"></div>
+        <img src="small.jpg">
+    </div>
+    <div id="big">
+    	<img src="big.jpg">
+    </div>
+</div>
+</body>
+</html>

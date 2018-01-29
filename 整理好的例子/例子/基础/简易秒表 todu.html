@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function toDu(n){
+            return n<10?'0'+n:''+n;
+        }
+        window.onload=function(){
+            var oT=document.getElementById('t1');
+            var oBtn=document.getElementById('btn');
+            var oBtn2=document.getElementById('btn2');
+
+            var count=0; //计数
+            var timer=null; //定时器
+            oBtn.onclick=function(){
+                clearInterval(timer);   //每次开时清掉  就不会出现定时叠加的现象  跑的太快
+                function fnTime(){
+                    count++;
+                    oT.value=toDu(parseInt(count/60))+':'+toDu(count%60)
+                }
+                fnTime();   //一上来卡一下    就提出来运行一次   就不会出现了
+                timer=setInterval(fnTime,1000);
+            };
+            oBtn2.onclick=function(){
+                clearInterval(timer);
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="t1">
+<input type="button" value="开始计时" id="btn">
+<input type="button" value="停" id="btn2">
+</body>
+</html>

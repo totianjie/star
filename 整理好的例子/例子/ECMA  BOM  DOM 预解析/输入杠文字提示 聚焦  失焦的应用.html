@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        .info-tip{
+            position: relative;
+        }
+        .info-tip span{
+            position: absolute;
+            left:5px;
+            top:3px;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oT=document.getElementById('t1');
+            var oS=document.getElementById('s1');
+
+            //获得焦点时上面的文字消失
+            oT.onfocus=function(){
+                oS.style.display='none';
+            };
+            //失去焦点时判断一下 输入框有没有输入内容  有的话就不变
+            oT.onblur=function(){
+                if(this.value==''){
+                    oS.style.display='block';
+                }
+            };
+
+            oS.onclick=function(){
+                oT.focus();
+            };
+            /*
+            * 用表单的属性的话
+            *一失去焦点输入框内   客户输入的文字就会消失
+            *
+            * 是定位上去的内容   在点击到内容上的时候oT是不会获得焦点的
+            *
+            * 所以后面加了oS 的点击事件  让oT获得焦点
+            *
+            * */
+
+        };
+    </script>
+</head>
+<body>
+<div class="info-tip">
+    <input type="text" value="" id="t1">
+    <span id="s1">开放式马桶</span>
+</div>
+</body>
+</html>

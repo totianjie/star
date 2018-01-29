@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:100%;
+            position: absolute;
+            left:0;
+            bottom:0;
+            text-align: center;
+        }
+    </style>
+    <script>
+        /*
+        * 1 求出鼠标箭头的位置 到物体中心的直线
+        * 2 用物体的offsetTop/left(注意要的是绝对距离)+本身宽高的一半-clientX/Y    就得出了一个三角的两条边
+        *   在求出*弦*（箭头到物体中心的距离）   要用到勾股定理    已知两条边求弦  c=Math.sqrt(a*a+b*b) a.b是三角的两条边Math.sqrt是开根号
+        *
+        * 3 求出比例   变化的数/定死的数      变化的数就(弦)  定死的数自己给(可以给500.300。。。。);  var scale=c/500  c是弦
+        * 4 求出来的比例是越靠近物体比例就越小    但我们要的是越来越大    所以要  var scale=1-c/500  1-;就是反了
+        *   鼠标离物体越远比例就会越小   所以我们要做个判断   在小也不能小于初始值宽高
+        * 5 赋值    aImg[i].width=128*scale  （scale）是比例  128是物体宽度的一倍（这个都是自己定的）
+        * */
+
+       window.onload=function(){
+           var oBox=document.getElementById('box');
+           var aImg=oBox.children;
+
+           //添加鼠标移动事件
+           document.onmousemove=function(ev){
+               var oEvent=ev || event;
+               //做一个循环  因为有一组
+               for(var i=0; i<aImg.length; i++){
+                   var x=aImg[i].offsetLeft+aImg[i].offsetWidth/2-oEvent.clientX;//三角的两个边
+                   /*父级定位了没有绝对距离所把父级的top也加进来了   就行了用getPos获取的就没事*/
+                   var y=aImg[i].offsetTop+aImg[i].offsetHeight/2+oBox.offsetTop-oEvent.clientY;
+                   var c=Math.sqrt(x*x+y*y);//鼠标到何物中心的直线距离
+                   var scale=1-c/500;//比例   一个变化的数/除以一个定死的数  如果不1-就越靠近物体就越小  所以就反了
+                   scale<0.5 && (scale=0.5);
+                   aImg[i].width=128*scale;
+
+               }
+           };
+
+
+        }
+    </script>
+</head>g
+<body>
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+
+    <div id="box">
+        <img src="img2/1.png" width="64" alt="">
+        <img src="img2/2.png" width="64" alt="">
+        <img src="img2/3.png" width="64" alt="">
+        <img src="img2/4.png" width="64" alt="">
+        <img src="img2/5.png" width="64" alt="">
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

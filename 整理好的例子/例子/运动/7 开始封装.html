@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#000;
+            opacity:1;
+            filter:alpha(opacity:100);
+            position:absolute;
+            left:0;
+            top:50px;
+        }
+    </style>
+    <script>
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+
+        function startMove(obj,json,options){
+            //初始值
+            json=json || {};
+            options.duration=options.duration || 500;
+            options.easing=options.easing || 'ease-out';
+
+            //
+            var count=parseFloat(options.duration/30);//总次数
+            var start={};//初始值
+            var dis={};//总距离
+            for(var name in json){
+                start[name]=parseInt(getStyle(obj,name));
+                dis[name]=json[name]-start[name];
+            }
+
+            clearInterval(obj.timer);
+            var n=0;
+            obj.timer=setInterval(function(){
+                n++;
+                switch(options.easing){//运动类型
+                    case 'linear':
+                        var a=n/count;
+                        var cur=start[name]+dis[name]*a;
+                        break;
+                    case 'ease-in':
+                        var a=n/count;
+                        var cur=start[name]+dis[name]*a*a*a;
+                        break;
+                    case 'ease-out':
+                        var a=n/count;
+                        var cur=start[name]+dis[name]*(1-a*a*a);
+                        break;
+                }
+                if(name=='opacity'){
+                    obj.style.opacity=cur;
+                    obj.style.filter='alpha(opacity:'+cur*100+')';
+                }else{
+                    obj.style[name]=cur+'px';
+                }
+                if(n==count){
+                    clearInterval(obj.timer);
+                    options.complete || options.complete();
+                }
+            },30);
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="点击">
+<div></div>
+</body>
+</html>

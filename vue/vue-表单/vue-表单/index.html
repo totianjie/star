@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <!--
+        readonly                设置此属性后只可以读  不可点击 修改
+        disabled                禁用
+        maxlength='5'           规定最长输入只可以有5个字 
+        placeholder='请输入'     默认显示的值 
+        required                如果设置，则规定在提交表单之前必须填写输入字段。就是不可为空  会有提示框
+
+
+
+
+        去掉激活框:	textarea,input{ outline:none;}
+                
+        不允许缩放	resize:none;
+                
+        聚焦框:  input,textarea{ outline:none}
+
+        <input type="text" placeholder="请输入您的名字">		文字提示， 不兼容的， 兼容IE10 11 chrome FF
+
+        属性选择器:
+            input[type="button"]{}
+            input[value=111]{}
+
+        表单：建议用样式来去修饰  input  textarea
+    -->
+    <div id="content">
+        <form>
+            <input type="text"><br>
+            <input type="color">颜色<br>
+            <input type="time">时间<br>
+            <input type="date">年月日<br>
+            <input type="month">年月<br>
+            <input type="week">年周<br>
+            <input type="datetime-local" name="bdaytime">年月日  时间<br>
+            <input type="datetime">允许用户选择日期和时间<br>
+            <input type="email">邮箱<br>
+            <input type="number">数字<br>
+            <input type="range">滑块<br>
+            <input type="search">用于搜索字段<br>
+            <input type="tel">用于应该包含电话号码的输入字段。前只有 Safari 8 支持 tel 类型。<br>
+            <input type="url" pattern>url地址<br>
+            <input type="file" @change="file($event)"><!-- 文件上传 -->
+            <textarea rows="10" cols="10"></textarea>
+        </form>
+
+        <!-- 单选 -->
+        <form>
+            <label>
+            <input type="radio" name="sex" id="man" value="man" v-model="radio" checked>
+                男
+            </label>
+            <label>
+                <input type="radio" name="sex" id="woman" value="woman" v-model="radio">
+                女
+            </label>
+            {{radio}}
+        </form>
+        <!-- 下拉 -->
+        <form>
+            <select v-model="select" name="city">
+                <option value="bj" selected="selected">北京</option>
+                <option value="sh">上海</option>
+                <option value="gz">广州</option>
+                <option value="sz">深圳</option>
+            </select>
+            {{select}}
+        </form>
+        <!-- 多选 -->
+        <form>
+            <label for="bj">
+                <input type="checkbox" value="bj" id="bj" checked v-model="checkbox.bj">    
+                北京
+            </label>
+            <label>
+                <input type="checkbox" value="sh" id="sh" v-model="checkbox.sh">
+                上海
+            </label>
+            <label>
+                <input type="checkbox" value="sz" id="sz" v-model="checkbox.sz">
+                深圳
+            </label>
+            <label>
+                <input type="checkbox" value="gz" id="gz" checked v-model="checkbox.gz">
+                广州
+            </label>
+        </form>
+        {{checkbox}}
+    </div>
+    <script>
+        /*
+            data里面给的默认值就是默认选中
+            跟原生有点不一样
+
+            多选的话就是true / false 
+        */ 
+        let vm = new Vue({
+            el:'#content',
+            data:{
+                radio:'man',
+                select:'gz',
+                checkbox:{'bj':true,'sh':false,'sz':false,'gz':true},
+                arr:[],
+            },
+            methods:{
+                /* 可以拿到文件了 */ 
+                file(ev){
+                    var oFile=ev.target;
+                    console.log(oFile['value'])
+                }
+            },
+            mounted(){
+                
+            },
+            watch:{
+                'radio':function(val){
+                    console.log(val);
+                },
+                'select':function(val){
+                    console.log(val);
+                },
+                arr:function(val){
+                    console.log(val);
+                }
+            }
+        });
+        // console.log(vm.arr);
+    </script>
+</body>
+</html>

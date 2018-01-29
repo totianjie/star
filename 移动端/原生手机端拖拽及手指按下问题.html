@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"/>
+  <title>Title</title>
+
+  <script src="js/zepto.js"></script>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    .box1{
+      width: 100px;
+      height:100px;
+      background:#ccc;
+      position:absolute;
+      top:0;
+      left:0;
+      -webkit-transform: translate3d(0,0,0);
+      transform:translate3d(0,0,0);
+    }
+    .box2{
+      width: 100px;
+      height:100px;
+      background:red;
+      position: absolute;
+      top:0;
+      right:0;
+      -webkit-transform: translate3d(0,0,0);
+      transform:translate3d(0,0,0);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+
+
+      function drag(id){
+        var oBox=document.querySelector(id);
+        var x=0;
+        var y=0;
+        oBox.addEventListener('touchstart',function(ev){
+          var oTouch=ev.targetTouches[0];
+          var id=oTouch.identifier;
+          var disX=oTouch.pageX-x;
+          var disY=oTouch.pageY-y;
+
+          function fnMove(ev){
+            var oTouch=ev.targetTouches[0];
+            if(oTouch.identifier==id){
+              x=oTouch.pageX-disX;
+              y=oTouch.pageY-disY;
+              oBox.style.WebkitTransform='translate3d('+x+'px,'+y+'px,0)'
+            }
+
+          }
+          function fnUp(ev){
+            var oTouchEnd=ev.changedTouches[0];
+            if(oTouchEnd.identifier==id){
+              document.removeEventListener('touchmove',fnMove,false);
+              document.removeEventListener('touchend',fnUp,false);
+            }
+          }
+          document.addEventListener('touchmove',fnMove,false);
+          document.addEventListener('touchend',fnUp,false);
+          ev.preventDefault();
+        },false);
+      }
+      drag('.box1');
+      drag('.box2');
+
+    },false);
+  </script>
+
+
+</head>
+<body>
+  <div class="box1" id="box1"></div>
+  <div class="box2" id="box2"></div>
+</body>
+</html>

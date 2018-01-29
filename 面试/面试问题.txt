@@ -1,0 +1,225 @@
+你在jQuery中学到了什么		链式
+闭包的好处
+	1.使用闭包可以在JavaScript中模拟块级作用域；
+	2.闭包可以用于在对象中创建私有变量。
+原型链
+请问什么是闭包！   
+	子类可以使用父类的东西
+	专业回答：
+		作用域 
+			局部
+			全局
+			闭包
+
+		垃圾回收机制（生命周期）
+
+			局部	短			当函数调用完成之后，回收（释放内存）
+			全局	长			当关闭页面的时候消失
+			闭包	可长可短	只要里面的函数还有用,就不会消失
+								只要里面的函数还有用，整条作用链上的所有变量都不会消失
+			作用域链
+
+ajax实现   原理XMLhttpRequest
+
+关于网络性能优化 	雅虎军规
+
+var a=b=c=5;    b  c   是全局变量
+
+
+什么是事件代理（事件委托）
+	当子元素不确定时给父级加事件把事件委托
+
+你平时如何测试javascript代码    alert()   console.log()
+
+什么是事件绑定
+
+'uwe strict'   严格模式
+	规范代码   性能低
+
+同步   异步    
+	同步是阻塞的    异步是非阻塞的
+如何解决跨域问题
+	jsonp
+
+gulp   构建工具
+webpack   模块打包 工具
+
+用户体验
+交互
+
+jquery   中的链式是  就是每次都把this返回	
+ajax  异步的xml.....
+同事就是同事
+不要出现  他
+不要早退
+不要早走
+
+
+-------------------------------------------
+
+1.XHTML和HTML有什么区别
+	html是基本的web设计语言
+	xhtml是基于xml的置标语言
+		xhtml必须被正确的嵌套，元素必须关闭，标签名必须小字字母，文档必须要有根元素
+2.浏览器的内核
+	Ie(Ie内核) 火狐（Gecko） 谷歌（webkit,Blink）
+3.什么是语义化的HTML
+	直观的认识标签，用正确的标签做正常的事情
+4.Doctype作用？标准模式与兼容模式各有什么区别?
+	告知浏览器的解析器用什么文档标准解析这个文档
+	标准模式就是向上兼容
+	兼容模式是下下兼容
+5.html5新增的
+	主要是关于图像（canvas,svg），位置，存储(localstorage)，媒体(video,audio)这类的。
+cse3中的新特性
+	圆角border-radius
+	阴影box-shadow 	text-shadow
+	激变background:-webkit-linear-gradient([方向],颜色,颜色);	
+	transform
+	transition
+	animated
+6.cookie和localstorage的区别
+	cookie要在服务器环境下  内存小4k 有过期时间
+	localstorage本地存诸	内存大5m	无过期时间
+7.CSS隐藏元素的几种方法
+	visibility:hidden;  消失但占据页面上的空间
+	display:hidden;		不占空间
+	opacity:0;
+8.清除浮动的方法
+	clear:both;
+	overflow:hidden;
+	给父级加上高度
+	给父级加边框
+9.link和@import的区别
+	link 						@import
+	link引入文件				导入文件
+	页面加载时同时被加载 		@import引用的css等页面加载完在加载
+	无兼容问题					在ie5以上被识别
+10.盒子模型	
+	标准 	margin  padding border 	content(content不包括其它部份)
+	IE 		margin 	padding border 	content(content包括padding和border)
+11.css优先级
+	同权重: 内联样式表（标签内部）> 嵌入样式表（当前文件中）> 外部样式表（外部文件中）。
+  	!important >  id > class > tag
+  	important 比 内联优先级高
+12.请解释一下为什么需要清除浮动？清除浮动的方式
+	浮动的元素，高度会塌陷
+	overflow:hidden;  clear:left/right/both;
+	clearfix:after{content:'',display:block;clear:both;}
+13.让页面里的字体变清晰，变细用CSS怎么做？
+	-webkit-font-smoothing: antialiased;
+14.如果需要手动写动画，你认为最小时间间隔是多久，为什么？（阿里）
+	多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms
+
+-----------------JS--------------------------
+1.javascript基本数据类型
+	number 	string   null 	undefined   boolean    ....function  (object)
+2.强制类型转化和隐式类型转化
+	parseInt parseFloat Number 
+	* - /   除+以外的
+3.ajax请求的get和post的区别
+	get 	缓存  	明文  	不安全  快    32kb   利于分享
+	post	没缓存 	密文 	安全    慢    1GB    重要的数据（密码，秘钥）
+4.什么是闭包
+	子元素可以使用父元素的变量
+	作用域
+		局部
+		全局
+		闭包
+
+	垃圾回收机制(生命周期)
+		局部 	短 			当函数调用完成之后，回收
+		全局	长 			当关闭页面的时候回收
+		闭包 	可长可短 	
+			只要子函数使用了这个局部变量，就不会消失
+			只要里面的函数还有用，父函数中的所有局部变量都不会消失
+			只要里面的函数还有用，整条作用域链上的所有变量都不会消失
+5.作用域链
+	先在自身找，找不到就找父级，如果父级找不到就继续向上找直到找到全局，如果全局没有就报错
+6.如何阻止默认事件和冒泡
+	默认事件：return false     oEvent.preventDefault()
+	oEvent.concelBubble=true;
+7.一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？
+	查找浏览器缓存，DNS解析，查找对应的id发出每二次git请求http协议会话，文档树建立解析加载到的资源（html,css,js）
+8.ajax
+	异步的javascript和xml   无刷新从服务器取数据
+	原理XMLhttpRequest
+9.use strict   使用的好处及坏处
+	好处：
+		代码规范
+		1.this的问题
+		2.禁止不加var声明全局变量
+		3.禁止在if\switch\for\while中定义函数
+		4.with被干掉
+	坏处：
+		ie9-不兼容
+10.什么是原型链
+	每个对象都会在其内部初始化一个属性，就是prototype(原型)
+	当访问一个对象身上的属性时先在自身找如果找不到就找构造函数，构造函数找不到找父类，直到找到object
+	属性继承
+	子类的构造函数中
+		父类.call(this,arg1,arg2...);
+		或者
+		父类.apply(this,[arg1,arg2...]);
+		或者
+		父类.apply(this,arguments);
+	方法继承
+		子类.prototype = new 父类();
+		子类.prototype.constructor = 子类;
+11.介绍js有哪些内置对象？
+
+	 Object 是 JavaScript 中所有对象的父对象
+
+	 数据封装类对象：Object、Array、Boolean、Number 和 String
+	 其他对象：Function、Arguments、Math、Date、RegExp、Error
+12.说几条写JavaScript的基本规范？
+
+	 1.不要在同一行声明多个变量。
+	 2.请使用 ===/!==来比较true/false或者数值
+	 3.使用对象字面量替代new Array这种形式
+	 4.不要使用全局函数。
+	 5.Switch语句必须带有default分支
+	 6.函数不应该有时候有返回值，有时候没有返回值。
+	 7.For循环必须使用大括号
+	 8.If语句必须使用大括号
+	 9.for-in循环中的变量 应该使用var关键字明确限定作用域，从而避免作用域污染。
+
+13.如何将浮点数点左边的数每三位添加一个逗号，如12000000.11转化为『12,000,000.11』?
+	  function commafy(num){
+	  	return num && num
+	  		.toString()
+	  		.replace(/(\d)(?=(\d{3})+\.)/g, function($1, $2){
+	  			return $2 + ',';
+	  		});
+	  }
+性能优化
+	常见的网络性能优化：
+
+		文件合并		1个文件 = 1次连接 1次请求 1次等待 1次接收
+		使用雪碧图
+		图片代码压缩
+		音视频压缩
+		GZIP压缩
+		使用CDN加速		更快、更稳定、更安全
+		使用DNS加速
+		设置多域名
+		懒加载
+		图片预加载
+		尽量不用响应式
+
+	执行性能
+		有用的
+			1.使用正则
+			2.使用严格模式
+			3.尽量不使用全局
+			4.减少闭包
+			5.尽量不使用属性
+			6.图片不要缩放
+			7.尽量使用常用字体
+			8.减少DOM操作
+				不用left、top
+				用transform:translate; CSS3
+			9.看不见的效果，停下来
+			10.少用定时器
+	
+

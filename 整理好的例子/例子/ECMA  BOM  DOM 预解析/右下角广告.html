@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width:200px;
+            height:200px;
+            background:skyblue;
+            position:absolute;
+            top:200px;
+            right:0;
+        }
+        body{
+            height:3000px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('div1');
+            var top=oDiv.offsetTop;
+
+            //最好加上可视区变化事件window.onresize
+            window.onscroll=function(){
+                var scrollT=document.documentElement.scrollTop || document.body.scrollTop;
+                //var top=document.documentElement.clientHeight-oDiv.offsetHeight;
+
+                oDiv.style.top=scrollT+top+'px';
+
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+
+</body>
+</html>

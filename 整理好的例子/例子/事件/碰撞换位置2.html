@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            text-align:center;
+            line-height:100px;
+            font-weight:bold;
+            font-size:30px;
+            color:#fff;
+            position:absolute;
+        }
+        .div1{
+            left:0;
+            top:0;
+            z-index:2;
+            background:#ccc;
+        }
+        .div2{
+            left:200px;
+            top:200px;
+            background:#399;
+        }
+        #div2.active{
+            background:red;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv1=document.getElementById('div1');
+            var oDiv2=document.getElementById('div2');
+
+            var arr=[];
+            oDiv1.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX-oDiv1.offsetLeft;
+                var disY=oEvent.clientY-oDiv1.offsetTop;
+                arr.push({
+                    left:oDiv1.offsetLeft,
+                    top:oDiv1.offsetTop
+                });
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var left=oEvent.clientX-disX;
+                    var top=oEvent.clientY-disY;
+
+                    oDiv1.style.left=left+'px';
+                    oDiv1.style.top=top+'px';
+
+                    var l=oDiv1.offsetLeft;
+                    var t=oDiv1.offsetTop
+                    var r=oDiv1.offsetLeft+oDiv1.offsetWidth;
+                    var b=oDiv1.offsetTop+oDiv1.offsetHeight;
+
+                    var l2=oDiv2.offsetLeft;
+                    var t2=oDiv2.offsetTop;
+                    var r2=oDiv2.offsetLeft+oDiv2.offsetWidth;
+                    var b2=oDiv2.offsetTop+oDiv2.offsetHeight;
+
+                    if(r<l2 || b<t2 || l>r2 || t>b2){
+                        oDiv2.className='div2';
+                    }else{
+                        oDiv2.className='div2 active';
+                    }
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+
+                    var json=arr.pop();
+                    oDiv1.style.left=oDiv2.offsetLeft+'px';
+                    oDiv1.style.top=oDiv2.offsetTop+'px';
+
+                    oDiv2.style.left=json.left+'px';
+                    oDiv2.style.top=json.top+'px';
+
+                };
+                return false;
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="div1" class="div1">
+        div1
+    </div>
+    <div class="div2" id="div2">
+        div2
+    </div>
+</body>
+</html>

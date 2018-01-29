@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:500px;
+            height:30px;
+            background:#ccc;
+            position:absolute;
+            top:50%;
+            left:50%;
+            margin-top:-15px;
+            margin-left:-250px;
+        }
+        .bar{
+            height:100%;
+            width:50px;
+            position:absolute;
+            left:0;
+            top:0;
+            background:red;
+        }
+        .div2{
+            background:#fef58c;
+        }
+        .div3{
+            width:100px;
+            height:100px;
+            position:absolute;
+            background:#000;
+            top:0;
+            right:0;
+            opacity:0;
+
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aBar=oBox.children[0];
+            var oDiv=oBox.nextElementSibling || nextSibling;//oBox的下一个兄弟节点
+            var oDiv2=oDiv.nextElementSibling || nextSibling;
+
+            /*
+            * 1 先做拖拽
+            * 2 拖拽的距离=oDiv的width height
+            * 透明度 一类的要求比例 一个变化的数/定死的数（大的数-小的数）
+            *
+            * */
+            aBar.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX-aBar.offsetLeft;//offsetLeft不是指向定位父级的left吗？在这里他的定位父级是oBox   相对当于它初始的offsetLeft就是等于零、、
+                //alert(aBar.offsetLeft);
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var left=oEvent.clientX-disX;
+
+                    //if(left<0)left=0;
+                    left<0&&(left=0);
+                    left>oBox.offsetWidth-aBar.offsetWidth&&(left=oBox.offsetWidth-aBar.offsetWidth);
+
+                    aBar.style.left=left+'px';
+                    oDiv.style.width=aBar.offsetLeft+'px';
+                    oDiv.style.height=aBar.offsetLeft+'px';
+
+                    //求比例  一个变化的数/定死的数（大的-小的）；
+                    oDiv2.style.opacity=left/(oBox.offsetWidth-aBar.offsetWidth);
+                    //透明的兼容写法
+                    oDiv2.style.filter='alpha(opacity:'+left/(oBox.offsetWidth-aBar.offsetWidth)*100+')'
+
+
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+
+                };
+                return false;
+            };
+
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <div class="bar"></div>
+</div>
+<div class="div2"></div>
+<div class="div3"></div>
+
+</body>
+</html>

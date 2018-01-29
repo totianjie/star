@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      overflow: hidden;
+    }
+    .box{
+      width: 400px;
+      height: 400px;
+      margin: 100px auto;
+      border:1px solid #000;
+      display:none;
+    }
+
+  </style>
+  <script>
+    window.onload=function(){
+      var oBox=document.querySelector('.box');
+      /*document.ondragenter=function(){
+       oBox.style.display='block';
+       };*/
+      var iNow=0;
+      document.ondragover=function(){//只要拖着文件就会触发
+        //console.log(iNow++);  //触发的频率非常大  只要是拖着就一直在触发
+
+        oBox.style.display='block';//触发的频率非常大所以还没有等定时器开时就又触发了 关的一直都是它上一次的定时器
+        clearTimeout(oBox.timer);
+        oBox.timer=setTimeout(function(){
+          console.log('拖出浏览器了');
+          oBox.style.display='none';//等拖出去后就会进入定时器 把div隐藏
+        },300);
+      };
+      oBox.ondragenter=function(){//拖进去时
+        this.innerHTML='请释放鼠标';
+      };
+      oBox.ondragleave=function(){//拖出去
+        console.log('拖出框外了');
+        this.innerHTML='请将文件拖入这里';
+      };
+      /*
+       * 如果想触发ondrop的事件，必须把ondragover的默认事件阻止        ondrop默认事件要阻止
+       * 所以oBox 也要加一个ondragover  事件   用于阻止默认事伯
+       * */
+      oBox.ondragover=function(){
+        return false;
+      };
+      oBox.ondrop=function(ev){//鼠标松开
+        this.innerHTML='请将文件拖入这里';
+        //console.log(ev.dataTransfer);
+        var oFile = ev.dataTransfer.files[0];
+        var reader = new FileReader();      //文件读取对象
+
+        reader.onprogress = function(ev){
+          var scale = ev.loaded/ev.total;//ev.total 文件总大小     ev.loaded当前读取多少
+          console.log((scale*100).toFixed(2)+'%');
+        };
+
+        reader.onload = function(){
+          console.log(reader.result);//读取到的内容
+
+        };
+
+        //通过文本读取
+//      reader.readAsText(oFile);
+        reader.readAsDataURL(oFile);//通过Base64读取
+
+        return false;//自己也要阻止默认
+      };
+    };
+  </script>
+
+</head>
+<body>
+  <div class="box">请将文件拖入这里</div>
+</body>
+</html>

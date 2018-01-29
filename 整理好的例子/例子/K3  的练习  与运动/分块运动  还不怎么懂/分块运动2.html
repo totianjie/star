@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:800px;
+            height:400px;
+            background: #ccc;
+            margin: 50px auto;
+            position: relative;
+        }
+        #box span{
+            position: absolute;
+            background: url(img/0.jpg) no-repeat;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            var R=4;
+            var C=8;
+
+            for(var r=0; r<R; r++){
+                for(var c=0; c<C; c++){
+                    var oSpan=document.createElement('span');
+                    oSpan.style.width=oBox.offsetWidth/C+'px';
+                    oSpan.style.height=oBox.offsetHeight/R+'px';
+
+                    oBox.appendChild(oSpan);
+
+                    oSpan.style.left=c*oSpan.offsetWidth+'px';
+                    oSpan.style.top=r*oSpan.offsetHeight+'px';
+                    oSpan.style.backgroundPosition='-'+c*oSpan.offsetWidth+'px -'+r*oSpan.offsetHeight+'px';
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

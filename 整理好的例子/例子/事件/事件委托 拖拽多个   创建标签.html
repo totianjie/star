@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+    </style>
+    <script>
+
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        window.onload=function(){
+            var oUl=document.createElement('ul');
+            document.body.appendChild(oUl);
+            for(var i=0; i<60; i++){
+                var oLi=document.createElement('li');
+                oLi.style.width=100+'px';
+                oLi.style.height=100+'px';
+                oLi.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+                oLi.style.position='absolute';
+                oLi.style.left=rnd(0,document.documentElement.clientWidth-100)+'px';
+                oLi.style.top=rnd(0,document.documentElement.clientHeight-100)+'px';
+                oLi.setAttribute('id','li'+i);
+                console.log(oLi);
+                oUl.appendChild(oLi);
+
+            }
+            oUl.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var target=oEvent.srcElement || oEvent.target;
+                if(target.tagName=='LI'){
+                    var disX=oEvent.clientX-target.offsetLeft;
+                    var disY=oEvent.clientY-target.offsetTop;
+                    document.title=disX;
+                    document.onmousemove=function(ev){
+                        var oEvent=ev || event;
+                        var left=oEvent.clientX-disX;
+                        var  top=oEvent.clientY-disY;
+
+                        target.style.left=left+'px';
+                        target.style.top=top+'px';
+                    };
+                    document.onmouseup=function(){
+                        document.onmousemove=null;
+                        document.onmouseup=null;
+                    };
+                    return false;
+                }
+
+
+            };
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

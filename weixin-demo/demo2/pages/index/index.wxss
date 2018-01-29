@@ -1,0 +1,8 @@
+/**index.wxss**/
+.box{}
+.item{
+  width: 100px;
+  height: 100px;
+  background: red;
+  margin: 10px;
+}

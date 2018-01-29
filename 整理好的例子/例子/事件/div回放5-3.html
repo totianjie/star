@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        input{
+            padding: 20px 30px;
+            position: absolute;
+            right:10px;
+            top:10px;
+        }
+        .div1{
+            width:100px;
+            height:100px;
+            background: red;
+            position: absolute;
+            left:100px;
+            top:100px;
+        }
+        .box{
+            width:2px;
+            height:2px;
+            background: #000;
+            position: absolute;
+
+        }
+    </style>
+    <script>
+        function drag(id){
+            var oBtn=document.getElementById('btn1');
+            var oDiv=document.getElementById(id);
+
+            /*
+            * var arr=[
+            *   {left:10, top:100},
+            *   {left:100,top:10}
+            * ];
+            *
+            * */
+            var arr=[];
+            var aDivArr=[];
+            var timer=null;
+
+            function createPointer(){
+                var oNewDiv=document.createElement('div');
+                oNewDiv.className='box';
+                oNewDiv.style.left=oDiv.offsetLeft+'px';
+                oNewDiv.style.top=oDiv.offsetTop+'px';
+                document.body.appendChild(oNewDiv);
+                aDivArr.push(oNewDiv);
+            }
+
+            oDiv.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX-oDiv.offsetLeft;
+                var disY=oEvent.clientY-oDiv.offsetTop;
+
+                arr.push({
+                    left:oDiv.offsetLeft,
+                    top:oDiv.offsetTop
+                });
+
+                //在down的时候添加一个
+                createPointer();
+
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var left=oEvent.clientX-disX;
+                    var top=oEvent.clientY-disY;
+
+                    oDiv.style.left=left+'px';
+                    oDiv.style.top=top+'px';
+
+                    //往数组里面添加坐标
+                    arr.push({
+                        left:oDiv.offsetLeft,
+                        top:oDiv.offsetTop
+                    });
+
+                    //坐标打印出来
+                    createPointer();
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+
+            //点击回放
+            oBtn.addEventListener('click',function(){
+                console.log(arr.length+','+aDivArr.length);
+                oBtn.disabled=true;
+                timer=setInterval(function(){
+                    if(arr.length){
+                        var json=arr.pop();
+
+                        document.body.removeChild(aDivArr.pop());
+
+                        oDiv.style.left=json.left+'px';
+                        oDiv.style.top=json.top+'px';
+                    }else{
+                        clearInterval(timer);
+                        oBtn.disabled=false;
+                    }
+                },30);
+            },false);
+        }
+
+        window.onload=function(){
+            for(var i=0; i<10; i++){
+                var oDiv=document.createElement('div');
+                oDiv.setAttribute('id','div'+i);
+                oDiv.className='div1';
+                document.body.appendChild(oDiv);
+
+                drag('div'+i);
+            }
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="回放" id="btn1">
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

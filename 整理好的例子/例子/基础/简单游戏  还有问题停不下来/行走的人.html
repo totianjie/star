@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{ margin:0; padding:0;}
+#box{ width:300px; height:300px; margin:30px auto; border:10px solid green; position:relative;}
+#box img{ position:absolute;top:0; left:250px;}
+</style>
+<script>
+	function getStyle(obj,name){
+	    if(obj.currentStyle){
+	        return obj.currentStyle[name];
+		}else{
+	        return getComputedStyle(obj,false)[name];
+		}
+	}
+	window.onload=function(){
+	    var oBox=document.getElementById('box');
+	    var oImg=document.getElementById('img1');
+
+	    var left=oImg.offsetLeft;
+	    var top=oImg.offsetTop;
+		var iNow=0;
+		var timer=null;
+		alert(oBox.offsetWidth);
+	    function go(){
+			timer=setInterval(function(){
+			    iNow++;
+			   oImg.src='pic'+(iNow%3+1)+'.png';
+				console.log(iNow%3+1);
+
+				oImg.style.left=left-iNow*2+'px';
+				oImg.style.top=top+iNow*2+'px';
+
+			},30);
+		}
+		go();
+	};
+</script>
+</head>
+
+<body>
+<div id="box">
+	<img src="pic1.png" id="img1">
+</div>
+</body>
+</html>

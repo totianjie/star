@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>GuoKr-Mobile</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	</head>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript" src="libs/react.js"></script>
+		<script type="text/javascript" src="libs/react-dom.js"></script>
+		<script type="text/javascript" src="libs/browser.min.js"></script>
+		<script type="text/babel">
+			const oBox = document.querySelector('#box');
+			
+			ReactDOM.render(
+				<div>
+					<h1>我是标题</h1>
+					<h2>China</h2>
+				</div>
+				,oBox);
+		</script>
+	</body>
+</html>

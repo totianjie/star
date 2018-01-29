@@ -1,0 +1,76 @@
+官网：https://facebook.github.io/react/
+安装环境
+	npm install -g create-react-app      查看版本create-react-app --version
+创建项目
+	create-react-app 项目名
+
+	 npm start		npm run build	 npm test 	 npm run eject
+
+<script type="text/babel">
+	ReactDOM.render(
+		<div>    必须有一个根元素
+			<Head color="red"></Head>
+		</div>
+	,oBox)
+</script>
+
+cors
+rm -rf 文件名/
+
+-------------------------------
+
+
+import React,{Component} from 'react'    引入react
+
+class 组件名（大写开头Item） extends Component{  
+设置初始状态
+	constructor(props){
+	    super(props);
+	    this.state = {   
+	    	//这里放的是数据 
+	        editing: false,
+	        text:this.props.text
+	    }
+	}
+在渲染前调用,在客户端也在服务端
+	componentWillMount:function(){
+		this.setState({
+			time: new Date()
+		});
+	}
+在第一次渲染后掉用   交互可以在这里做  可以获取到元素了this.getDOMNode()
+	componentDidMount(){
+
+	}
+数据更新时
+	componentDidUpdate(props,state){  
+		console.log(props);更新前的数据 
+		console.log(state);更新后的数据 
+	}
+	render(){
+		return (
+			<div>  必须有一个根元素
+				//布局
+			</div>
+		)
+	}
+	show=()=>{
+		this.setState({
+			//改变后的状态还
+			editing:xxxxx,
+			text:xxxxx
+
+		});
+	}
+}
+export default Item  //导出模块
+
+componentWillReceiveProps 	在组件接收到一个新的prop时被调用。这个方法在初始化render时不会被调用。
+shouldComponentUpdate	在组件接收到新的props或者state时被调用
+						。在初始化时或者使用forceUpdate时不被调用。 
+						可以在你确认不需要更新组件时使用。
+componentWillUpdate		在组件接收到新的props或者state但还没有render时被调用。在初始化时不会被调用。
+componentDidUpdate 		在组件完成更新后立即调用。在初始化时不会被调用。
+componentWillUnmount	在组件从 DOM 中移除的时候立刻被调用。
+----------------------------------------------------------
+

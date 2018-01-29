@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        show();//在这里就不行了  因为预解析怎么解析也跑不出script标签
+              //在这里它找   找 不到这个就报错了
+
+    </script>
+    <script>
+        function show(){
+            alert(1);
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

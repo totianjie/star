@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+
+            var c=12;//如果没有定义的变量放数组里会报错
+            //var arr=[a,d,b,c,e,d,e];    这样写会报错  因为都是没有定义的变量  要么定义   要么用单引号包起来
+            var arr=[1,2,3,'zhong','a','b',c,'b',4];
+            oBtn.onclick=function(){
+                //arr.splice(2,2,'a','b','c');
+                arr.splice(2,0,'a','a');
+                //开始位置  删除个数可以为0 后面是添加的东西可以无数个
+                /*
+                * 添加的时候如果删除位置是0   就是添加到所在  位置  的前面
+                * */
+                alert(arr);
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="splice">
+</body>
+</html>

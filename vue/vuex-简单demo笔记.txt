@@ -1,0 +1,132 @@
+
+<--!store.js里面start-->
+    import Vue from 'vue';
+    import Vuex from 'vuex';
+
+    Vue.use(Vuex);
+    //状态  自己需要的状态最好先定义好
+    const state={count:10};
+
+
+
+    //只能在mutations里面改变状态  mutations里面不要有异步
+    const mutations={
+        increment(state){state.count++;},
+        decrement(state){state.count--;},
+        clickOdd(state){state.count++;},
+        clickAsync(state){state.count++;}
+    };
+
+
+
+
+    //事件处理，交互，逻辑      commit是最后一步
+    const actions={
+        //点击增加
+        increment:({commit,state}) => {commit('increment');}, //context包函commit,state,getters,rootState--》<根节点数据>
+        //点击减少
+        decrement:({commit}) => {commit('decrement');},
+        //点击只有偶数增加
+        clickOdd:({commit,state}) => {f(state.count%2 === 0){commit('clickOdd');}},
+        //点击异步
+        clickAsync:({commit}) => {
+            let p1 = new Promise((resolve,reject) => {setTimeout(() => {resolve();},1000);});
+            p1.then((res)=>{commit('clickAsync');});
+        }
+    };
+
+
+
+
+
+    //导出数据
+    const getters={
+        count(state,getters,rootState){return state.count;},  //根节点状态
+        isOdd(state){return state.count%2 === 0 ? '偶数' : '奇数'}
+    };
+
+
+
+
+    //导出
+    export default new Vuex.Store({
+        state,
+        mutations,
+        actions,
+        getters
+    });
+<--!store.js里面end-->
+
+
+<--!在main.js里面start-->
+    import store from 'store.js';
+    new Vue({store});
+<--!在main.js里面end-->
+
+
+<--!在模块里面start-->
+    import {mapActions,mapGetters,mapState,mapMutations} from 'vuex';
+
+
+
+    new Vue({
+        //getters导出来的数据   不导出就用不了              {{$store.state.count}}$store就是main.js里面的store  只是这样写不好
+        computed:mapGetters(['count','isOdd']),
+        //方法   在actions里面处理逻辑
+        methods:mapActions(['increment','decrement','clickOdd','clickAsync'])
+    });
+
+        获取数据
+            1，
+                computed:mapGetters(['count','isOdd']),  //要在getters里面做处理
+            2，
+                //如果没有定getters可以直接使用mapState
+                computed:mapState({
+                    count:state => state.count,
+                    isOdd:state => state.count%2 === 0 ? '偶数' : '奇数'
+                })
+                computed:{
+                    ...mapState({ //最终导出的是一个对象  所以可以扩展运算符运算一下
+                        count:state => state.count,
+                        isOdd:state => state.count%2 === 0 ? '偶数' : '奇数'
+                    })
+                },
+            3,
+                //如果名字和值一样可以简写
+                computed:mapState(['count']),
+        提交方法methods
+            1,//经过了actions中  在commit()给mutations
+
+
+                methods:mapActions(['increment'])
+                methods:{
+                    ...mapActions(['increment'])
+                }
+                methods:{
+                    ...mapActions({
+                        ...mapActions({add:'increment'})
+                    })
+                }
+                //如果需要传递参数就拿出来定义用this.$store.dispatch('increment',{n:123});
+                methods:{
+                    ...mapActions(['decrement','clickOdd','clickAsync']),
+                    increment(){
+                        //两种方式一样的效果
+                        //this.$store.dispatch('increment',{n:123});
+                        this.$store.dispatch({type:'increment',n:123});
+                    }
+                }
+            2,直接提交到了mutations里
+
+
+                methods:{   // 映射 this.increment() 为 this.$store.commit('increment') 
+                    ...mapMutations(['increment'])
+                }
+                methods:{   // 映射 this.increment() 为 this.$store.commit('increment')   
+                    ...mapMutations({add:'increment'})
+                }
+            
+                
+
+<--!在模块里面end-->
+ 

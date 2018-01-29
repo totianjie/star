@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        img{
+            width:400px;
+            height:400px;
+            border: 2px solid #000;
+        }
+    </style>
+    <script>
+        //获取绝对距离
+        function getPos(obj){
+            var l=0;
+            var t=0;
+            while(obj){
+                l+=obj.offsetLeft;
+                t+=obj.offsetTop;
+                obj=obj.offsetParent;
+            }
+            return {left:l, top:t}
+        }
+        window.onload=function(){
+            var aImg=document.getElementsByTagName('img');
+            function lazyLoad(){
+                //滚动条的高度
+                var scrollT=document.documentElement.scrollTop || document.body.scrollTop;
+                //滚动条和可视区的和
+                var scrollBottom=document.documentElement.clientHeight+scrollT;
+                for(var i=0; i<aImg.length; i++){
+                    //每张图片的绝对距离
+                    var imgTop=getPos(aImg[i]).top;
+                    if(scrollBottom>imgTop){
+                        aImg[i].src=aImg[i].getAttribute('_src');
+                    }
+                }
+            }
+            //一打开页面运行一次
+            lazyLoad();
+
+            //滚动滚动条事件
+            window.onscroll=(lazyLoad);
+            //可视区窗口改变事件
+            window.onresize=(lazyLoad);
+        };
+    </script>
+</head>
+<body>
+<img _src="img/b1.jpg" alt="">
+<img _src="img/b2.jpg" alt="">
+<img _src="img/b3.jpg" alt="">
+<img _src="img/b4.jpg" alt="">
+<img _src="img/b5.jpg" alt="">
+<img _src="img/b6.jpg" alt="">
+<img _src="img/b7.jpg" alt="">
+<img _src="img/b8.jpg" alt="">
+<img _src="img/b9.jpg" alt="">
+<img _src="img/b10.jpg" alt="">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

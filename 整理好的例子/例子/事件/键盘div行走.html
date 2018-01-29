@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height: 200px;
+            background:#ccc;
+            position:absolute;
+            top:200px;
+            left:200px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('box');
+
+            var timer=null;
+            //键盘事件
+            document.onkeydown=function(ev){
+                var oEvent=ev || event;
+                 clearInterval(timer);
+                timer=setInterval(function(){
+                    switch(oEvent.keyCode){
+                        case 37:
+                            oDiv.style.left=oDiv.offsetLeft-3+'px';
+                            break;
+                        case 39:
+                            oDiv.style.left=oDiv.offsetLeft+3+'px';
+                            break;
+                        case 38:
+                            oDiv.style.top=oDiv.offsetTop-3+'px';
+                            break;
+                        case 40:
+                            oDiv.style.top=oDiv.offsetTop+3+'px';
+                            break;
+                    }
+                },10);
+
+            };
+            document.onkeyup=function(){
+                clearInterval(timer);
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+
+</div>
+
+</body>
+</html>

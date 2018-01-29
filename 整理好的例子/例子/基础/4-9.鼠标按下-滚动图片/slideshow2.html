@@ -1,0 +1,124 @@
+<!--
+智能社© - http://www.zhinengshe.com/
+
+微博：@北京智能社
+微信：zhi_neng_she
+
+最具深度的前端开发培训机构 HTML+CSS/JS/HTML5
+-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>图片竖向滚动 - 智能社 - www.zhinengshe.com</title>
+<style type="text/css">
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+body { background: #f7f7f7; }
+#slideShow { width: 168px; margin: 50px auto 0; }
+#slideShow h2 { height: 24px; line-height: 24px; padding: 0 10px; background: url(images/bg.gif) no-repeat; font-size: 12px; font-weight: normal; }
+#slideShow h2 a { text-decoration: none; color: #fff; }
+#slideShow h2 a:hover { text-decoration: underline; }
+#slideShow .title { float: left; }
+#slideShow .more { float: right; }
+#slideShow .wrap { border: 1px solid #d1d1d1; border-bottom: none; }
+#slideShow p { position: relative; z-index: 2; }
+#slideShow .up a { display: block; height: 22px; background: #efefef url(images/bg.gif) no-repeat 75px -40px; }
+#slideShow .up a:hover { background: #e4ebf2 url(images/bg.gif) no-repeat 75px -40px; }
+#slideShow .down a { display: block; height: 22px; background: #efefef url(images/bg.gif) no-repeat -78px -40px; }
+#slideShow .down a:hover { background: #e4ebf2 url(images/bg.gif) no-repeat -78px -40px; }
+#slideShow .content { height: 380px; overflow: hidden; position: relative; z-index: 1; }
+#slideShow ul { position: absolute; top: 0; left: 0; }
+#slideShow li { width: 166px; float: left; }
+#slideShow li img { display: block; }
+#slideShow .footer { height: 5px; overflow: hidden; background: url(images/bg.gif) no-repeat 0 -25px; }
+</style>
+    <script>
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+        window.onload=function(){
+            var oup=document.getElementById('up');
+            var oDown=document.getElementById('down');
+            var oConTent=document.getElementById('content');
+            var oUl=oConTent.getElementsByTagName('ul')[0];
+
+
+            var boxH=parseInt(getStyle(oConTent,'height'));
+            var ulH=parseInt(getStyle(oUl,'height'));
+            var count=0;
+            var timer=null;
+            alert(ulH);
+            /*
+              要走动改的是top的值
+            * 把父级的高求出来
+            * 要走物体的高度求出来
+            * 向上走是负数    所小的减去大的
+            * 定一变量减减   向上走都是负数  等变量的值小于  父级 - 物体高度时就停下来
+            *
+            * */
+            oup.onmousedown=function(){
+                timer=setInterval(function(){
+                    count-=10;
+                    if(count < boxH-ulH){
+                    clearInterval(timer);
+                    }else{
+                        oUl.style.top=count+'px';
+                    }
+                },30);
+            };
+
+            //鼠标松开时
+            oup.onmouseup=function(){
+                clearInterval(timer);
+            };
+
+            //向下的鼠标按下时
+            oDown.onmousedown=function(){
+                timer=setInterval(function(){
+                    count+=10;
+                    if(count>0){
+                        clearInterval(timer);
+                    }else{
+                        oUl.style.top=count+'px';
+                    }
+                },30);
+            };
+        };
+    </script>
+</head>
+
+<body>
+
+<div id="slideShow">
+    <h2>
+        <a class="title" href="http://www.zhinengshe.com">智能社</a>
+        <a class="more" href="http://www.zhinengshe.com">>>更多</a>
+    </h2>
+    <div class="wrap">
+        <p class="up" id="up"><a href="javascript:;"></a></p>
+        <div class="content" id="content">
+            <ul>
+                <li><img src="images/1.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/2.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/3.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/4.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/5.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/6.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/7.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+                <li><img src="images/8.gif" alt="智能社" longdesc="http://www.zhinengshe.com" /></li>
+            </ul>
+        </div>
+        <p class="down" id="down"><a href="javascript:;"></a></p>
+    </div>
+    <div class="footer"></div>
+</div>
+
+</body>
+</html>

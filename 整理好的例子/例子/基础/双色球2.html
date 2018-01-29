@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        //准备一个空数组
+        var arr=[];
+
+        //往数组里面放入自己想要的多少个数
+        for(var i=1; i<35; i++){
+            arr.push(i);
+        }
+
+        //把里面的顺序打乱
+        arr.sort(function(){
+            /*随机数出来的是0-1以下的数 */
+            return Math.random()-0.5;
+        });
+
+        //用splice 切只留下6个
+        var arr2=arr.splice(0,6);
+        document.write(arr2);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

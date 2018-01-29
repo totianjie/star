@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style:none;
+        }
+        li{
+            width:100px;
+            height:100px;
+            margin:10px;
+            background:skyblue;
+        }
+    </style>
+    <script>
+        /*
+        * 1 算总次数    总时间（比如你想让它走多长时间）/定时器定多少的值（单次时间）
+        * 2 总的距离    也是以知的   你要它走多远（比如top left  height width ......）
+        * 3 单次距离    总距离/总次数
+        * 4 定一个变量放在定时器中++
+        * */
+        //获取行间样式   offsetWidth/height     是有bug的所以要用到行间样式
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+        window.onload=function(){
+            var oUl=document.getElementsByTagName('ul')[0];
+            var aLi=oUl.getElementsByTagName('li');
+
+            //var timer=null;
+            function startMove(obj,name,iTarget,time){//标签  属性  路程  总时间
+                clearInterval(obj.timer);
+                var count=Math.floor(time/30);//总次数
+                var start=parseInt(getStyle(obj,name));//初始值
+                var dis=iTarget-start;
+                var n=0;
+                obj.timer=setInterval(function(){
+                    n++;//走了几次
+                    var sur=start+n*dis/count;//走多远了   初始值  走了次数*总的路/总的次数
+                    if(name=='opacity'){
+                        obj.style.opacity=sur;
+                        obj.style.filter='alpha(opacity:'+sur*100+')';//透明度比较的特殊
+                    }else{
+                        obj.style[name]=sur+'px';//注意[name]的写法  容易出错
+                    }
+
+                    if(n==count){
+                        clearInterval(obj.timer);
+                    }
+                },30);
+
+            }
+
+            /*
+            *  移入到多个的时候有问题  如果马上从上一个移入到下一个
+            *   上一个还没有走完就已经（把定时器给关了）把事件结束了
+            *    执行下一个去了
+            *     这里定时器的开关要加在每一个标签的身上（每个标签上面都要有一个定时器开关）
+            *
+            * */
+            oUl.onmouseover=function(ev){
+                var oEvent=ev || event;
+                var target=oEvent.srcElement || oEvent.target;
+                if(target.tagName=='LI'){
+                    startMove(target,'width',300,1000);
+                }
+            };
+            oUl.onmouseout=function(ev){
+                var oEvent=ev ||  event;
+                var target=oEvent.srcElement || oEvent.target;
+                if(target.tagName=='LI'){
+                    startMove(target,'width',100,1000)
+                }
+            };
+            /*for(var i=0; i<aLi.length; i++){
+                aLi[i].onmouseover=function(){
+                    startMove(this,'width',300,1000);
+                };
+                aLi[i].onmouseout=function(){
+                    startMove(this,'width',100,1000);
+                };
+            }*/
+        };
+    </script>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>

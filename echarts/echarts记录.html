@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function echarts(){
+            var nhCharts = echarts.init(document.getElementById('pay_nhCharts'));
+
+            var option={
+                title:{
+                    show:true,
+                    text:'',
+                    link:'',
+                    textStyle:{},
+                    textAlign:''//left,center,right
+                },
+                //提示框组件
+                tooltip : {
+                    //是否有提示框默认true
+                    show:false,
+                    //触发类型  item<散点图，饼图>/axis<柱状图，折线图>/none
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow' | "cross"
+                    },
+                    //触发条件
+                    triggerOn:'mousemove' | 'click',
+
+                },
+                //用于区域缩放 或左右滑行的功能  json可以写多个
+                dataZoom:[
+                    {
+                        type:'inside',//可以左右滑动 //slider <滚动条>
+                        //是否锁定区域默认false  也就是说只能平移，不能缩放
+                        zoomLock:true,
+                        //数据窗口范围的起始值
+                        startValue:0,
+                        //数据窗口范围的结束值
+                        endValue:11,
+                        //取消滚动条两边的文字
+                        showDetail:false,
+                        //滚动条高
+                        // height:'8px',
+                        //滚动条离开底部距离
+                        /* bottom:0,
+                        //滚动条样式
+                         handleStyle:{
+                         color:'rgba(209,209,209.1)'
+                         },
+                         //背影色
+                         backgroundColor:'rgba(238,238,238,1)'*/
+                    }
+                ],
+                //图例组件展现了不同系列的标记(symbol)，颜色和名字。可以通过点击图例控制哪些系列不显示。
+                legend: {
+                    itemWidth:22,
+                    itemHeight:12,
+                    //每项间的间隔
+                    itemGap:20,
+                    //selectedMode:false,//不可点击
+                    data:[
+                        {"name":"总额","icon":"rect"},
+                        {"name":"冻结及已用","icon":"rect"},
+                        {"name":"使用率","icon":"rect"}
+                    ]
+                },
+                //图表绘制区大小及样式  如果有多个可以使用一个数组  里面放json
+                grid:{
+                    //是否显示直角坐标系网格 默认false
+                    show:false,
+                    left:'',
+                    right:'',
+                    top:'',
+                    bottom:'',
+                    width:'',
+                    height:'',
+                    //网格背景色
+                    backgroundColor:''
+
+                },
+                //工具栏
+                toolbox:{
+                    feature:{
+                        //动态类型切换
+                        magicType:{
+                            //启用的动态类型
+                            type:['line','bar'],
+                            //各类型的标题文本
+                            title:{
+                                line:'切换为拆线',
+                                bar:'切换为柱形'
+                            },
+                            icon:{},
+                            iconStyle:{}
+                        },
+                        left:'',
+                        right:'',
+                        top:'',
+                        bottom:'',
+                        width:'',
+                        height:''
+                    }
+                },
+                xAxis : [
+                    {
+                        name:'',
+                        //name位置
+                        nameLocation:'',//start   middle    end
+                        //name样式
+                        nameTextStyle:{},
+                        nameRotate:0,
+                        //坐标轴名称与轴线之间的距离。
+                        nameGap:15,
+                        //是否显示X轴默认true
+                        show:'',
+                        //坐标轴类型'value' 数值轴  'category' 类目轴  'time' 时间轴   'log' 对数轴
+                        type : 'category',
+                        //数据 可以直接是一个数组  也可以是数组中放入多个json《》
+                        data : [],
+                        //自动计算的坐标轴最小间隔大小。  例如可以设置成1保证坐标轴分割刻度显示成整数。
+                        minInterval: 1,
+                        //强制设置坐标轴分隔以多少为准  比如0 50 100   就可以设置50
+                        interval:,
+                        //坐标轴刻度标签的相关设置。
+                        axisLabel:{
+                            //是否显示刻度标签默认true
+                            show:true,
+                            //设置为0就是强制显示所有   1为隔一个  2为隔两个。。。
+                            interval:0,
+                            //刻度朝内朝外 默认朝外
+                            inside:false,
+                            //刻度标签旋转的角度  通过旋转防止标签之间重叠
+                            rotate:0,//-90  到 90  度
+                            //刻度与轴线间的距离
+                            margin:0,
+                            //刻度标签的内容格式器，支持字符串模板和回调函数两种形式。《字符串模板formatter: '{value} kg'》
+                            formatter:function(val,index){//字符串换行
+                                if(!val) return;
+                                var str='';
+                                if(_this.bottomFlag !== 1){
+                                    str=val.split('').join('\n');
+                                }else{
+                                    str=val.replace(/\D/g,function(res){
+                                        var tmp='';
+                                        tmp='\n'+res;
+                                        return tmp;
+                                    });
+                                }
+
+                                return str;
+                            },
+                            //文字样式
+                            textStyle:{}
+                        },
+                        //坐标轴刻度相关设置。
+                        axisTick: {
+                            alignWithLabel: true,
+                            //刻度样式
+                            lineStyle:{
+                                color:'#000'
+                            }
+                        },
+                        //x轴分隔线的样式
+                        splitLine:{
+//									lineStyle:{
+//										color:'#000'
+//									}
+                        },
+                        //坐标轴  轴线的样式
+                        axisLine: {
+                            lineStyle: {
+                                color: '#008ACD'
+                            }
+                        },
+                        //x轴区块样式
+                        splitArea:{
+                            show:true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type: 'value',
+                        axisTick: false,
+                        min: 0,
+                        max: maxNum < 100 ? 100 : maxNum+20,
+                        // interval: 50,
+                        minInterval: 1,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#008ACD'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: function(val,index){
+                                var text='';
+                                if(index === 0){
+                                    text='万元';
+                                }else{
+                                    text=val;
+                                }
+                                return text;
+                            },
+                            textStyle: {
+                                color: '#777E8C'
+                            }
+                        },
+                        splitLine:{
+                            show:false
+                        }
+                    },
+                    {
+                        type: 'value',
+                        //不要显示刻度
+                        axisTick: false,
+                        min: 0,
+                        max: maxReachRate < 100 ? 100 : maxReachRate+20,
+                        // interval: 50,
+                        minInterval: 1,
+                        //刻度本身是以10，20，30排的 --》boundaryGap: [0, '10%'],设置后会以20，40，60，80排  设置了min,max后无效
+                        boundaryGap: true,
+                        nameTextStyle: {
+                            color: '#777E8C'
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#008ACD'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: function(val,index){
+                                var text='';
+                                if(index === 0){
+                                    text='%';
+                                }else{
+                                    text=val;
+                                }
+                                return text;
+                            },
+                            textStyle: {
+                                color: '#777E8C'
+                            }
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        name:'总额',
+                        type:'bar',
+                        //可使柱子重叠
+                        barGap: '-100%',
+                        data:this.target,
+                        //柱子的width
+//					            barWidth:10,
+                        barCategoryGap:'50%',
+                        //柱子样式
+                        itemStyle:{
+                            normal:{
+                                color:'#cbeafe',
+                                barBorderRadius:[3,3,3,3]//圆角
+                            }
+                        }
+                    },
+                    {
+                        name:'冻结及已用',
+                        type:'bar',
+                        data:this.reach,
+                        //类目间柱形距离，默认为类目间距的20%，可设固定值
+                        barCategoryGap:'50%',
+                        itemStyle:{
+                            normal:{
+                                color:'#6dc56e',
+                                barBorderRadius:[3,3,3,3]
+                            }
+                        }
+                    },
+                    {
+                        name:'使用率',
+                        type:this.bottomFlag === 1?'line':'scatter',
+                        //拐点样式'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+                        symbol: "circle",
+//					            symbolSize:5,
+                        data:this.reachRate,
+                        //参照那一个轴
+                        yAxisIndex:1,
+                        //拐点样式
+                        itemStyle:{
+                            normal:{
+                                color:'#ff723a'
+                            }
+                        },
+                        //线的样式
+                        lineStyle:{}
+                    }
+                ]
+            };
+            nhCharts.clear();//画之前先清除
+            nhCharts.setOption(option,true);//默认是合并的，设置true后就不会出现合并的现象
+            nhCharts.resize();
+        }
+
+    </script>
+</head>
+<body>
+    <div id="pay_nhCharts" style="width:500px; height:500px;"></div>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Title</title>-->
+    <!--<script src="echarts.common.min.js"></script>-->
+    <!--<style>-->
+        <!--.my-echarts{-->
+            <!--width:600px;-->
+            <!--height:500px;-->
+            <!--margin:0 auto;-->
+            <!--background:#ccc;-->
+        <!--}-->
+    <!--</style>-->
+    <!--<script>-->
+        <!--window.onload=function(){-->
+            <!--var myChart=echarts.init(document.getElementById('my_echarts'));-->
+            <!--var data1=[10, 30, 46, 20, 20, 30];//预计-->
+            <!--var data2=[5, 40, 36, 30, 30, 20];//实计-->
+            <!--var data3=[];//超出-->
+
+            <!--var len=data1.length;-->
+
+            <!--data1.forEach(function(item,index){-->
+                <!--data3.push(data2[index]>item ? data2[index]-item : 0);-->
+            <!--});-->
+            <!--var option={-->
+                <!--title: {-->
+                    <!--text: 'ECharts 入门示例'-->
+                <!--},-->
+                <!--tooltip: {},-->
+                <!--legend: {-->
+                    <!--data:['预计','实际']-->
+                <!--},-->
+                <!--xAxis: {-->
+                    <!--data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]-->
+                <!--},-->
+                <!--yAxis: {},-->
+                <!--series: [-->
+                    <!--{-->
+                        <!--name: '预计',-->
+                        <!--type: 'bar',-->
+                        <!--barGap:'-100%',-->
+                        <!--stack:'超出',-->
+                        <!--data: data1,-->
+                        <!--itemStyle:{-->
+                            <!--normal:{-->
+                                <!--color:'#ccc',-->
+<!--//                                opacity:0.8-->
+                            <!--}-->
+                        <!--}-->
+                    <!--},-->
+                    <!--{-->
+                        <!--name: '实际',-->
+                        <!--type: 'bar',-->
+                        <!--barGap:'-100%',-->
+                        <!--data: data2,-->
+                        <!--itemStyle:{-->
+                            <!--normal:{-->
+                                <!--color:'#699',-->
+<!--//                                opacity:0.8-->
+                            <!--}-->
+                        <!--}-->
+                    <!--},-->
+                    <!--{-->
+                        <!--name: '超出',-->
+                        <!--type: 'bar',-->
+                        <!--stack: '超出',-->
+                        <!--itemStyle: {-->
+                            <!--normal: {-->
+                                <!--color: '#138815'-->
+                            <!--}-->
+                        <!--},-->
+                        <!--data:data3-->
+                    <!--}-->
+                <!--]-->
+            <!--};-->
+            <!--myChart.setOption(option);-->
+
+        <!--};-->
+    <!--</script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="my-echarts" id="my_echarts">-->
+
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

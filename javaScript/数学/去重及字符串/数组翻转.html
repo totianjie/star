@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var arr=['apple','banana','pear','orange'];
+        var arr2=[];
+       /* for(var i=0; i<arr.length; i++){//还有问题
+            arr2.push(arr.pop());
+            alert(1);
+        }*/
+//----------------------------------------------
+       /*while(arr.length){
+           //arr2.push(arr.pop())
+           arr2.unshift(arr.shift())
+       }*/
+//----------------------------------------------
+       /*for(var i=arr.length-1; i>=0; i--){
+           arr2.push(arr.pop())
+       }*/
+//----------------------------------------------
+        //alert(arr2);
+       arr.sort(function(n1,n2){//排出来的没用字母是a-z  这样排的
+           return n1-n2;//从小到大排         数字可以用
+           //return n2-n1;//从大到小排
+       });
+       alert(arr);
+//----------------------------------------------
+        /*arr.reverse();
+        alert(arr);*/
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

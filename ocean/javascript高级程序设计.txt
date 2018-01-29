@@ -1,0 +1,28 @@
+﻿等于号的优先级要高于逗号表达示    逗号表达示的优先级非常的低
+
+alert(12,5);  弹的是12
+为什么呢 是因为alert() 也是一个函数 逗号相当于是一个分隔号（用于传参的） 
+
+
+数组
+	indexOf()/lastIndexOf()   可接收两个参数   第一个是找那个    第二个是从那里开始 
+
+	var arr=[2,2,4,3,4,5,4,2,6,3];
+
+	var res=arr.every(function(item,index,array){
+        return (item>1)  //全部返回的是true   res才是true
+    });
+
+    var res=arr.some(function(item,index,array){ return 条件  //只要有一个是真的res就是true});
+
+     var res=arr.filter(function(item,index,array){
+        return item;   //返回一个全新的数组    不被引用
+    });
+
+    arr.forEach(function(item,index,array){ //循环 });
+
+    var res=arr.map(function(item,index,array){ return 返回});
+
+面向对象：
+	实例中的指针指向原型，面不会指向构造（原型身上的是共有的，构造上的就不是共有的）
+

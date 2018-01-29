@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>冒泡排序</title>
+	<script>
+	/*
+	第二个循环里面就是每次都跟自己前一个比看是大还是小（看自己的需求）
+	就掉换位置就Ok了
+
+	*/
+		var arr=[1,3,2,3,4,5,3,6,8,9,3,2,5,6];
+
+		for(var i=0; i<arr.length; i++){
+
+			for(var j=0; j<arr.length; j++){
+				if(arr[j]<arr[j+1]){//拿当前这一个跟后面一个比(>从小到大)（<从大到小）
+					var tmp;
+					tmp=arr[j];//把当前的保存
+					arr[j]=arr[j+1];//掉换顺序
+					arr[j+1]=tmp;
+				}
+			}
+		}
+		document.write(arr);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

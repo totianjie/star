@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    div{
+      width: 100px;
+      height: 100px;
+      background: #ccc;
+      position: relative;
+      left:0;
+      top: 0;
+      -webkit-transition: 1s all;
+    }
+  </style>
+  <script>
+    window.onload=function(){
+      var oDiv=document.querySelector('div');
+      oDiv.onclick=function(){
+        oDiv.style.WebkitTransition='1s all';
+        oDiv.style.left=200+'px';
+
+        function tranEnd(){
+          removeEventListener('transitionend',tranEnd,false);
+          oDiv.style.top=200+'px';
+        }
+        oDiv.addEventListener('transitionend',tranEnd,false);
+
+        /*
+        *   transitionend 事件是DOM3中的事件的  一定要用事件绑定
+        *
+        * */
+      };
+    };
+  </script>
+</head>
+<body>
+  <div></div>
+</body>
+</html>

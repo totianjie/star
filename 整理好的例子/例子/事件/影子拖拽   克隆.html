@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .on{
+            width:350px;
+            height:225px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('box');
+
+            oDiv.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX-oDiv.offsetLeft;
+                var disY=oEvent.clientY-oDiv.offsetTop;
+
+                //克隆出来一个一模一样的DIV
+               var oNewDiv=oDiv.cloneNode(true);
+               //把ID干掉
+                oNewDiv.removeAttribute('id');
+                oNewDiv.style.opacity=0.5;
+                oNewDiv.style.fiter='alpha(opacity:50)';
+                oDiv.parentNode.appendChild(oNewDiv);
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var left=oEvent.clientX-disX;
+                    var top=oEvent.clientY-disY;
+                    //console.log(left);
+
+                    //给创建出来的赋值
+                    oNewDiv.style.left=left+'px';
+                    oNewDiv.style.top=top+'px';
+
+
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                    //松开鼠标时把值赋给原来的DIV
+                    oDiv.style.left=oNewDiv.offsetLeft+'px';
+                    oDiv.style.top=oNewDiv.offsetTop+'px';
+                    //干掉克隆出来的DIV
+                    oDiv.parentNode.removeChild(oNewDiv);
+                };
+                return false;
+            };
+        };
+    </script>
+</head>
+<body>
+    <div class="on" id="box">
+        <img src="img/small.jpg" alt="">
+    </div>
+</body>
+</html>

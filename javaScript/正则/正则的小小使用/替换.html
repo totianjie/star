@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		textarea{
+			width: 300px;
+			height: 400px;
+			font-size:18px;
+		}
+	</style>
+
+		<script>
+			window.onload=function(){
+				var oT1=document.getElementById('text1');
+				var oT2=document.getElementById('text2');
+				var oBtn=document.getElementById('btn');
+
+				oBtn.onclick=function(){
+					var str=oT1.value;
+					str=str.replace(/中央|一/g,function(res){//把（中央）跟（一）变成了*
+						var tmp='';
+						for(var i=0; i<res.length; i++){
+							tmp+='*';
+						}
+						return tmp;
+					});
+					oT2.value=str;
+				};
+			};
+		</script>
+</head>
+<body>
+	<textarea id='text1'>
+		央视网消息(新闻联播)： 中共中央总书记、国家主席、中央军委主席习近平29日上午在参加首都义务植树活动时强调，植树造林，种下的既是绿色树苗，也是祖国的美好未来。要组织全社会特别是广大青少年通过参加植树活动，亲近自然、了解自然、保护自然，培养热爱自然、珍爱生命的生态意识，学习体验绿色发展理念，造林绿化是功在当代、利在千秋的事业，要一年接着一年干，一代接着一代干，撸起袖子加油干。
+　　阳春三月，新绿初绽。上午10时许，党和国家领导人习近平、张德江、俞正声、刘云山、王岐山、张高丽等集体乘车，来到位于北京市朝阳区将台乡的植树点，同首都群众一起参加义务植树活动。
+
+	</textarea>
+	<input type="button" value="替换" id='btn'>
+	<textarea id='text2'></textarea>
+
+</body>
+</html>

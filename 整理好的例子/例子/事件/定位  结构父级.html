@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        window.onload=function(){
+            /*document.onclick=function(){//结构上父级
+                //alert(1);
+                alert(this.parentNode);//返回null   说明没有父级了
+            };*/
+            document.body.onclick=function(){//定位上父级
+                //alert(2);
+                alert(this.offsetParent);//null  说明没有父级了
+            };
+            //--------------------------------------------------------
+
+
+        };
+    </script>
+</head>
+<body style="background:red">
+q
+</body>
+</html>

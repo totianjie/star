@@ -1,0 +1,91 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>倒计时 - 智能社 - www.zhinengshe.com</title>
+<link href="style/zns_style.css" rel="stylesheet" type="text/css" /></head>
+<script>
+    function toDou(n){
+        return n<10?'0'+n:''+n;
+    }
+    window.onload=function(){
+        var oG=document.getElementById('go');
+
+        /*设置 年月日*/
+        var oFill=document.getElementById('fill_in');
+        var aInput=oFill.getElementsByTagName('input');
+        var oStrong=document.getElementById('target').getElementsByTagName('strong')[0];
+
+        /*倒计时 天时分秒*/
+        var oD=document.getElementById('day');
+        var oH=document.getElementById('hour');
+        var oM=document.getElementById('min');
+        var oS=document.getElementById('sec');
+        var timer=null;
+
+        oG.onclick=function(){
+            clearInterval(timer);//先清定时器在开  不然会多个定时器叠加
+            /*未来年月日 时分秒*/
+            var oDate=new Date();
+            oDate.setFullYear(aInput[0].value,aInput[1].value-1,aInput[2].value);
+            oDate.setHours(0,0,0);
+
+            function countDown(){
+                var now=new Date();
+                var s=parseInt((oDate.getTime()-now.getTime())/1000);//时间差
+
+                var d=parseInt(s/86400);
+                s%=86400;
+                var h=parseInt(s/3600);
+                s%=3600;
+                var m=parseInt(s/60);
+                s%=60;
+
+                /*赋值*/
+               oD.innerHTML=d;
+                oH.innerHTML=toDou(h);
+                oM.innerHTML=toDou(m);
+                oS.innerHTML=toDou(s);
+
+                oStrong.innerHTML=aInput[0].value+'年'+aInput[1].value+'月'+aInput[2].value+'日';
+            }
+            //运行一次不然上打开时会卡一下
+            countDown();
+            timer=setInterval(countDown,1000);
+        };
+
+    };
+</script>
+<body>
+
+<div id="zhinengshe">
+    <div id="fill_in">
+        <span class="title">请输入：</span>
+        <input type="text" class="long_text" value="2017" />
+        <span class="space1">年</span>
+        <input type="text" class="text" value="1" />
+        <span class="space2">月</span>
+        <input type="text" class="text" value="28" />
+        <span class="space3">日</span>
+    </div>
+
+    <a href="javascript:;" id="go" class="go"></a>
+
+    <p id="target">
+        现在距离 -
+        <strong>2013年12月25日</strong>
+        - 还剩：
+    </p>
+
+    <div id="date">
+        <p id="day">00</p>
+        <p id="hour">00</p>
+        <p id="min">00</p>
+        <p id="sec">00</p>
+    </div>
+
+    <h1 title="智能社-www.zhinengshe.com"><a href="http://www.zhinengshe.com"></a></h1>
+</div>
+
+</body>
+</html>

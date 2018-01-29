@@ -1,0 +1,118 @@
+-------------------------------promise--------------------------------------
+
+
+promise		（许诺） 解决异步还没到同步就已经走完的问题
+	以同步的操作的方式来操作异步
+	resolve
+	reject
+	eg:
+		<script>					//必须要传resolve reject
+		    var pl=new Promise(function(resolve,reject){
+		        //resolve()   代表成功
+		        //reject()   代表失败
+
+
+		        ajax(url,function(res){
+		        	resolve(res);
+		        },
+		        functioon(err){
+		        	reject(err);
+		        });
+		    });
+
+		    第一种方式)
+			    pl.then(function(res){
+			        //成功后代码
+			        alert(res);
+			        --->return  这里返回的东西都在p1身上
+			    },function(err){
+			        //失败后代码
+			        alert(err);
+			    });
+		    第二种方式)
+		    	pl.then(function(res){
+			        //成功后代码
+			        alert(res);
+			    },catch(function(err){
+			    	//失败后代码
+			    	alert(err);
+			    });
+
+    </script>
+
+    //  两个条件都满足的情况下
+    <script>
+        var p1=new Promise(function(resolve,reject){
+            //resolve()   代表成功
+            //reject()   代表失败
+            resolve('ok');
+        });
+
+        var p2=new Promise(function(resolve,reject){
+            resolve('ok2');
+        });
+
+        Promise.all([p1,p2]).then(function(res){
+            alert(res[1]);//两个都是成功  就走这里
+        },function(err){
+            alert('失败了');//p1,p2中有一个走的是失败 就走这里
+        });
+
+
+        -----------------------------------------------
+        var p1 = new Promise(function(resolve,reject){
+			//resolve('成功');
+            //reject('失败');
+            throw '失败了，别灰心'; //抛出错误  在catch里面执行
+        });
+
+        p1.then(function(res){
+            alert(res)
+        }).catch(function(res){
+            alert(res);//抛出的错误
+        });
+
+        ----------------那一个先执行就用那一个----------------------------------
+
+        var p1 = new Promise(function(resolve,reject){
+            setTimeout(resolve,200,'abc');
+        });
+        var p2 = new Promise(function(resolve,reject){
+            setTimeout(resolve,500,'bcd');
+        });
+        Promise.race([p1,p2]).then(function(res){
+            alert(res);		//那一个先执行就用那一个
+        },function(){
+            alert('失败');
+        });
+    </script>
+
+ ---------------------如何读取文件  FileSystem ------------------------
+			const fs = require('fs');
+			var p1 = new Promise(function(resolve,reject){
+					fs.readFile('b.txt',function(error,data){//fs模块读取文件  erorr读取失败与成功  data数据
+						if(error){
+							reject('404');
+						}else{
+							resolve(data.toString());
+					}
+				});
+			});
+			p1.then(function(res){
+				console.log(res);//读取成功时的
+			},function(res){
+				console.log(res);//读取失败时的
+			});
+	---------------------ajax交互---------------------------------
+			var p1 = new Promise(function(resolve,reject){
+				ajax('b.txt',function(res){//这是举例的ajax交互
+					resolve(res);
+				},function(e){
+					reject(e);
+				});
+			});
+			p1.then(function(res){
+				alert(res);
+			},function(e){
+				alert(e);
+			});

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            font-size: 100px;
+            color: #0094ef;
+            text-shadow: 2px 2px 5px #000;
+            font-family: "Microsoft yahei";
+        }
+    </style>
+    <script>
+        function toDu(n){
+            return n<10?'0'+n:''+n;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            function data(){
+                //获取年月日 时分秒   把oBox  的innerHTML改过来就OK了
+             var oDate=new Date();
+             var Y=oDate.getFullYear();
+             var M=oDate.getMonth();
+             var D=oDate.getDate();
+             var h=oDate.getHours();
+             var m=oDate.getMinutes();
+             var s=oDate.getSeconds();
+
+            oBox.innerHTML=Y+'-'+M+'-'+D+'　'+toDu(h)+':'+toDu(m)+':'+toDu(s);
+            }
+            data();
+            setInterval(data,1000);
+        };
+    </script>
+</head>
+<body>
+<div id="box">xxxx-xx-xx 00:00:00</div>
+</body>
+</html>

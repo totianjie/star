@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var aInput=document.getElementsByTagName('input');
+
+            aInput[aInput.length-1].onclick=function(){
+                /*准备一个变量用来相加input框的和*/
+                var sum=0;
+                var bOk=true;
+
+                for(var i=0; i<aInput.length-1; i++){
+                    //输入框输入的是字符串  要转成数字才可以相加
+                    var n=Number(aInput[i].value);
+                    /*isNaN(n)出来就是一个NaN
+                    * 如果输入错了出来的也是个NaN
+                    *
+                    *
+                    * */
+                    if(isNaN(n)){
+                        alert('你输入的第'+(i+1)+'错了');
+                        bOk=false;
+                    }
+                    /*每循环一次都加上一个框的值*/
+                    sum+=n;
+                }
+                if(bOk){
+                    alert(sum);
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" />+<input type="text" />+<input type="text" />+<input type="text" />
+<input type="button" value="计算" id="btn1" />
+</body>
+</html>

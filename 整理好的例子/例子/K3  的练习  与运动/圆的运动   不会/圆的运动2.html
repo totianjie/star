@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:300px;
+            height:300px;
+            border: 1px solid #000;
+            position: absolute;
+            left:100px;
+            top:100px;
+            border-radius: 50%;
+        }
+        #box span{
+            width:50px;
+            height:50px;
+            background: red;
+            position: absolute;
+            left:50%;
+            margin-left: -25px;
+            top:0;
+            margin-top: -25px;
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var oSpan=oBox.children[0];
+
+            var R=oBox.offsetWidth/2;
+
+            var timer=null;
+            //角度
+            var a=0;
+
+            document.onclick=function(){
+                clearInterval(timer);
+
+                var count=Math.floor((1000/30));
+                var start=a;
+                var dis=360-start;
+
+                var n=0;
+                timer=setInterval(function(){
+                    n++;
+
+                    var cc=n/count;
+
+                    a=start+dis*cc;
+
+                    var x=R+Math.sin(a*Math.PI/180)*R;
+                    var y=R-Math.cos(a*Math.PI/180)*R;
+
+                    oSpan.style.left=x+'px';
+                    oSpan.style.top=y+'px';
+
+                    if(n==count){
+                        clearInterval(timer);
+                    }
+                },30);
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <span></span>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

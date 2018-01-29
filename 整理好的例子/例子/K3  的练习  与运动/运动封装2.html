@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .div1{
+            width:100px;
+            height:100px;
+            background:#ccc;
+            position:absolute;
+            top:100px;
+            left:100px;
+        }
+    </style>
+    <script>
+        /*
+        * Beyond Compare 4 注册码
+         H1bJTd2MauPv5Garuaq0Ig43uqq5NJOEw94wxdZTpU-pFB9GmyPk677gJ
+         vC1Ro6sbAvKR4pVwtxdCfuoZDb6hJ5bVQKqlfihJfSYZt-xVrVU27+0Ja
+         hFbqTmYskatMTgPyjvv99CF2Te8ec+Ys2SPxyZAF0YwOCNOWmsyqN5y9t
+         q2Kw2pjoiDs5gIH-uw5U49JzOB6otS7kThBJE-H9BVZu4uUvR8DKb+VcB
+         rWu5qSJGEnbsXNfJdq5L2D8QgRdV-sXHp2A-7j1X2n4WIISvU1V9koIyS
+         NisHFBTcWJS0sC5BSDCXZCLEE9lEwz2bxHQpWJiuDSASpi+7oUSqebX+
+        *
+        *
+        *
+        * */
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+
+        function startMove(obj,json,options){
+            options=options || {};
+            options.duration=options.duration || 500;
+            options.easing=options.easing || 'ease-out';
+
+            var count=Math.floor(options.duration/30);//总次数
+
+            var start={};
+            var dis={};
+
+            for(var name in json){
+                start[name]=parseFloat(getStyle(obj,name));//初始值
+                dis[name]=json[name]-start[name];//总路程
+            }
+
+            clearInterval(obj.timer);
+            var n=0;
+
+            obj.timer=setInterval(function(){
+                n++;
+
+                for(var name in json){
+                    //运动类型
+                    switch(options.easing){
+                        case 'linear':
+                            var a=n/count;
+                            var cur=start[name]+dis[name]*a;
+                            break;
+                        case 'ease-in'://加速
+                            var a=n/count;
+                            var cur=start[name]+dis[name]*(a*a*a);
+                            break;
+                        case 'ease-out'://缓冲
+                            var a=1-n/count;
+                            var cur=start[name]+dis[name]*(1-a*a*a);
+                            break;
+                    }
+
+                    //判断透明度
+                    if(name=='opacity'){
+                        obj.style.opacity=cur;
+                        obj.style.filter='alpha(opacity:'+cur*100+')';
+                    }else{
+                        obj.style[name]=cur+'px';
+                    }
+
+                    if(n==count){
+                        clearInterval(obj.timer);
+
+                        options.complete && options.complete();
+                    }
+
+                }
+            },30);
+        }
+        window.onload=function(){
+            var oDiv=document.getElementById('div1');
+
+            document.onclick=function(){
+                startMove(oDiv,{left:500},{complete:function(){
+                    startMove(oDiv,{top:300},{complete:function(){
+                        startMove(oDiv,{width:300,height:300});
+                    }});
+                }});
+            };
+        };
+    </script>
+</head>
+<body>
+    <div class="div1" id="div1"></div>
+</body>
+</html>

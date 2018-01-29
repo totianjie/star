@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<title>模拟留言板 - 智能课堂课堂 - www.zhinengshe.com</title>
+<link href="zns_style.css" rel="stylesheet" type="text/css" />
+	<script>
+		window.onload=function(){
+			var oT=document.getElementById('text');
+			var oBtn=document.getElementById('btn');
+			var oBox=document.getElementById('box');
+			var oEm=oBox.children[0];
+
+			var n=0;
+
+			oBtn.onclick=function(){
+
+				oEm.style.display='none';
+
+				n++;
+
+				//创建p
+				var oP=document.createElement('p');
+				oP.innerHTML=n+'. '+oT.value+'<span style="display:none">确认删除 <strong style="color:red;">"'+n+'.'+oT.value+'"</strong> 信息?</span>';
+
+				//添加
+				oBox.appendChild(oP);
+
+				//清空value值
+				oT.value='';
+
+				//给p添加事件
+				oP.onmouseover=function(){
+					this.style.background='yellow';
+					//span也要出来
+					var oSpan=this.children[0];
+					oSpan.style.display='block';
+				};
+				oP.onmouseout=function(){
+					this.style.background='';
+
+					var oSpan=this.children[0];
+					oSpan.style.display='none';
+				};
+				//点击p删除自己
+				oP.onclick=function(){
+					oBox.removeChild(this);
+				};
+			};
+		};
+	</script>
+</head>
+
+<body>
+
+<div id="parent">
+	<h4>留言内容：</h4>
+	<div id="box">
+		<em>这里放的是留言信息....</em>
+		<!--<p>
+			1. 123123213213
+			<span>
+				确认删除 <strong>xxxx</strong> 信息?
+			</span>
+		</p>-->
+	</div>
+	<textarea id="text"></textarea><br />
+	<input id="btn" type="button" value="发表留言" />
+</div>
+
+</body>
+</html>

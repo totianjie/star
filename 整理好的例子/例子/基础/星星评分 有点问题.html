@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        *{ margin:0; padding:0; list-style:none;}
+        .star-box{
+            width:150px;
+            margin: 50px auto 0;
+            overflow: hidden;
+        }
+        .star-box li{
+            width:9px;
+            height:27px;
+            float: left;
+            cursor: pointer;
+        }
+        .star-box li.l{
+            background: url(img/star.gif) no-repeat;
+        }
+        .star-box li.c{
+            background: url(img/star.gif) no-repeat -9px 0;
+        }
+        .star-box li.r{
+            background: url(img/star.gif) no-repeat -18px 0;
+        }
+
+        .star-box li.l-on{
+            background: url(img/star.gif) no-repeat 0 -29px;
+        }
+        .star-box li.c-on{
+            background: url(img/star.gif) no-repeat -9px -29px;
+        }
+        .star-box li.r-on{
+            background: url(img/star.gif) no-repeat -18px -29px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oUl=document.getElementById('ul1');
+            var aLi=oUl.getElementsByTagName('li');
+
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].index=i;
+                aLi[i].onmouseover=function(){
+                    for(var i=0; i<aLi.length; i++){
+                        if(i%3==0){//左
+                            if(i<=this.index){
+                                aLi[i].className='l-on';
+                            }else{
+                                aLi[i].className='l';
+                            }
+                        }else if(i%3==1){//中
+                            if(i<=this.index){
+                                aLi[i].className='c-on';
+                            }else{
+                                aLi[i].className='c';
+                            }
+                        }else if(i%3==2){//右
+                            if(i<=this.index){
+                                aLi[i].className='r-on';
+                            }else{
+                                aLi[i].className='r'
+                            }
+                        }
+                    }
+                };
+            }
+
+
+        };
+    </script>
+</head>
+<body>
+    <ul class="star-box" id="ul1">
+        <li class="l"></li>
+        <li class="c"></li>
+        <li class="r"></li>
+
+        <li class="l"></li>
+        <li class="c"></li>
+        <li class="r"></li>
+
+        <li class="l"></li>
+        <li class="c"></li>
+        <li class="r"></li>
+
+        <li class="l"></li>
+        <li class="c"></li>
+        <li class="r"></li>
+
+        <li class="l"></li>
+        <li class="c"></li>
+        <li class="r"></li>
+    </ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

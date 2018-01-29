@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      overflow: hidden;
+    }
+    canvas{
+      background:#000;
+    }
+
+  </style>
+  <script>
+    function rad(n,m){
+      return Math.random()*(m-n)+n;
+    }
+    window.onload=function(){
+      var oC=document.querySelector('#c1');
+      var gd=oC.getContext('2d');
+
+      oC.width=document.documentElement.clientWidth;
+      oC.height=document.documentElement.clientHeight;
+
+      var N=5;//用于创建多少个点
+      var aPoint=[];//里面装 的是每个点的坐标
+      var aOldPoint=[];   //用于装老点  就是已经走过的点
+      var len=100;   //用于判断装多少个老点
+      for(var i=0; i<N; i++){
+        aPoint.push({
+          cx:rad(0,document.documentElement.clientWidth),//随机坐标
+          cy:rad(0,document.documentElement.clientHeight),
+          iSpeedX:rad(-20,20),//决定每个走的速度
+          iSpeedY:rad(-20,20)
+        });
+      }
+
+      setInterval(function(){
+        gd.clearRect(0,0,oC.width,oC.height);//每开一次都要清屏
+        //放入下面那个循环也是一样的
+        for(var i=0; i<N; i++){
+          if(aPoint[i].cx<0 || aPoint[i].cx>oC.width){
+            aPoint[i].iSpeedX*=-1;
+          }
+          if(aPoint[i].cy<0 || aPoint[i].cy>oC.height){
+            aPoint[i].iSpeedY*=-1;
+          }
+          aPoint[i].cx+=aPoint[i].iSpeedX;
+          aPoint[i].cy+=aPoint[i].iSpeedY;
+        }
+        for(var i=0; i<N; i++){
+          drawPoint(aPoint[i]);
+        }
+
+        gd.beginPath();
+        gd.moveTo(aPoint[0].cx,aPoint[0].cy);
+        for(var i=1; i<N; i++){
+          gd.lineTo(aPoint[i].cx,aPoint[i].cy);
+        }
+        gd.closePath();
+        gd.strokeStyle='#fff';
+        gd.stroke();
+        gd.closePath();
+
+        var arr=[];//用于存每一次的老点
+        for(var i=0; i<N; i++){
+          arr.push({
+            cx:aPoint[i].cx,
+            cy:aPoint[i].cy,
+            iSpeedX:aPoint[i].iSpeedX,
+            iSpeedY:aPoint[i].iSpeedY
+          });
+        }
+        console.log(arr);
+        aOldPoint.push(arr);
+
+        if(aOldPoint.length > len){
+          aOldPoint.shift();
+        }
+        for(var i=0; i<aOldPoint.length; i++){
+          gd.beginPath();
+          gd.moveTo(aOldPoint[i][0].cx,aOldPoint[i][0].cy);
+          for(var k=0; k<aOldPoint[i].length; k++){
+            gd.lineTo(aOldPoint[i][k].cx,aOldPoint[i][k].cy);
+          }
+          gd.closePath();
+          gd.strokeStyle='rgba(255,0,255,'+i/len+')';
+          gd.stroke();
+        }
+
+      },30);
+
+      function drawPoint(oPoint){
+        gd.beginPath();
+        gd.rect(oPoint.cx,oPoint.cy,1,1);
+        gd.fillStyle='#fff';
+        gd.fill();
+      }
+    };
+  </script>
+</head>
+<body>
+  <canvas id="c1"></canvas>
+</body>
+</html>

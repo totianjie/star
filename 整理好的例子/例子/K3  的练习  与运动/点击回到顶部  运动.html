@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            position:fixed;
+            bottom:0;
+            right:50px;
+        }
+    </style>
+    <script>
+        /*
+        * 1 要有scrollTop   这是一个初始值
+        * 2 要有一个总的距离  总距离就是 0 ;     因为我们最终完成的距离是0;
+        * 3 总次数    总的时间/单次时间  （自己定的总时间/单次时间都是设置在30）
+        * 4 总路      总距离-初始值
+        * 5 定一个变量 n(要走多少次) 开定时器加加
+        * 6 走多远了   初始值+n*总距离/总次数
+        * 7 if 判断   如果n走的次数=总次数   关定时器
+        * */
+        window.onload=function(){
+            var oBtn=document.getElementById('btn');
+
+
+            var timer=null;
+            oBtn.onclick=function(){
+
+                var scrollT=document.documentElement.scrollTop || document.body.scrollTop;
+                var count=Math.floor(1000/30);  //总次数
+                var dis=0-scrollT;
+                var n=0;
+
+
+                timer=setInterval(function(){
+                    n++;
+                    /*var a=1-n/count;  //缓冲运动
+                    var sum=scrollT+dis*(1-a*a*a);*/
+                    var sum=scrollT+n*dis/count;//正常的速度
+                    document.documentElement.scrollTop=document.body.scrollTop=sum;
+                    if(n==count){
+                        clearInterval(timer);
+                    }
+                },30);
+            };
+        };
+    </script>
+</head>
+<body style="height:3000px;">
+<input type="button" value="回到顶部" id="btn">
+
+</body>
+</html>

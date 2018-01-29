@@ -1,0 +1,38 @@
+﻿666666666666666
+基于node 
+	要安装node
+	node -v  npm -v   一定要有
+	webpack -g 
+	webpack-dev-server -g    也一定要有
+webpack 自动解决依赖
+
+
+webpack  开发环境
+webpack -p 生产环境  压缩
+webpack -w 监听文件改动自动编译（速度快）
+webpack -d 开启(生成)source maps（用来调试）
+
+如果不用webpack.config.js，用自己定义的名字也可以：运行时是 webpack --config 文件名
+
+ES6->babel转化
+	babel-loader 
+	babel-core 
+	babel-preset-es-2015
+
+
+----------------------------
+webpack-dev-server
+--port 端口号 		端口
+--inline	改变后自动刷新浏览器
+--hot	热重载（局部更改《局部刷新》）
+
+1)webpack-dev-server --port 8088 --inline --hot
+
+2)写在webpack.config.js配置文件中：
+	devServer:{"port":8088,"inline":true,"hot":true,open:true},
+	运行就是 webpack-dev-server
+
+3)可以在packge.json
+	scripts中把test改成
+	"dev":{webpack-dev-server --inline --hot --port 8088}
+	运行就是  npm run dev

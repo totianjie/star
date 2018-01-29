@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            function addEvent(obj,sEv,fn){
+                if(obj.addEventListener){
+                    obj.addEventListener(sEv,fn,false)
+                }else{
+                    obj.attachEvent('on'+sEv,fn)
+                }
+            }
+
+            function fn1(){
+                alert(1);
+            }
+            function fn2(){
+                alert(2);
+            }
+            /*document.onclick=fn1;
+            //后面的函数把前面的覆盖了
+            document.onclick=fn2;*/
+
+            //同一元素 同一件事  执行不同的函数  不会被覆盖
+            addEvent(document,'click',fn1);
+            addEvent(document,'click',fn2);
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

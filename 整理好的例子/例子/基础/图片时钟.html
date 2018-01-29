@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: #313129;
+            text-align: center;
+        }
+        #box{
+            font-size: 50px;
+            color: #ccc;
+            font-family: "Microsoft yahei";
+        }
+        #box img{
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        function toDu(n){
+            return n<10?'0'+n:''+n;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aImg=oBox.children;
+                //alert(aImg.length);
+            function clock(){
+                /*
+                * 获取时间
+                *
+                * 拼起来  记得补零
+                *
+                * 把img的  src  一改完成
+                *str[第几个]       不兼容
+                * str.length   字符串长度
+                * charAt()   字符串在Ie下的兼容问题解决
+                * */
+                var oDate=new Date();
+                var h=oDate.getHours();
+                var m=oDate.getMinutes();
+                var s=oDate.getSeconds();
+
+                var str=toDu(h)+toDu(m)+toDu(s);
+                for(var i=0; i<aImg.length; i++){
+                    aImg[i].src='img/'+str.charAt(i)+'.png'
+                }
+            }
+            clock();
+            setInterval(clock,1000);
+        };
+
+    </script>
+</head>
+<body>
+<div id="box">
+    <img src="img/1.png" alt="">
+    <img src="img/2.png" alt=""> :
+    <img src="img/3.png" alt="">
+    <img src="img/0.png" alt=""> :
+    <img src="img/4.png" alt="">
+    <img src="img/6.png" alt="">
+</div>
+</body>
+</html>

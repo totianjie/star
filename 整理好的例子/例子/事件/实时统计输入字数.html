@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oText=document.getElementById('text');
+            var oDiv=document.getElementById('div1');
+
+            /*oText.oninput=function(){IE9+ chrome FF
+                document.title=oText.value.length;
+            };*/
+            /*oText.onpropertychange=function(){//IE10 9 8 7    在9里面删除有问题
+                document.title=oText.value.length;
+            };*/
+
+            //偏招
+            var timer=null;
+            oText.onfocus=function(){//这种做法全部都兼容
+                timer=setInterval(function(){
+                  //document.title=oText.value.length;
+                    oDiv.innerHTML=oText.value.length;
+                },30);
+            };
+            oText.onblur=function(){
+                clearInterval(timer);
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="text">
+<div id="div1">11</div>
+
+</body>
+</html>

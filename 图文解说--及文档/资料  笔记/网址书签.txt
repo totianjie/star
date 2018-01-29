@@ -1,0 +1,62 @@
+http://v3.bootcss.com/
+http://bbs.zhinengshe.com/
+http://www.w3school.com.cn/
+http://www.jianshu.com/
+https://wanwang.aliyun.com/
+http://www.itstrive.com/
+https://www.nowcoder.com/contestRoom?mutiTagIds=644
+http://naotu.baidu.com/home百度脑图
+https://passport.baidu.com/center
+http://bbs.blueidea.com/case.php蓝色理想
+http://huaban.com/花瓣网
+http://www.jq22.com/     JQ插件库
+http://www.miaov.com/	 妙味课堂
+http://www.runoob.com/js/js-obj-boolean.html   教程
+http://www.iconfont.cn    啊里吧吧  矢量
+https://mp.toutiao.com/·	头条
+https://www.zhihu.com/		知呼
+https://git.oschina.net/码云 开源中国
+http://www.csdn.net/   CSDN博客网
+http://seajs.org/docs/#downloads   seaJS
+http://requirejs.org/		requireJS
+http://dmitrybaranovskiy.github.io/raphael/ 矢量图  中文名:拉斐尔
+echarts\jcscript\RaphaelJS\highcharts\charts\d3	图表网站
+http://dmitrybaranovskiy.github.io/raphael/	图表网站
+http://www.dowebok.com/98.html  css3动画库 animate.css
+http://www.bilibili.com/ 哔哩哔哩视频网
+https://www.udemy.com/	各种技术学习网
+
+swiper 		致力于解决一切滑块效果
+		官网:
+		http://www.swiper.com.cn/
+	iscroll 	致力于解决模拟移动端滚屏
+		官网:
+		http://cubiq.org/iscroll-5
+		api地址:
+		https://github.com/cubiq/iscroll
+
+
+ES6使用在线编译
+http://google.github.io/traceur-compiler/demo/repl.html
+https://babeljs.io/repl/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

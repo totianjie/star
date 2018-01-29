@@ -1,0 +1,378 @@
+
+red blue pink gray  tomato
+
+
+透明
+	opacity:.5	->  给盒子添加，所有子级都透明
+	filter:alpha(opacity:50)
+
+ 	rgba(255,0,0,0-1)	兼容 IE9+ chrome FF
+
+文字是否强制换行
+		white-space		nowrap不换行		wrap换行
+		
+		
+
+
+给img添加		vertical-align	垂直居中
+		img下方有空隙:		
+			vertical-align:top/middle/bottom			baseline（默认值）
+			
+
+强制字母换行	word-break:break-all
+	
+子间距		letter-spacing	
+
+词间距		word-spacing	
+
+文本缩进:	text-indent:10px/em
+
+文本修饰:
+		text-decoration:underline/none/overline/line-through    a标签
+
+小手
+	cursor:pointer;
+
+边框
+	solid	dashed虚线	dotted点化
+
+文本超出省略号:
+		white-space:nowrap;	强制不换行
+		overflow:hidden;	超出隐藏
+		text-overflow:ellipsis;	省略号
+
+font:
+		font-size:30px;
+		font-weight:blod/normal
+		font-family:黑体
+		font-style:italic/normal
+
+盒子模型宽度:   width+padding*2+border*2
+
+----------------------------------------------
+子级margin-top，父级跟着走
+		解决
+			a). 给父级 overflow:hidden
+			b). 给父级添加边框
+			c). 给父级添加padding-top,改变父级高度
+---------------------------------------------
+浮动
+	float:left	right	none	不浮动， 默认值
+	*当子级浮动的时候，要么父级添加高度，要么 overflow:hidden 清除浮动
+	*clearfix{content:''; clear:both; display:block;}
+
+	clear:left/right/both;   清除相邻元素浮动(兄弟)
+		<div style="clear:both;"></div>   准备一个空白块元素
+定位
+	position:relative	absolute	fixed	static	默认值
+
+浮动和定位
+	都会脱离文档流，下方有文字
+* 浮动表现-> 只有文字文本环绕
+	
+* 定位标签 -> 文字被覆盖
+
+层级排列(正):
+	普通元素<浮动元素<定位元素<加z-index元素
+
+
+==========================  表单  =====================================
+
+
+*　建议,单选框、多选框、下拉框不用样式修饰
+
+<input type="text" />		普通输入框
+<input type="password" />	密码框
+
+<input type="submit" value="xxx" />	提交按钮(提交表单)
+<input type="reset" value="" />	重置按钮(清空表单数据)
+<input type="button" value="" />	普通按钮
+
+单选框:
+	<input value="" type="radio" name="sex" id="man"><label for="man">男</label>
+    <input value="" type="radio" name="sex" id="woman"><label for="woman">女</label>
+    
+多选框:
+	<input name="b" value="basket" type="checkbox" id="basketball"><label for="basketball">篮球</label>
+	<input name="b" value="foot" type="checkbox" id="football"><label for="football">足球</label>
+	<input name="b" value="shot" type="checkbox" id="shotball"><label for="shotball">铅球</label>
+
+	checked	默认选中的
+
+
+下拉框:
+	<select name="city" id="">
+		<option value="bj">北京</option>
+		<option value="sh">上海</option>
+		<option value="gz" selected>>广州</option>
+		<option value="tj">天津</option>
+	</select>
+
+	selected	默认选中的
+
+多行文本域:	<textarea name="" id="" cols="30" rows="10"></textarea>		cols	列  	rows	行
+	
+去掉激活框:	textarea,input{ outline:none;}
+		
+不允许缩放	resize:none;
+		
+聚焦框:  input,textarea{ outline:none}
+
+<input type="text" placeholder="请输入您的名字">		文字提示， 不兼容的， 兼容IE10 11 chrome FF
+
+属性选择器:
+	input[type="button"]{}
+	input[value=111]{}
+
+	========================  表格   ====================================
+
+
+	<table>
+		<thead>
+			<tr>
+				<th><th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+
+	一像素表格(细线表格):
+		border-collapse:separate  //默认形式，分开
+			collapse
+	如何制作?
+		table{border-collapse:collapse}
+		table th,table td{ border:1px solid #000;}
+
+	表格水平： text-align:center/left/right
+
+	表格垂直 :   vertical-align: top/middle/bottom
+
+	合并单元格:
+		rowspan=""	合并行单元格(纵向合并)
+		colspan=""	合并列单元格(横向合并)
+
+===========================  gulp   安装  ==============================================
+
+流程:
+1. npm install gulp-cli -g
+	验证是否安装好了？
+		gulp --version
+2. 建立工程项目(文件夹)
+	从此文件夹里面-> shift+ “右键”
+3. 编写gulpfile.js
+	一堆代码
+4. 下载需要模块
+	npm install gulp gulp-less
+5. 运行
+	gulp
+
+
+mixin:——重用一段代码
+		.my-box{
+			//code
+		}
+		div{
+			.my-box; //.my-box()
+		}
+		--------------------------
+		.my-box(@w:100px,@h:100px){
+			width:@w;
+			height:@h
+		}
+		div{
+			.my-box;
+		}
+	&代表元素本身
+
+	引入其他文件:
+		@import 'reset.less';
+
+		--------------------------------------------------------------
+
+
+	sass:		官网: http://sass-lang.com/
+
+	文件后缀:
+		.sass	
+			语法: 诡异,恶心
+		.scss	√
+			语法规则符合css语法规则
+
+	* 当两个文件同时存在的时候，名字一样，以scss为准
+		下载:
+		npm install gulp gulp-sass
+		运行:
+		gulp
+
+
+sass基本语法:
+	变量:
+		$scolor:red;
+	&:hover{}
+
+	mixin:
+		定义:
+		@mixin  box{
+
+		}
+
+		使用:
+		@include box;
+
+
+=============================   hack:   解决IE兼容问题   ======================================
+		background:red\0;	所有IE
+		*background:green;	IE7
+		_background:green;	IE6
+
+
+		条件引用:   IE独有	
+		
+		<!--[if !IE]><!--> 除IE外都可识别 <!--<![endif]-->
+		<!--[if IE]> 所有的IE可识别 <![endif]-->
+		<!--[if IE 6]> 仅IE6可识别 <![endif]-->
+		<!--[if lt IE 6]> IE6以及IE6以下版本可识别 <![endif]-->
+		<!--[if gte IE 6]> IE6以及IE6以上版本可识别 <![endif]-->
+		<!--[if IE 7]> 仅IE7可识别 <![endif]-->
+		<!--[if lt IE 7]> IE7以及IE7以下版本可识别 <![endif]-->
+		<!--[if gte IE 7]> IE7以及IE7以上版本可识别 <![endif]-->
+		<!--[if IE 8]> 仅IE8可识别 <![endif]-->
+		<!--[if IE 9]> 仅IE9可识别 <![endif]-->
+		把css文件写在里面即可！
+
+
+
+============================      iframe	框架       ========================================
+
+iframe	框架
+	用途: 在一个页面内，嵌入另一个页面， 网页广告	
+
+	<iframe src="iqiyi.html" width="200" height="100" frameborder="0" scrolling="no"></iframe>
+
+
+锚点:
+	<a href="article.html#outline">概要</a>
+	<p id="outline"></p>
+
+a标签的连接同样可以在iframe里面展示？
+<a href="http://www.baidu.com" target="myframe">百度</a>
+
+<iframe name="myframe" frameborder="1" width="800" height="600"></iframe>
+
+
+======================   h5  新标签   ==========================
+
+<header></header>		头部(页眉)
+<footer></footer>		底部(页脚)
+<section></section>		区块(部分)
+<article></article>		文章
+<aside></aside>		侧边
+<nav></nav>			导航
+
+
+浏览器前缀:
+	-webkit-	chrome  uc  safari  opera
+	-moz-		FF
+	-ms-		IE
+	-o-		早期opera
+
+
+单位：px	em	%		deg	角度
+
+
+动画:
+	transition:1s 	all 	ease;
+		  时间	哪些属性   运动形式
+
+运动形式：
+		ease		缓冲	√
+		ease-in	加速
+		ease-out	减速
+		ease-in-out	先快后慢
+		linear		匀速(线性)	√
+
+
+渐变:  背景
+	线性渐变:
+		linear-gradient(color,color1.....)
+
+		linear-gradient(color 位置, color1 位置...)
+
+		0deg	->   left
+		45deg	->   left bottom
+
+		逆时针走
+
+
+径向渐变:radial-gradient(red,blue.....)
+
+	渐变形状:
+	radial-gradient(形状,red,blue.....)
+		默认形状:  
+			ellipse   ->   椭圆
+			circle    ->    圆
+圆心位置:
+		-webkit-radial-gradient(位置, 形状,red,blue.....)
+			位置:
+				left top right bottom center			x  y
+
+阴影:
+	特点:
+		叠加
+		text-shadow:5px 5px 5px red,
+			        10px 10px 10px blue....
+
+	文字阴影:
+		text-shadow:5px 5px 5px red;
+			       x      y     模糊度  颜色
+	块(盒子)阴影:
+		box-shadow:5px 5px 5px red;
+
+旋转
+	transform:rotate(30deg);	
+
+------------------------------------------------------------
+
+
+服务器: 其实也是一台电脑
+
+	http服务器(web服务器)
+		网站
+	ftp服务器
+		文件传输
+	dns服务器
+		域名	->  IP地址
+	dhcp服务器
+		用来动态分配局部ip地址
+
+
+发布网站:
+	*自己去买域名和空间
+		https://wanwang.aliyun.com/
+
+		xxxx.net
+
+		ftp地址: 114.34.90.88
+
+	ftp:
+		本地文件传输到服务器(空间)
+		
+	工具:
+		1. FlashFXP	√
+		2. 8UFTP
+		3. FileZilla	√
+		4. WinScp     	连接(输入地址、用户名、密码)
+				ctrl+c	ctrl+v
+----------------------------------------------------------------------				

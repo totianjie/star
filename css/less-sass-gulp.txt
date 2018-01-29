@@ -1,0 +1,121 @@
+﻿---------------------------------------------
+less
+sass
+stylus
+post-css
+---------------------------------------------
+less:  css预处理器
+	less  ->  css
+---------------------------------------------
+工具:
+gulp:	前端自动化工具
+
+	基于 node	->  node环境
+
+
+===========================  gulp   安装  ==============================================
+
+流程:
+1. npm install gulp-cli -g
+	验证是否安装好了？
+		gulp --version
+2. 建立工程项目(文件夹)
+	从此文件夹里面-> shift+ “右键”
+3. 编写gulpfile.js
+	一堆代码
+4. 下载需要模块
+	npm install gulp gulp-less
+5. 运行
+	gulp
+
+
+	建立项目文件
+	|-less/
+	|-xxx.html
+	|-gulpfile.js
+
+
+mixin:——重用一段代码
+	运算:
+		+ - * /
+
+		注意:  '-'  减法两边记得留空格 
+
+
+		.my-box{
+			//正常代码
+		}
+		div{
+			.my-box; //.my-box()
+		}
+		--------------------------
+		.my-box(@w:100px,@h:100px){   这样是给默认值
+			width:@w;
+			height:@h
+		}
+		div{
+			.my-box;
+		}
+	&代表元素本身
+
+	引入其他文件:
+		@import 'reset.less';
+
+		--------------------------------------------------------------
+
+
+	sass:		官网: http://sass-lang.com/
+
+	文件后缀:
+		.sass	
+			语法: 诡异,恶心
+		.scss	√
+			语法规则符合css语法规则
+
+	* 当两个文件同时存在的时候，名字一样，以scss为准
+		下载:
+		npm install gulp gulp-sass
+		运行:
+		gulp
+
+
+sass基本语法:
+	变量:
+		$scolor:red;
+	&:hover{}
+
+	mixin:
+		定义:
+		@mixin  box{
+
+		}
+
+		使用:
+		@include box;
+
+------------------------------------
+
+
+koala -> 
+	禁止路径里面出现中文
+------------------------------------
+
+source map: 
+	主要用来调试的
+autoprefix:
+	自动添加样式浏览器前缀
+
+------------------------------------
+移动端字体问题
+	@mixin font-dpr($font-size) {
+		font-size: $font-size;
+		[data-dpr="2"] & {
+			font-size: $font-size * 2;
+		}
+		[data-dpr="3"] & {
+			font-size: $font-size * 3;
+		}
+	}
+
+使用
+	@include font-dpr(14px);

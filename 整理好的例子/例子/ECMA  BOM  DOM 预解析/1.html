@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+            var oBtn2=document.getElementsByTagName('input')[1];
+
+            oBtn.onclick=function(){
+                window.history.back();
+            };
+            oBtn2.onclick=function(){
+
+                window.history.forward()
+            };
+        };
+    </script>
+</head>
+<body>
+<a href="2.html">下一页</a>
+<input type="button" value="上一页">
+<input type="button" value="下一页">
+</body>
+</html>

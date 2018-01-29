@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .box{
+      width: 100px;
+      height: 200px;
+      background:#399;
+      margin: 100px auto;
+      -webkit-transform-style: preserve-3d;/*开户3D*/
+      -webkit-transform: perspective(800px) rotateY(-45deg) rotateX(45deg);/*加上透视  旋转*/
+    }
+    .child{
+      height: 100%;
+      width: 100%;
+      background:#f60;
+      -webkit-transition: 1s all;
+      -webkit-transform: translateZ(0px);/*最好是设置默认*/
+    }
+
+    .box:hover .child{
+      -webkit-transform: translateZ(100px);
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div class="child"></div>
+</div>
+</body>
+</html>

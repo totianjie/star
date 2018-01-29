@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            border:1px solid #000;
+        }
+    </style>
+    <script>
+        /*function getStyle(obj,name,value){
+            obj.style[name]=value;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            oBox.onclick=function(){
+                getStyle(oBox,'background','#ccc');
+            };
+        };*/
+
+ //-------------------------------------------上面是普通的   下面是json做的
+        function getStyle(obj,json){
+            for(var name in json){
+                obj.style[name]=json[name];
+            }
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            oBox.onclick=function(){
+                getStyle(oBox,{
+                    background:'red',
+                    width:400+'px',
+                    height:400+'px',
+                    marginLeft:20+'px',
+                    marginTop:20+'px'
+                });
+            };
+        };
+    </script>
+
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>

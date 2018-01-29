@@ -1,0 +1,104 @@
+﻿考拉
+	不要出现中文路径
+source map: 
+	主要用来调试的
+autoprefix:
+	自动添加样式浏览器前缀
+
+----------------------------------------
+
+代码自动构建工具
+grunt 	走文件流
+gulp 	走二进制流 			√(比较快   这就是区别)
+
+安装gulp的命令环境
+	npm install gulp-cli -g  （全局环境 如果之前安装过就不用安装了）
+
+
+
+安装本地的gulp  （在那里合并压缩就在那里下载）
+	npm install gulp --save  	
+1.需要模块
+	gulp-concat 			js文件合并
+	gulp-uglify 			js文件压缩
+	gulp-rename 			改名字
+	del 					删除
+2.创建任务task
+3.创建默认任务
+
+	gulp运行
+
+
+需要创建程序入口
+gulpfile.js里面的内容
+eg:
+var gulp=require('gulp');
+var uglify=require('gulp-uglify');//压缩模块
+var concat=require('gulp-concat');//合并模块
+var rename=require('gulp-rename');//改名模块
+var del=require('del');//删除模块
+
+
+
+gulp.task('concat',function(){//合并
+	return gulp.src('src/*.js')//合并的文件路径及文件名 *代表此文件夹所有文件
+	.pipe(concat('index.js'))//合并后要改成什么名
+	.pipe(gulp.dest('tmp'));//合并后生成的文件夹名  及
+});
+	
+gulp.task('uglify',['concat'],function(){//压缩  （如果合并压缩一起做的话就要加个 ['concat'] 看上面任务完成没有）
+	return gulp.src('tmp/index.js')//压缩文件路径
+	.pipe(uglify())//开始压缩
+	.pipe(rename('index.min.js'))//压缩文件改名   ----》也可以不改，看需求
+	.pipe(gulp.dest('dest'));//压缩成功后生成的文件夹名  及文件放入此文件中
+});
+
+gulp.task('del',['uglify'],function(){//删除
+	return del('tmp');//要删除的文件夹名
+});
+
+//设置默认的的任务   在控制台中就可直接  打gulp运行了  （就不用gulp concat。。。。这样麻烦） 
+	gulp.task('default',['concat','uglify','del']);
+
+
+
+
+
+
+-------------------------less    
+gulpfile.js
+npm install gulp gulp-less
+在运行gulp
+
+const gulp=require('gulp');
+const less=require('gulp-less');
+
+gulp.task('less',function(){
+	gulp.src('less/*.less')
+  	.pipe(less())
+  	.pipe(gulp.dest('dist'))
+});
+
+gulp.task('watch', function(){
+  gulp.watch('less/*.less', ['less']);
+});
+
+gulp.task('default', ['watch','less']);
+
+
+--------------------------sass
+
+const gulp=require('gulp');
+const sass=require('gulp-sass');
+
+gulp.task('sass',function(){
+	gulp.src('sass/*.{sass,scss}')
+  	.pipe(sass().on('error',function(){}))
+  	.pipe(gulp.dest('dist'))
+});
+
+gulp.task('watch', function(){
+  gulp.watch('sass/*.{sass,scss}', ['sass']);
+});
+
+gulp.task('default', ['watch','sass']);

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .tier{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background:rgba(0,0,0,0.5);
+      display:none;
+    }
+    .login_from{
+      width: 360px;
+      height: 260px;
+      background:#fff;
+      border-radius:20px;
+      position:fixed;
+      top:50%;
+      left:50%;
+      margin-left: -150px;
+      margin-top: -200px;
+      padding:20px;
+      -webkit-transform:scale(5,5);/*把登录框放大  把整个屏幕占满  用于后面的缩小效果*/
+      opacity:0;
+      display:none;
+    }
+
+  </style>
+  <script>
+    window.onload=function(){
+      var oBtn=document.querySelector('.login_btn');
+      var oTier=document.querySelector('.tier');
+      var oLoginFrom=document.querySelector('.login_from');
+      var oClose=document.querySelector('.close');
+
+      oBtn.onclick=function(){
+        oTier.style.display='block';
+        oLoginFrom.style.display='block';
+        oLoginFrom.style.WebkitTransition='1s all ease';
+
+        setTimeout(function(){    //遇到display:block;  有时会出现无效果的问题 直接加个Timeout  就可解决
+          oLoginFrom.style.WebkitTransform='scale(1,1)';
+          oLoginFrom.style.opacity=1;
+        },1);
+      };
+      function tranEnd(){
+        oLoginFrom.removeEventListener('transitionend',tranEnd,false);
+        oLoginFrom.style.display='none';    /*完成之后恢复到原来  */
+        oLoginFrom.style.WebkitTransition='none';/* 运动也不需要 了  就清除 提高性能*/
+      }
+      oClose.onclick=function(){
+        oTier.style.display='none';
+        oLoginFrom.style.WebkitTransform='scale(5,5)';
+        oLoginFrom.style.opacity=0;
+        oLoginFrom.addEventListener('transitionend',tranEnd,false);
+      };
+
+    };
+  </script>
+</head>
+<body>
+<input type="button" value="登录" class="login_btn">
+<div class="tier"></div>
+<div class="login_from">
+  <a href="javascript:;" class="close">close</a>
+</div>
+
+</body>
+</html>

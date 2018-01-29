@@ -1,0 +1,47 @@
+百度：
+https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=jQuery110209426882932324041_1487318606345&_=1487318606348
+
+360:
+https://sug.so.360.cn/suggest?callback=show&word=a
+
+
+?号后面
+wd <word>      关键字			 
+cb <callback>  回调函数（cb后面名字可以改）  
+
+cb=jQuery110209426882932324041_1487318606345&_=1487318606348
+cb=show(改什么名字都可以)
+
+其它没用的都可以删除
+
+show({q:"a",p:false,s:["爱奇艺","安卓模拟器","acfun","阿里巴巴批发网","airbnb","安居客","阿里巴巴","阿里云","爱情公寓","爱奇艺网"]});
+
+360:
+https://sug.so.360.cn/suggest?callback=show&word=a
+
+
+
+
+怎么找数据  按F12
+Netword 里面找---->su  (有些不是su)
+
+
+格式:
+<script>
+	$(document).ready(function(){
+            $.ajax({
+                "url":'https://sug.so.360.cn/suggest', //链接
+                "dataType":'jsonp',			//数据类型
+                "jsonp":"callback",			//回调函数
+                "data":{				//给后面的数据
+                    "word":"b"
+                },
+                "success":function(res){		//成功回调函数  ( res后台返回的 )
+                    alert(res.s);
+                },
+                "error":function(){
+                    alert('失败');			//失败回调函数
+                }
+            });
+        });
+</script>

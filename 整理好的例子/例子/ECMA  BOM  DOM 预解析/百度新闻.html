@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        a{
+            margin-left: 10px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oUl=document.getElementById('ul1');
+
+            //准备数据
+            var data=[
+                {
+                    title:'军改一年间 到中流击水',
+                    href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html',
+                    child:[
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        }
+                    ]
+                },
+                {
+                    title:'军改一年间 到中流击水',
+                    href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html',
+                    child:[
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        }
+                    ]
+                },
+                {
+                    title:'军改一年间 到中流击水',
+                    href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html',
+                    child:[
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        },
+                        {
+                            title:'文代会作代会  治国理政',
+                            href:'http://culture.people.com.cn/n1/2016/1129/c1013-28905591.html'
+                        }
+                    ]
+                }
+            ];
+
+
+            for(var i=0; i<data.length; i++){
+                //创造Li
+                var oLi=document.createElement('li');
+
+                //创造第一个div   给内容   在扔进Li里面
+                var oDiv=document.createElement('div');
+                oDiv.innerHTML='<a href="'+data[i].href+'">'+data[i].title+'</a>';
+                oLi.appendChild(oDiv);
+
+                //创造第2个 div  给内家容  在扔进Li里面
+                var oDiv2=document.createElement('div');
+                for(var k=0; k<data[i].child.length; k++){
+                    //创建a  给加内容   扔进div中
+                    var oA=document.createElement('a');
+                    oA.href=data[i].child[k].href;
+                    oA.innerHTML=data[i].child[k].title;
+                    oDiv2.appendChild(oA);
+                    oLi.appendChild(oDiv2);
+
+                }
+                oUl.appendChild(oLi);
+            }
+        };
+    </script>
+</head>
+<body>
+    <ul id="ul1"></ul>
+</body>
+</html>

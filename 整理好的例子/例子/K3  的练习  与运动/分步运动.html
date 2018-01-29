@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            float:left;
+            margin:10px;
+            background:skyblue;
+            opacity:0;
+
+        }
+    </style>
+    <script src="../../js/frame.js"></script>
+    <script>
+        window.onload=function(){
+            //创建div   扔进父级里面去
+            for(var i=0; i<100; i++){
+                var oDiv=document.createElement('div');
+                document.body.appendChild(oDiv);
+            }
+            //获取div
+            var aDiv=document.body.children;
+            var timer=null;
+            var i=0;
+            timer=setInterval(function(){
+                //aDiv[i].style.opacity=1;
+                startMove(aDiv[i],{opacity:1});
+                i++;
+                if(i==aDiv.length){
+                    clearInterval(timer);
+                }
+            },30);
+
+
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

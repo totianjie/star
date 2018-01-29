@@ -1,0 +1,16 @@
+<view class="msg-box">
+  <view class="send-box">
+    <input bindinput="inputChange" value="{{inputValue}}" type="text" class="input" placeholder='请留言' placeholder-class="place-class"></input>
+    <button bindtap="add" size="mini" type="primary" class="add-btn">添加</button>
+  </view>
+
+  <text wx:if="{{!arr.length}}">暂无留言...^_^</text>
+  <view class="list-view">
+    <view class="item" wx:for="{{arr}}" wx:key="index">
+      <text class="text">{{item.msg}}</text>
+      <icon class="close-btn" data-abc="{{index}}" type="cancel" bindtap="delete"></icon>
+    </view>
+  </view>
+  <button type="default" size="mini" bindtap="addHistor">添加历史记录</button>
+  <button type="default" size="mini" bindtap="getData">获取数据</button>
+</view>

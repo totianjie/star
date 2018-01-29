@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#000;
+            opacity:1;
+            filter:alpha(opacity:100);
+            position:absolute;
+            left:0;
+            top:50px;
+        }
+    </style>
+    <script>
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+
+        function startMove(obj,json,options){
+            //给初始值
+            options=options || {};
+            options.time=options.time || 500;
+
+            clearInterval(obj.timer);
+            var count=Math.floor(options.time/30);//总次数    总时间/单次时间(一定要是整数，定时器的原来)
+
+            //准备两个空数组   用来装（初始值）（总距离）
+            var start={};//所有属性初始值
+            var dis={};//总距离
+            for(var name in json){
+                start[name]=parseFloat(getStyle(obj,name));
+                dis[name]=json[name]-start[name];
+            }
+            var n=0;//走的次数
+
+            //开定时器
+            obj.timer=setInterval(function(){
+                n++;//走的次数
+
+                //循环给每一个样式赋值
+                for(var name in json){
+                    var cur=start[name]+n*dis[name]/count;//走了多远       (初始值)+(次数)*(总距离)/(总次数)
+                    if(name=='opacity'){
+                        obj.style.opacity=cur;
+                        obj.style.filter='alpha(opacity:'+(cur*100)+')'
+                    }else{
+                        obj.style[name]=cur+'px';
+                    }
+                }
+                if(n==count){
+                    clearInterval(obj.timer);
+                    options.fn && options.fn();//判断（options）里面有没有函数   有就执行
+                }
+
+            },30);
+        }
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+            var oDiv=document.getElementsByTagName('div')[0];
+
+            oBtn.onclick=function(){
+                startMove(oDiv,{'left':300,'width':300,'height':300},{time:1000,fn:function(){
+                    startMove(oDiv,{'top':300},{fn:function(){
+                        startMove(oDiv,{'opacity':0})
+                    }})
+                }})
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="点击">
+<div></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var json={a:1,b:2,c:3};//var str='a=1&b=2&c=3';
+        var arr=[];
+        for(var name in json){
+            var str=name+'='+json[name];
+            arr.push(str);
+        }
+        var str2=arr.join('&');
+        alert(str2);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

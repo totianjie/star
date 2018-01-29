@@ -1,0 +1,127 @@
+建立链接
+	要有三个文件
+		npm install express --save
+		npm install express-static --save
+		npm install mysql --save
+		npm install body-parser --save
+		body-parser ---->	如果是post数据就要引入这个模块  获取post数据
+
+
+-----------------------------------------
+		server.use(body,urlencoded({extended:false}));
+		接收
+		request.body.xxxx    //post交互  接收前以返回的数据
+
+			下次使用就可以直接npm install  就会自动下载这三个模块
+--------------------------------------------------
+
+	增 	
+		INSERT INTO 表名 VALUES ('值','值','值');
+		INSERT INTO tab_user VALUES ('lisi','123456');
+	删
+		DELETE FROM 表名;
+		DELETE FROM tab_user;	删除的是全部
+
+		DELETE FROM 表名 WHERE 条件;
+		DELETE FROM tab_user WHERE username='lisa';
+		DELETE FROM tab_user WHERE username='wanger' AND password='123';	或
+		DELETE FROM tab_user WHERE username='zhangsan' OR password='1234';	并且
+
+		注意：删除必须加个条件。要不然就哭了。
+	改
+		UPDATE 表名 SET 字段=值 WHERE 条件
+		UPDATE tab_user SET password='123';
+		UPDATE tab_user SET password='12345' WHERE username='lisi';
+	查	
+		SELECT * FROM 表名;
+		SELECT * FROM tab_user;
+		SELECT * FROM tab_user WHERE username='lisa';
+		SELECT * FROM 表名 LIMIT 从哪开始,拿多少
+
+		----------------------------------------------------------------------
+SQL语句   数据库独有的语言
+	
+
+建立连接
+
+	let db = mysql.createConnection({
+		host:'主机名或IP',
+		user:'用户名',
+		password:'密码',
+		database:'数据库名'
+	});
+执行SQL语句
+
+	db.query('SQL语句',function(err,data){
+		if(err){
+			错了
+		}else{
+			成功了
+			data数据
+		}
+	});
+
+
+	------------------------  基本的书写语法  ----------------------------------
+
+
+	const express=require('express');	---------->http服务
+	const static=require('express-static');	----->读取文件
+	const mysql=require('mysql');		------>操作数据库
+	const body=require('body-parser'); ----->post交互才会用到
+
+	let server=express();
+	server.listen(8081);	------>设置端口监听
+	server.use(static('www/'));	------------>设置文件路径
+	server.use(body.urlencoded({extended: false}));----->post交互才用到 
+
+	let db=mysql.createConnection({
+		host:'localhost',//主机名
+		user:'root',//用户名
+		password:'',//密码
+		database:'db_user'//数据库名
+	});
+
+	--------------------------------------------------------------
+
+
+=======================================================
+Navicat跟mysql建立连接
+	点击连接-》点击MySQL
+		填写
+			连接名 				随意
+			主机名或IP地址 		localhost 	127.0.0.1
+			端口 				默认 	3306
+			用户名 				默认	root
+			密码 				默认	不写
+
+
+创建数据库
+	右键-》新建数据库
+
+		数据库名 		随意
+		字符集 			utf8 -- UTF-8 Unicode
+		排序规则 		utf8_general_ci
+
+创建表
+	输入字段
+	类型
+		int 		整数 			12 	0 	1
+		float 		单精度浮点数 	12.5 	1.1 	1.0
+		double 		双精度浮点数	12.53 	2.345 	2.45678
+		char 		字符 			'a' 	'b' 
+		varchar 	字符串 	  255	"abcd" 	"你好"
+		text 		大字符串  21亿
+	长度
+==========================================================
+
+数据库 	DataBase
+
+mysql 		免费，凑合
+oracle 		收费，强大
+=========================
+两种选择 	工具
+	1.命令行
+	2.图形界面 			√
+		a).Wamp自带的phpMyAdmin
+		b).Navicat for MySQL 

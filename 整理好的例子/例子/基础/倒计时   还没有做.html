@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script>
+        window.onload=function(){
+            var oStart=document.getElementById('start');
+            var oEnd=document.getElementById('end');
+            var oBtn=document.getElementById('btn1');
+            var oRes=document.getElementById('result');
+
+            oBtn.onclick=function(){
+                //未来时间
+                var n2=oEnd.value;
+                var endYearArr=n2.split(' ')[0].split('/');
+                var endHourArr=n2.split(' ')[1].split(':');
+                var oDate=new Date();
+                oDate.setFullYear(endYearArr[0],endYearArr[1]-1,endYearArr[2]);
+                oDate.setHours(endHourArr[0], endHourArr[1], endHourArr[2]);
+
+                //现在时间
+                var n1=oStart.value;
+                var startYearArr=n1.split(' ')[0].split('/');
+                var startHourArr=n1.split(' ')[1].split(':');
+                var now=new Date();
+                now.setFullYear(startYearArr[0], startYearArr[1]-1, startYearArr[2]);
+                now.setHours(startHourArr[0], startHourArr[1], startHourArr[2]);
+
+                var endTime=parseInt(oDate.getTime()/1000);
+                var startTime=parseInt(now.getTime()/1000);
+
+                setInterval(function(){
+                    //startTime++;
+                    endTime--;
+
+                    var s=endTime-startTime;
+
+                    var d=parseInt(s/86400);
+                    s%=86400;
+
+                    var h=parseInt(s/3600);
+                    s%=3600;
+
+                    var m=parseInt(s/60);
+                    s%=60;
+
+                    oRes.value=d+'天'+h+'时'+m+'分'+s+'秒';
+                },1000);
+            };
+        };
+    </script>
+</head>
+<body>
+起始时间：<input id="start" type="text" value="2016/9/29 13:50:00" />
+结束时间：<input id="end" type="text" value="2017/9/30 15:34:00" />
+<input id="btn1" type="button" value="开始倒计时"/>
+<hr />
+计时：<input id="result" type="text" readonly="1" />
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

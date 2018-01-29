@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>GuoKr-Mobile</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	</head>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript" src="libs/react.js"></script>
+		<script type="text/javascript" src="libs/react-dom.js"></script>
+		<script type="text/javascript" src="libs/browser.min.js"></script>
+		<script type="text/babel">
+			const oBox = document.querySelector('#box');
+
+			const Head = React.createClass({
+				render:function(){
+					return (
+						<header>
+							<h1>我是头部</h1>
+						</header>
+					);
+				}
+			});
+
+			const Content = React.createClass({
+				render:function(){
+					return (
+						<div>
+							<span>地址:{
+								this.props.address
+							}</span>
+						</div>
+					);
+				}
+			});
+
+			const Foot = React.createClass({
+				render:function(){
+					return (
+						<footer>
+							<h4>我是底部</h4>
+						</footer>
+					);
+				}
+			});
+
+			ReactDOM.render(
+				<div>
+					<Head></Head>
+					<Content address="北京市朝阳区龙腾大厦"></Content>
+					<Content address="深圳市宝安区西部硅谷"></Content>
+					<Foot></Foot>
+				</div>
+				,oBox);
+		</script>
+	</body>
+</html>

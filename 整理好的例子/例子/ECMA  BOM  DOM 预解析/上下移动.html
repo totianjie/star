@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oUl=document.getElementById('ul1');
+            var oA=oUl.getElementsByTagName('a');
+
+            for(var i=0; i<oA.length; i++){
+                if(i%2==0){
+                    //向上
+                    oA[i].onclick=function(){
+                        if(this.parentNode==oUl.children[0]){
+                            alert('亲到头了');
+                            return;
+                        }
+                      oUl.insertBefore(this.parentNode,this.parentNode.previousElementSibling||this.parentNode.parentNode)
+                    };
+                }else{
+                    oA[i].onclick=function(){
+                        var oLi=this.parentNode;
+                        if(oLi==oUl.children[oUl.children.length-1]){
+                            alert('到底了');
+                            return;
+                        }
+
+                        oUl.insertBefore(oLi,oLi.nextElementSibling.nextElementSibling || oLi.nextSibling.nextSibling);
+                    };
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li><a href="javascript:;">向上</a>1111<a href="javascript:;">向下</a></li>
+    <li><a href="javascript:;">向上</a>2222<a href="javascript:;">向下</a></li>
+    <li><a href="javascript:;">向上</a>3333<a href="javascript:;">向下</a></li>
+    <li><a href="javascript:;">向上</a>4444<a href="javascript:;">向下</a></li>
+    <li><a href="javascript:;">向上</a>5555<a href="javascript:;">向下</a></li>
+    <li><a href="javascript:;">向上</a>6666<a href="javascript:;">向下</a></li>
+</ul>
+</body>
+</html>

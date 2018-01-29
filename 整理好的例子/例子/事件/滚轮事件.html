@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div{
+            width:200px;
+            height:200px;
+            background:#ccc;
+        }
+    </style>
+
+    <script src="frame.js"></script>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('div');
+            addWheel(oDiv,function(bDown){
+                if(bDown){
+                    oDiv.style.width=oDiv.offsetWidth+10+'px';
+                    oDiv.style.height=oDiv.offsetHeight+10+'px'
+                }else{
+                    oDiv.style.width=oDiv.offsetWidth-10+'px';
+                    oDiv.style.height=oDiv.offsetHeight-10+'px'
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<div id="div"></div>
+
+</body>
+</html>

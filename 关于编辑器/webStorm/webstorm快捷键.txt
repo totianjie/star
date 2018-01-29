@@ -1,0 +1,47 @@
+﻿http://idea.imsxm.com/
+最新的破解码
+http://idea.iteblog.com/key.php   
+
+
+
+
+
+
+
+alt+up/down    上一个方法，下一个方法
+shift+enter    重新开始一行（无论光标在哪个位置）
+ctrl+alt+L    格式化代码
+ctrl+alt+s      打开配置窗口
+ctrl+shift+F12  最大区域显示代码（会隐藏其他的功能界面模块）
+ctrl+alt+insert	快速创建文件
+ctrl+shift+R 	指定目录内代码批量替换
+ctrl+shift+F 	指定目录内代码批量查找
+
+ctrl+shift+alt+N    通过一个字符快速查找位置（必记）
+ctrl+shift+N        通过文件名快速查找工程内的文件（必记）
+ctrl+G 	            到指定行号
+ctrl+F		    查找
+ctrl+r		    替换
+
+ctrl+z			撤销（返回到上一步）
+ctrl+shift+z		取消撤销（前进到最后一次编辑节点）
+ctrl+alt+shift+j	选中所有相同的词语
+alt+j			
+ctrl+tab		同一个项目的不同文件窗口间切换
+
+
+
+5、常用设置
+    文件内容发生变动，文件名称的颜色会发生改变：修改文件名称在不同状态下的颜色
+    Settings-Editor-Color&Fonts-File Status-Modified-Foreground
+6、修改文件内容颜色
+    比如修改JSON文件的字体颜色：Settings--Editor-Color&Fonts-JSON
+	
+	
+	CodeGlance      webstorm右边小地图插件
+	
+	ctrl + ~ 快速更换主题
+	主题类的插件，可以改改界面颜色呀，文件图标啥的，至少比默认的稍微强那么点。。。。文件夹小图标插件
+	
+	Markdown   支持 markdown 语法
+	

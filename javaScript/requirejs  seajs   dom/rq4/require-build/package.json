@@ -1,0 +1,12 @@
+{
+  "name": "require-build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build-config.js",
+  "scripts": {
+    "build": "node r.js -o build-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

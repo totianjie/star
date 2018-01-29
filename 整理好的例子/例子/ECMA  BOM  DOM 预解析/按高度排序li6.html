@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{margin:0;padding:0; list-style:none;}
+input{ padding:5px 10px;}
+li{width:100px; background:red; float:left; margin:10px; font-size:50px; color:#fff; text-align:center;}
+</style>
+<script>
+    /*
+    * 1 准备一个随机函数
+    *   给li 赋高度
+    *   当重新洗高度点击的时候把li装起来   排序
+    *   在清空ul的innerHTML    在把li全部扔进去
+    * */
+    function rnd(n,m){
+        return Math.floor(Math.random()*(m-n)+n);
+    }
+
+    window.onload=function(){
+        var oNew=document.getElementById('btn2');
+        var oLast=document.getElementById('btn1');
+        var oUl=document.getElementById('ul1');
+        var aLi=oUl.children;
+
+        function show(){
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].style.height=rnd(200,400)+'px';
+            }
+        }
+
+        show();//一打开页面加载一次
+        //重新洗高度
+        oNew.onclick=function(){
+            show();
+        };
+        //排序
+        oLast.onclick=function(){
+            var arr=[];
+            for(var i=0; i<aLi.length; i++){
+                arr[i]=aLi[i];
+            }
+            arr.sort(function(li1,li2){
+                return li1.offsetHeight-li2.offsetHeight;
+            });
+
+            oUl.innerHTML='';
+            for(var k=0; k<arr.length; k++){
+                oUl.appendChild(arr[k]);
+                arr[k].innerHTML=k+1;
+            }
+        };
+    };
+</script>
+</head>
+
+<body>
+<input type="button" value="从小到大排" id="btn1">
+<input type="button" value="从新洗高度" id="btn2">
+<ul id="ul1">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+</ul>
+</body>
+</html>

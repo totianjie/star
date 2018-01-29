@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function addEvent(obj,sEv,fn){
+            if(obj.addEventListener){
+                //高级浏览器
+                obj.addEventListener(sEv,fn,false);
+            }else{
+                //IE10--
+                obj.attachEvent('on'+sEv,fn);
+            }
+        }
+        function removeEvent(obj,sEv,fn){
+            if(obj.removeEventListener){
+                obj.removeEventListener(sEv,fn,false);
+            }else{
+                obj.detachEvent('on'+sEv,fn);
+            }
+        }
+        window.onload=function(){
+            function fn1(){
+                alert(1);
+            }
+            function fn2(){
+                alert(2);
+            }
+            /*document.onclick=fn1;
+            //后面的覆盖前的了
+            document.onclick=fn2;*/
+
+            //绑定后同一元素 同一事件 执行示同的函就不会被覆盖
+            addEvent(document,'click',fn1);
+            addEvent(document,'click',fn2);
+
+            //解绑定后  就相当于没有了这个东西一样   什么都不执行了
+            removeEvent(document,'click',fn2);
+            removeEvent(document,'click',fn1);
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

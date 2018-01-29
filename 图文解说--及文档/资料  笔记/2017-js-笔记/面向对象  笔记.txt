@@ -1,0 +1,118 @@
+构造函数   首字母大写
+fn.prototype.show()
+
+function Person(name,age){
+	//var this=new object()   默认会new objcet
+	this.name=name;//属性
+	this.age=age;
+	//return this	默认会返回一个this
+}
+Person.prototype.showName=function(){//方法
+	return this.name;
+}
+Person.prototype.showAge=function(){
+	return this.age;
+}
+var p1=new Person('张三','18');
+var name=p1.showName();
+var age=p1.showAge();
+alert(name+':'+age);
+===============================================
+show.call('abc',12,12);第一个参数可以随便传
+show.apply('abc',[12,12]);第一个参数可以随便传
+
+检测对象
+	instanceof	检测不了json  (json就是object)
+	arr instanceof array
+检测构造函数
+	constructor
+
+-----------------------------------------------------------------------------
+<script>
+		function Person(name,age){//父类
+			this.name=name;
+			this.age=age;
+		}
+
+		Person.prototype.showName=function(){
+			return this.name;
+		};
+
+		Person.prototype.showAge=function(){
+			return this.age;
+		};
+
+		function Worker(name,age,job){	//子类
+			Person.call(this,name,age);	//继承父类的属性
+			this.job=job;
+		};
+		Worker.prototype=new Person();	//继承父类的方法
+		Worker.prototype.construcotr=Worker;
+
+		Worker.prototype.showJob=function(){	//子类自己的方法
+			return this.job;
+		};
+		var w=new Worker('张三',16,'工人');
+		alert(w.showAge());
+	</script>
+
+
+	概念:
+		原型链
+		Object.prototype.a=12;
+		Array.prototype.a=8;
+		arr=[];
+		arr.a;
+		先再当前对象身上找，如果找不到，找构造函数，如果构造函数没有，找父类，一直往上找，直到找到Object。
+	-------------------------------------------------------------
+====================ES6中的面向对象============================================
+
+	<script>
+        class person{   //用的是class
+            constructor(name,age){
+                this.name=name;
+                this.age=age;
+            }
+            showName(){
+                return this.name;
+            }
+            showAge(){
+                return this.age;
+            }
+        }
+        var p1=new person('张三',18);
+        document.write(p1.showName()+':'+p1.showAge()+'<br>');
+
+        
+        class Worker extends person{
+            constructor(name,age,job){	//添加属性
+                super(name,age);		//继承父类的属性   方法
+                this.job=job;
+            }
+            showJob(){		//方法
+                return this.job;
+            }
+        }
+        var w1=new Worker('李四',20,'上班');
+        document.write(w1.showName()+':'+w1.showAge()+':'+w1.showJob());
+    </script>
+
+
+------------------------------------------------------
+
+this
+		this
+		this是谁，不看定义，看调用。
+
+			
+		优先级
+			new 			object
+			定时器 			window
+			方法、事件 		触发这个函数的对象
+			正常调用 		window||undefined
+		只管一层，看最后一次调用。
+
+
+调用函数，矫正this
+		call()
+		apply()

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:100%;
+            height:300px;
+            background:salmon;
+            display:none;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            var timer=null;//定时器
+            timer=setTimeout(function(){//一秒后出现div
+                oBox.style.display='block';
+
+                /*
+                * 要把这个定时器放在里面
+                * 不然的话执行的是下面这条 因为被覆盖了
+                * */
+                timer=setTimeout(function(){//一秒后消失div
+                    oBox.style.display='none';
+                },1000);
+            },1000);
+
+            oBox.onmouseover=function(){//移入时把定时器关了
+                clearTimeout(timer);
+            };
+
+            oBox.onmouseout=function(){//移出时在做一个定时器  让div消失
+                timer=setTimeout(function(){
+                    oBox.style.display='none';
+                },1000);
+            };
+
+        };
+    </script>
+</head>
+<body>
+    <div id="box"></div>
+</body>
+</html>

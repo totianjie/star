@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#ccc;
+            position:absolute;
+            top:50px;
+            left:50px;
+        }
+    </style>
+    <script src="../../js/frame.js"></script>
+    <script>
+        var arr=[];
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+            var oDiv=document.getElementsByTagName('div')[0];
+
+            var iNow=0;
+
+            for(var i=0; i<100; i++){
+                arr[i]={
+                    left:rnd(0,document.documentElement.clientWidth-oDiv.offsetWidth),
+                    top:rnd(0,document.documentElement.clientHeight-oDiv.offsetHeight)
+                }
+            }
+            var len=arr.length;
+            oBtn.onclick=function(){
+                function next(){
+                    startMove(oDiv,arr[iNow%len],{complete:function(){
+                        iNow++;
+                        next();
+                    }});
+                }
+                next();
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="开始">
+    <div>
+
+    </div>
+</body>
+</html>

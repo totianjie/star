@@ -1,0 +1,339 @@
+﻿易权——前端开发(切图)
+魏俊杰——大学毕业
+------------------------------------
+	less / sass /bootstrap
+
+html+css:
+	html:
+		标签、属性
+	css:
+		修饰标签(装饰标签）
+
+标签:
+	单标签
+		<br />
+		<br>
+		<img>
+		<input />
+		<hr>
+	双标签
+		a, p , span, strong ,i, b, em ,ul ,li ,ol ,dl, dt ,dd , 
+		div, h1-h6,
+		table, tbody ,thead, tr ,th ,td
+		....
+
+		form	给后台提交数据
+			action=""
+			method="get/post"
+			name
+			value
+
+			input type=""
+			textarea
+
+		http://www.baidu.com?a=1&b=2
+	-----------------------------------------	
+
+	块:	布局，搭建结构
+		div,p,ul,li,ol,dl,dt,dd
+		h1-h6
+		
+		table
+	行内:	修饰内部细节
+		span, strong, em, i ,b 
+		a
+	行内块:
+		img, input
+	-----------------------------------------
+	结构性标签：
+	修饰标签:
+	-----------------------------------------
+	表单元素:
+	非表单元素:
+	----------------------------------------
+属性:	在标签身上
+	属于某个标签东西
+
+	<img alt="" title="">
+
+	公有属性:
+		title=""
+		style=""
+	私有属性:
+		....
+=====================================
+css:
+	书写css地方:
+		a). <div style="">
+		b). <style>
+			选择器{
+				border:
+				width:
+			}
+		     </style>
+		c). <link rel="stylesheet" href="a.css" />
+		d). @import 'a.css';
+样式:
+	背景:
+		background-color:
+		background-image:url()
+		background-repeat:
+		background-position:
+		
+		background:#ccc url() no-repeat left top;
+	border:
+		border:1px solid #000;
+
+		border-width
+		border-style
+		border-color
+
+		border-left
+			border-left-width
+			border-left-style
+		....
+	
+		制作三角:
+			.caret
+	文本：
+		font-size:
+		font-style:
+		font-family:
+		font-weight:
+
+			font:weight italic size family;	顺序不能换
+			
+		
+		color:
+		text-align:
+		text-indent:2em
+		text-decoration:none
+		text-overflow:ellipsis
+	css3新样式:
+		transition:1s all ease;
+			主要它有变化区间
+		border-radius:
+		背景:   
+			linear-gradient(方向,color 位置, color 位置....)
+			radial-gradient(位置,大小,color 位置,color)
+		阴影:
+			text-shadow:1px 1px 5px #000;
+			box-shadow:1px 1px 5px #000;
+			box-shadow:inset 1px 1px 5px 10px #000;
+				         内投影	           扩展
+		旋转：
+			transform:rotate(30deg)
+	
+			
+
+超出省略号:
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis
+
+颜色:
+	a). salmon, red blue tomato
+	b). #cc00cc	十六进制	√
+	c). rgb(255,0,0)
+	d). rgba(255,0,0,1)
+透明度:
+	opacity:0-1
+	filter:alpha(opacity:0-100)
+
+清除浏览器默认样式:
+	浏览器自带样式
+--------------------------------------------
+display:
+	block
+	inline-block
+	inline
+	none
+--------------------------------------------
+浮动:
+	作用: 让块元素并排一行
+	float:left
+	float:right
+	float:none
+
+		特点:
+			a). 元素类型转化
+			b). 脱离文档流
+			c). 文本坏绕
+			d). 自动折行
+	清除浮动:
+		a). overflow:hidden;
+		b). .clearfix{}
+定位:
+	作用: 修饰小东西
+	
+	position: absolute;
+		默认情况，body
+	position: relatvie
+		a). 给父级添加, 给子级设置一个参照物
+		b). z-index
+		c). 不会脱离文档流
+	position: fixed
+		可视区左上角
+	
+
+	注意:  一定要加上方向
+table
+form
+a:
+	target="_blank/_self/_new"
+	
+	download
+iframe:
+
+less/sass——css预处理器
+	a). gulpfile.js
+	b). koala
+		整条路径里面不能出现中文
+bootstrap:
+	栅格化+响应式系统
+	
+样式优先级:
+	选择器
+
+	!important	让样式优先级最高， 平时禁止使用
+==================================
+XML
+HTML
+XHTML	更严格
+	<br />
+HTML5
+	<br>
+
+<div class="a b"></div>
+
+外补丁		margin
+内补丁		padding
+
+
+float:none;
+
+
+html5核心思想:
+	一切从简
+-----------------------------------------------
+
+文档类型（文档头）——DTD
+	作用: 告诉浏览器，这是一个html页面，识别很多标记
+
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">	html4.01  严格型	xHTML
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">	html4.01 过渡型
+		
+	<!DOCTYPE html>		html5文档头
+
+chrome,FF等，容错能力比较强
+
+如果去掉文档头，在IE里面的表现，就变成怪异模式
+	前提: 机器上最高版本IE浏览器是IE10 或者更低
+
+	在怪异模式里面:
+		width: 300
+		height:300
+
+		盒子模型:
+			width=width
+		
+
+	标准：
+		盒子模型:
+			width=width+padding+border
+
+
+自定义属性
+	data-
+		目的：统一规定一下自定义属性写法
+自定义标签
+---------------------------------------
+CSS hacks:
+	background:red\0;
+	*background:blue;
+	_background:yellow;
+
+条件引用:   IE独有
+	<!--[if IE]>
+		//IE独自认识
+	<![endif]-->
+
+	<!--[if lt IE 9]>
+	      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+
+a)	font-family:Tahoma;font-size:14px;line-height:22px;font-weight:bold;
+
+	font: bold 14px/22px Tahoma;
+-----------------------------------------
+marign:0		如果是0，永远不加单位
+background:url(img/1.png)
+-----------------------------------------
+等高布局:
+	a). 使用一些新样式、属性
+	b). padding-bottom:2000px;
+    	     margin-bottom:-2000px;	
+-----------------------------------------
+左侧固定，右侧自适应
+-----------------------------------------	
+左右固定，中间自适应 (双飞翼布局)
+-----------------------------------------
+cdn
+-----------------------------------------
+haslayout
+BFC
+
+	zoom:1
+-----------------------------------------
+<link rel="stylesheet"  href="mystyle.css" />
+
+png:  图标， 支持透明
+jpg:  不支持透明   网站素材
+
+http状态码:
+	200	OK   成功
+	404	Not Found	资源无效
+	304	Forbidden	拒绝
+	500	Internal Server Error   服务器内部错误
+
+<div class="middle"></div>
+<div class="left"></div>
+<div class="right"></div>
+------------------------------------
+开始写博客
+	简书
+	github/gitlab/coding
+------------------------------------
+js基础
+DOM和BOM
+事件
+运动
+
+交互
+面向对象
+
+框架
+
+HTML5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

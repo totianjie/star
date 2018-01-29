@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+       var json={a:1,b:2,c:3};
+
+       var json2={};//不想被引用就循环一个一个复制
+       for(var namu in json){
+           json2[namu]=json[namu];
+       }
+       json2.d=4;
+        console.log(json2);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

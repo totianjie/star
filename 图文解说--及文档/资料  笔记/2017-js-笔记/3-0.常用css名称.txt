@@ -1,0 +1,81 @@
+页面结构(使用id)
+	容器: container
+	页头：header
+	内容：content/container
+	页面主体：main
+	页尾：footer
+	导航：nav
+	侧栏：sidebar
+	栏目：column
+	页面外围控制整体布局宽度：wrapper
+	左右中：left right center
+
+导航：nav
+	主导航：nav
+	子导航：sub-nav
+	左导航：left-nav
+	右导航：right-nav
+	菜单：menu
+	子菜单：sub-menu
+	标题: title
+	摘要: summary
+
+功能
+	标志：logo
+	广告：banner
+	登陆：login
+	登录条：loginbar
+	注册：regsiter
+	搜索：search
+	功能区：shop
+	标题：title
+	加入：joinus
+	状态：status
+	按钮：btn
+	滚动：scroll
+	标签页：tab
+	文章列表：list
+	提示信息：msg
+	当前的: current
+	小技巧：tips
+	图标: icon
+	注释：note
+	指南：guild
+	服务：service
+	热点：hot
+	新闻：news
+	下载：download
+	投票：vote
+	合作伙伴：partner
+	友情链接：link
+	版权：copy-right
+字体大小:
+	.font12px { font-size: 12px; }
+边距:
+	.ml50{margin-left:50px;}
+	.mt20{margin-top:20px;}
+颜色（用的少）:
+	.red { color: red; }
+	.f60 { color: #f60; }
+	.ff8600 { color: #ff8600; }
+浮动:
+	.fl{ float:left}
+	.fr{float:right}
+
+.clearfix{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

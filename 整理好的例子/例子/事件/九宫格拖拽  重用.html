@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:#ccc;
+            position:absolute;
+            left:500px;
+            top:200px;
+        }
+        .l,.r,.t,.b{
+            background:#000033;
+            position:absolute;
+        }
+        .l{
+            width:20px;
+            height:100%;
+            left:0;
+            top:0;
+        }
+        .r{
+            width:20px;
+            height:100%;
+            right:0;
+            top:0;
+        }
+        .t{
+            height:20px;
+            width:100%;
+            left:0;
+            top:0;
+        }
+        .b{
+            width:100%;
+            height:20px;
+            left:0;
+            bottom:0;
+        }
+
+        .lt,.rt,.lb,.rb{
+            width:20px;
+            height:20px;
+            background:#399;
+            position:absolute;
+        }
+        .lt{
+            left:0;
+            top:0;
+        }
+
+        .rt{
+            right:0;
+            top:0;
+        }
+        .lb{
+            left:0;
+            bottom:0;
+        }
+        .rb{
+            right:0;
+            bottom:0;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aDiv=oBox.children;
+
+            for(var i=0; i<aDiv.length; i++){
+                dragMore(aDiv[i]);
+            }
+            /*如果父级用的是相对定位   就一定要清除默认样式   移动的那一下会有几个像素差值*/
+            /*
+            * 1 在down 的时候把left top width height 初始坐标 X Y 存起来
+            * 2 move 时if判断（obj.className.indexOf('要执行的标签')！=-1）有没有这个元素  有就执行下面的代码
+            * 3 求出变化的距离 targetX  targetY
+            * 4 左 变化的距离targetX=初始坐标-现在的坐标  left=原来的left-变化的距离  width=原来的width+变化的距离
+            * 5 上 变化的距离targetY=初始坐标-现在坐标    top=原来的top-变化的距离    height=原来的height+变化的距离
+            * 6 右 变化的距离targetX=现在的坐-原来的坐标   width=原来的width+变化的距离
+            * 7 下 变化的距离targetY=现在的坐标-原来的坐标  height=原来的height+变化的距离
+            *
+            *
+            * 总结一句就是down存起来top left width height  oEvent.clientX   oEvent.clientY
+            *
+            * move时都是大的减小的 利用oEvent.clientX/Y求出新的left top width height  左跟上除了要改width height外还要改left top要改变
+            * */
+            function dragMore(obj){
+                //鼠标按下时
+                obj.onmousedown=function(ev){
+                    var oEvent=ev || event;//ev 兼容chrome IE9+ FF   event 兼容chrome IE系
+                    var disX=oEvent.clientX;//开始坐标
+                    var lodW=oBox.offsetWidth;//初始width
+                    var lodL=oBox.offsetLeft;//初始left
+
+                    var disY=oEvent.clientY;//初始坐标
+                    var lodH=oBox.offsetHeight;//初始height
+                    var lodT=oBox.offsetTop;//初始top
+
+                    //鼠标移动时
+                    document.onmousemove=function(ev){
+                        var oEvent=ev || event;//移动时的都是新的坐标所以在这里也要获取一次事件
+
+                        //left
+                        if(obj.className.indexOf('l')!=-1){
+                            var targetX=disX-oEvent.clientX;//移动的距离
+                            var newW=lodW+targetX;//移动后的width
+                            var newL=lodL-targetX;//移动后的left
+                            oBox.style.width=newW+'px';
+                            oBox.style.left=newL+'px';
+                        }
+                        //top
+                        if(obj.className.indexOf('t')!=-1){
+                            var targetY=disY-oEvent.clientY;
+                            var newH=lodH+targetY;
+                            var newT=lodT-targetY;
+                            oBox.style.height=newH+'px';
+                            oBox.style.top=newT+'px';
+                        }
+                        //right
+                        if(obj.className.indexOf('r')!=-1){
+                            var targetX=oEvent.clientX-disX;
+                            var newW=lodW+targetX;
+                            oBox.style.width=newW+'px';
+                        }
+                        //bottom
+                        if(obj.className.indexOf('b')!=-1){
+                            var targetY=oEvent.clientY-disY;
+                            var newH=lodH+targetY;
+                            oBox.style.height=newH+'px';
+                        }
+                    };
+                    //鼠标松开时 干掉move up
+                    document.onmouseup=function(){
+                        document.onmousemove=null;
+                        document.onmouseup=null;
+                    };
+                    return false;//阻止默认事件
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <div class="l"></div>
+    <div class="t"></div>
+    <div class="r"></div>
+    <div class="b"></div>
+    <div class="lt"></div>
+    <div class="rt"></div>
+    <div class="lb"></div>
+    <div class="rb"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#ccc;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        .active{
+            width:100px;
+            height:100px;
+            position:absolute;
+        }
+        .on{
+            width:5px;
+            height:5px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+    <script>
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        };
+        function show(){
+
+            document.body.onmousedown=function(ev){
+                var oEvent=ev || event;
+                //按下时
+                var target=oEvent.srcElement || oEvent.target;
+                if(target.tagName=='DIV'){
+                    target.timer=null;
+                    target.arr=[];
+                    target.newArr=[];
+
+
+                    var disX=oEvent.clientX-target.offsetLeft;
+                    var disY=oEvent.clientY-target.offsetTop;
+
+                    //创建div
+                    var oNewDiv=document.createElement('div');
+                    oNewDiv.className='on';
+                    oNewDiv.style.left=target.offsetLeft+'px';
+                    oNewDiv.style.top=target.offsetTop+'px';
+                    document.body.appendChild(oNewDiv);
+                    target.newArr.push(oNewDiv);
+
+                    //存坐标
+                    target.arr.push({
+                        left:target.offsetLeft,
+                        top:target.offsetTop
+                    });
+
+                    //移动时
+                    document.onmousemove=function(ev){
+                        var oEvent=ev || event;
+                        var left=oEvent.clientX-disX;
+                        var top=oEvent.clientY-disY;
+
+                        target.style.left=left+'px';
+                        target.style.top=top+'px';
+                        //存坐标
+                        target.arr.push({
+                            left:target.offsetLeft,
+                            top:target.offsetTop
+                        });
+
+                        //创建div
+                        var oNewDiv=document.createElement('div');
+                        oNewDiv.className='on';
+                        oNewDiv.style.left=target.offsetLeft+'px';
+                        oNewDiv.style.top=target.offsetTop+'px';
+                        document.body.appendChild(oNewDiv);
+                        target.newArr.push(oNewDiv);
+
+
+
+                    };
+                    //松开时
+                    document.onmouseup=function(){
+                        document.onmousemove=null;
+                        document.onmouseup=null;
+
+                        clearInterval(target.timer);
+                        target.timer=setInterval(function(){
+                            if(target.arr.length){
+                                var json=target.arr.pop();
+                                document.body.removeChild(target.newArr.pop());
+                                target.style.left=json.left+'px';
+                                target.style.top=json.top+'px';
+                            }else{
+                                clearInterval(target.timer);
+                            }
+                        },30)
+                    };
+                    return false;
+                }
+            };
+        }
+        window.onload=function(){
+            for(var i=0; i<10; i++){
+                var oDiv=document.createElement('div');
+                oDiv.className='active';
+                oDiv.style.left=rnd(0,document.documentElement.clientWidth-oDiv.offsetWidth)+'px';
+                oDiv.style.top=rnd(0,document.documentElement.clientHeight-oDiv.offsetHeight)+'px';
+                oDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+                oDiv.setAttribute('id','div'+i);
+                document.body.appendChild(oDiv);
+                show('div'+i);
+            }
+
+
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="回放" id="btn">
+</body>
+</html>

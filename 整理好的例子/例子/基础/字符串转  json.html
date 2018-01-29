@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var str='a=1&b=2&c=3';
+        var arr=str.split('&');
+        var json={};
+
+        for(var i=0; i<arr.length; i++){
+            var arr2=arr[i].split('=');
+            json[arr2[0]]=arr2[1];
+        }
+        console.log(json);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

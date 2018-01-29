@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="box">
+  <button type="default" size="mini" bindtap="change">切换</button>
+  <view class="item" wx-if="{{bShow}}"></view>
+</view>
+<view class="listview">
+  <view class="li" wx:for="{{arr}}" wx:key="index">{{item}}--{{index}}</view>
+</view>
+
+<view class="listview">
+  <view class="li" wx:for="{{arrData}}" wx:key="index">{{item.name}}--{{index}}</view>
+</view>

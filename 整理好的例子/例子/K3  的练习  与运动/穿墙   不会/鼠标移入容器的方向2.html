@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            margin: 150px auto;
+            background: #ccc;
+            text-align: center;
+            line-height: 200px;
+            font-size: 40px;
+        }
+    </style>
+    <script>
+        function hoverDir(obj,ev){
+            var w=obj.offsetWidth;
+            var h=obj.offsetHeight;
+
+            var a=obj.offsetLeft+w/2-ev.clientX;
+            var b=obj.offsetTop+h/2-ev.clientY;
+
+            return Math.round((Math.atan2(b,a)*180/Math.PI+180)/90)%4;
+
+        }
+
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            oBox.onmouseover=function(ev){
+                var oEvent=ev || event;
+
+                var n=hoverDir(this,oEvent);
+
+                oBox.innerHTML=n.toFixed(2);
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="box">n</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

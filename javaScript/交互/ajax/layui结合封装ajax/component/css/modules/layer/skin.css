@@ -1,0 +1,36 @@
+﻿html #layui_layer_skinmoonstylecss {display: none;position: absolute;width: 1989px;}
+body .layer-ext-moon[type="dialog"] {min-width: 320px;}
+body .layer-ext-moon-msg[type="dialog"]{min-width:200px;}
+body .layer-ext-moon .layui-layer-title {background:#f1f4fb;border-radius:2px 2px 0px 0px;height:39px;line-height: 39px;font-size:20px;color:#424754;text-align:left;}
+body .layer-ext-moon .layui-layer-content .layui-layer-ico {height: 32px;width: 32px;top:13.5px;}
+body .layer-ext-moon .layui-layer-content .layui-layer-ico-plat {height: 72px;width: 72px;position: absolute;top:40px;left: 40px;}
+body .layer-ext-moon .layui-layer-ico0 {background: url(default.png) no-repeat -96px 0;;}
+body .layer-ext-moon .layui-layer-ico1 {background: url(default.png) no-repeat -224px 0;;}
+body .layer-ext-moon .layui-layer-ico2 {background: url(default.png) no-repeat -192px 0;}
+body .layer-ext-moon .layui-layer-ico3 {background: url(default.png) no-repeat -160px 0;}
+body .layer-ext-moon .layui-layer-ico4 {background: url(default.png) no-repeat -320px 0;}
+body .layer-ext-moon .layui-layer-ico5 {background: url(default.png) no-repeat -288px 0;}
+body .layer-ext-moon .layui-layer-ico6 {background: url(default.png) -256px 0;}
+body .layer-ext-moon .layui-layer-ico7 {background: url(default.png) no-repeat -128px 0;}
+body .layer-ext-moon .layui-layer-ico8 {background: url(../../../images/icon.png) no-repeat -91px -149px;}
+body .layer-ext-moon .layui-layer-ico9 {background: url(./default/warn.png) no-repeat -1px 1px;}
+body .layer-ext-moon .layui-layer-setwin {top: 11px;right: 20px;}
+body .layer-ext-moon .layui-layer-setwin a {width: 18px;height: 18px;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-min cite:hover {background-color: #56abe4;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-max {background: url(default.png) no-repeat -80px 0;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-max:hover {background: url(default.png) no-repeat -64px 0;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-maxmin {background: url(default.png) no-repeat -32px 0;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-maxmin:hover {background: url(default.png) no-repeat -16px 0;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close1,body .layer-ext-moon .layui-layer-setwin .layui-layer-close2 {background: url(../../../images/icon.png) no-repeat -182px -152px;}
+body .layer-ext-moon .layui-layer-setwin .layui-layer-close1:hover,body .layer-ext-moon .layui-layer-setwin .layui-layer-close2:hover {background: url(../../../images/icon.png) no-repeat -72px -75px;}
+/*body .layer-ext-moon .layui-layer-padding{padding-top: 24px;}*/
+body .layer-ext-moon .layui-layer-btn {padding: 20px 40px 20px 0;border-top: 1px #e8eaeb solid;background:#f1f4fb;}
+body .layer-ext-moon .layui-layer-btn a {font-size: 14px;font-weight: normal;margin: 0!important;margin-left: 20px!important;padding: 6px 20px;color: #fff;border: 1px solid #45a2ff;background: #45a2ff;border-radius: 2px;text-align: center;vertical-align: middle;background-repeat: no-repeat;text-decoration: none;outline: none;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;width: 100px;height: 30px;line-height: 17px;}
+.layui-layer-btn0:hover, .layui-layer-btn1:hover, .layui-layer-btn2:hover, .layui-layer-btn3:hover{opacity: 0.8; filter:alpha(opacity=80);}
+.layui-layer-btn0:active, .layui-layer-btn1:active, .layui-layer-btn2:active, .layui-layer-btn3:active{opacity: 1; filter:alpha(opacity=100);}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn0 {background: #45a2ff;}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn1 {border: 1px solid #d5d5d5;background-color: #f8f8f8;color: #424754;}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn1:hover{border-color: #45a2ff;}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn2 {background: #f60;color: #fff;border: 1px solid #f60;border-radius: 3px;}
+body .layer-ext-moon .layui-layer-btn .layui-layer-btn3 {background: #f00;color: #fff;border: 1px solid #f00;border-radius: 3px;}
+body .layer-ext-moon .layui-layer-title span.layui-layer-tabnow{height:47px;}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#ccc;
+            position:absolute;
+            top:50px;
+            left:0;
+            opacity:1;
+        }
+    </style>
+    <script>
+        /*
+        * 1 算总次数    总时间（比如你想让它走多长时间）/定时器定多少的值（单次时间）
+        * 2 总的距离    也是以知的   你要它走多远（比如top left  height width ......）
+        * 3 单次距离    总距离/总次数
+        * 4 定一个变量放在定时器中++
+        * */
+        //获取行间样式   offsetWidth/height     是有bug的所以要用到行间样式
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+            var oDiv=document.getElementsByTagName('div')[0];
+
+            var timer=null;
+            function startMove(obj,name,iTarget,time){//标签  属性  路程  总时间
+                clearInterval(timer);
+                var count=Math.floor(time/30);//总次数
+                var start=parseInt(getStyle(obj,name));//初始值
+                var dis=iTarget-start;
+                var n=0;
+                timer=setInterval(function(){
+                    n++;//走了几次
+                    var sur=start+n*dis/count;//走多远了   初始值  走了次数*总的路/总的次数
+                    if(name=='opacity'){
+                        obj.style.opacity=sur;
+                        obj.style.filter='alpha(opacity:'+sur*100+')';//透明度比较的特殊
+                    }else{
+                        obj.style[name]=sur+'px';//注意[name]的写法  容易出错
+                    }
+
+                    if(n==count){
+                        clearInterval(timer);
+                    }
+                },30);
+
+            }
+            oBtn.onclick=function(){
+                startMove(oDiv,'opacity',0,2000)
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="点击">
+    <div></div>
+</body>
+</html>

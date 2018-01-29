@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script>
+		window.onload=function(){
+			var oT1=document.getElementById('t1');
+			var oBtn=document.getElementById('btn');
+
+			oBtn.onclick=function(){
+
+				var str=oT1.value;
+				var re=/^0[1-9]\d{1,2}\-[1-9]\d{6,7}$/;
+				var res=re.test(str);
+
+				alert(res);
+				/*
+					0
+					[1-9]
+					\d{1,2}
+					\-
+					[1-9]
+					\d{6,7}
+				 */
+			};
+		};
+	</script>
+</head>
+<body>
+	<input type="text" id='t1'>
+	<input type="button" value="校验" id='btn'>
+</body>
+</html>

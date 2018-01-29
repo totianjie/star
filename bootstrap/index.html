@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+	<title>bootstrap</title>
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<style>
+		.bc-ccc{ background:#ccc; }
+	</style>
+</head>
+<body>
+	<div class="container-fluid">	
+		<ul class="row">
+			<li class="bc-ccc col-md-3 col-md-offset-6 col-md-pull-6 visible-md-block visible-lg-block">1111</li>
+			<li class="bc-ccc col-md-3 col-md-pull-3">1111</li>
+			<li class="bc-ccc col-md-3" >1111</li>
+			<li class="bc-ccc col-md-3 col-md-push-3" >1111</li>
+		</ul>
+		<del>abc</del>
+		<u>	abc</u>
+		<h1>abc</h1>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr class="success">
+					<th>header</th>
+					<th>header</th>
+					<th>header</th>
+					<th>header</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="success">
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+				</tr>
+				<tr>
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+				</tr>			
+				<tr>
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+					<td>data</td>
+				</tr>			
+			</tbody>
+		</table>		
+	</div>
+	<button type="button" class="btn ">按钮</button>
+	<h1 class="text-right">Custom heading</h1>
+
+	<form class="form-inline has-success">
+		<div class="form-group">
+			<label for="text">姓名</label>
+			<div class="input-group">
+				<div class="input-group-addon">@</div>
+				<input type="text" id="text" name="" value="" class="form-control">
+				<div class="input-group-addon">￥</div>
+			</div>
+			
+		</div>
+	</form>
+	<div class="form-group has-success">
+		<label class="control-label" for="inputSuccess2 text">Input with success</label>
+		<input type="text" class="form-control" id="inputSuccess2">
+		<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+	</div>	
+	<select class="form-control">
+	  <option>1</option>
+	  <option>2</option>
+	  <option>3</option>
+	  <option>4</option>
+	  <option>5</option>
+	</select>
+	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+
+	<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
+	.<span class="badge">Badge</span>
+	<ul class="list-group">
+		<li class="list-group-item">111</li>
+	</ul>
+	<div class="list-group">
+		<a href="javascript:;" title="" class="list-group-item">111</a>
+		<button type="button" class="list-group-item">22222</button>
+	</div>
+<script>
+	$(function () {
+	  	$('[data-toggle="tooltip"]').tooltip()
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+    <script>
+        /*
+         把数组分成两半
+         在使用递归方法
+         */
+        var arr = [1, 2, 4, 5, 6, 7, 82, 543, 23, 76, 23, 132];
+
+        function quickSort (arr) {
+            if (arr.length == 0) {
+                return [];//返回一定是个空数组  不然会报错  因为在后面cancat的时候不是数组就错了
+            }
+
+            var index = Math.floor(arr.length / 2);//求出一个中间位置
+            var c = arr.splice(index, 1);//中间位置的数值  用于做比较
+            var left = [];
+            var right = [];
+
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] > c) {//这里看自己需求  看是从大到小还是从小到大
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+
+            return quickSort(left).concat(c, quickSort(right));//分成了多段  直到执行完为止   一直在自己掉用自己
+
+        }
+
+        document.write(quickSort(arr));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

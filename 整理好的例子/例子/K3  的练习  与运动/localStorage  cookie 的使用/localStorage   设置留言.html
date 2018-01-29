@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oT=document.getElementById('t1');
+
+            var str=localStorage.weiboMsg;
+
+            if(str){
+                oT.value=str;
+                oT.focus();
+            }
+
+
+            oT.oninput=oT.onpropertychange=function(){
+                localStorage.weiboMsg=oT.value;
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="t1">
+</body>
+</html>

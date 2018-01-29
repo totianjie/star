@@ -1,0 +1,103 @@
+1，npm install vuex --save -dev
+2，在src中建立一个store文件夹
+    store
+        |-index.js      
+                        所有的数据异出模块
+                        把mutations    actions这些全部拿过来  全部导出
+                        eg:
+                            import Vue from 'vue';
+                            import Vuex from 'vuex';
+
+                            Vue.use(Vuex);
+                            import actions from './actions';
+                            import mutations from './mutations';
+
+                            export default new Vuex.Store({
+                                modules:{
+                                    mutations
+                                },
+                                actions
+                            });
+        |-actions.js    
+                        所有的事件处理   异步处处理    commit( types.事件名 );   把事件提交给mutations
+                        接收参数    -->context <是一个对象>   { commit, state, getters }   rootState根节点数据
+                        eg:
+                            import { 事件名 } from './types';一定要引入types.js   *这是一个一个的引入  
+                            export default {
+                                increment:({ commit, state, getters },rootState) => {
+                                    //处理完逻辑后
+                                    commit( 事件名, 还可以传参)
+                                }
+                            }
+        |-mutations.js
+                        mutations里面主要做的事情就是改变状态   异步的处理不要在mutations里面做   
+                        eg:
+                            import * as types from './types';   *这是一次全部引入    所有都在types里面
+                            import state from './state';    引状态
+                            import getters from './getters'; 引入暴出去的数据
+
+                            const mutations={
+                                [types.INCREMENT]:( state ) => { state.count++;}
+                            }
+                            export default {
+                                state,
+                                getters,
+                                types,
+                                mutations
+                            }
+        |-getters.js
+                        暴露出去的状态     getters就是一个计算属性
+                        eg:
+                            export default {
+                                count:( state ) => { return state.count; },
+                                isOdd:( state ) => { return state.count%2 === 0 ? '偶数' : '奇数'};
+                            }
+        |-types.js  
+                        所有的事件名都存在types里面一般用常量定义 单个单个的导出
+                        eg:
+                            export const INCREMENT='INCREMENT';
+        |-state.js      
+                        所有的数据    状态
+                        所有的数据最好定个初始状态 
+                        eg:
+                            export default {
+                                count:0
+                            }   
+    |-main.js 
+        eg:
+            import store from './store/';
+
+            export default new Vue({
+                store
+            })
+    模块中 
+            也可以通来this.$store.state.数据名拿到数据
+        eg:
+            import { mapActions, mapMutations, mapGetters, mapState } from 'vuex';
+            
+            export default {
+                computed:mapGetters(['count','isOdd'])
+                computed:mapState(['count'])
+                computed:mapState({
+                    count:state => state.count,
+                    isOdd:state => state.count%2 === 0 ? '偶数' : '奇数'
+                })
+                computed:{
+                    ...mapState({
+                        count:state => state.count,
+                        isOdd:state => state.count%2 === 0 ? '偶数' : '奇数'
+                    })
+                },
+                methods:mapActions(['increment'])
+                methods:{
+                    ...mapActions(['increment']),
+                    addClick(){
+                        //两种方式一样的效果
+                        //this.$store.dispatch('increment',{n:123});
+                        this.$store.dispatch({type:'increment',n:123});
+                    }
+                }
+                methods:{
+                    ...mapMutations(['increment'])//直接进入mutations
+                }
+            }

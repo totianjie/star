@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var json={
+            fn:function(a){
+                return {
+                    plus:function(b){
+                        return {
+                            minus:function(c){
+                                return a+b+c;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        var a=json.fn(1).plus(2).minus(3);
+        alert(a);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

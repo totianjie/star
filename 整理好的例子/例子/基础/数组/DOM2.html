@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script>
+        var arr=[
+            '1111',
+            '222',
+            '333',
+            '4444'
+        ];
+
+        window.onload=function(){
+            var oUl=document.getElementById('ul1');
+
+            arr.forEach(function(value,index){ //循环 跟 普通for
+                //创建li
+                var oLi=document.createElement('li');
+
+                //oLi.innerHTML='<a href="javascript:;">'+value+'</a>';
+                oLi.innerHTML=`<a href="javascript:;">${value}</a>`;
+
+                //添加
+                oUl.appendChild(oLi);
+            });
+        };
+    </script>
+</head>
+<body>
+    <ul id="ul1">
+        <!--<li>
+            <a href="javascript:;">xxxx</a>
+        </li>-->
+    </ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

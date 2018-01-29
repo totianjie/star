@@ -1,0 +1,292 @@
+	-webkit-	chrome	Opery Safari uc
+	-moz-		Firefox
+	-ms-		IE
+	-o-			Opery//早期
+
+单位：px	em	%		deg	角度
+
+var obj=document.getElementsByClassName('可以放多个class会全部返回');  兼容IE9+ firefox chrome
+
+var oDiv=document.querySelectorAll('oBox ul li.on input');//出来的是一组	
+
+var oDiv=document.querySelector('oBox ul li');//默认获取一组中的第一个元素  获取第一个li
+
+兼容 firefox chrome
+	oBox.classList.add('class名')	添加class
+	oBox.classList.remove('class名')	删除class
+	oBox.classListcontains('class名');	查看某个元素是否有class  返回的是true false
+	oBox.classList.toggle('class名');	切换class	如果有就删除  没有就添加
+兼容
+	innerHTML  替换的是元素的内容
+	outerHTML  把元素本身也替换了
+	
+	oDiv.insertAdjacentHTML('beforebegin','<h1>在外面的前面</h1>');
+	oDiv.insertAdjacentHTML('afterend','<h1>在外面的后面</h1>');
+
+	oDiv.insertAdjacentHTML('afterbegin','<h1>在里面的前面</h1>');
+	oDiv.insertAdjacentHTML('beforeend','<h1>在里面的后面</h1>');
+
+监控一个资源的加载情况 	兼容
+	readyState
+		值：loading		正在加载文档
+			complete 	加载完成
+	用法：if(document.readyState == 'complete'){ //执行的代码 }
+
+减号两边要空格
+        width:calc(100% - 40px);
+        height:calc(100% - 40px);
+
+
+
+===========================  css3
+圆角
+	border-radius:'';	
+
+		border-radius: 左上右下 右上左下;
+		border-radius: 左上 右上左下 右下;
+		border-radius: 左上 右上 右下 左下;
+
+阴影
+	text-shadow:文字阴影
+	box-shadow:[inset] x y 模糊度 [多少距离后才开始有阴影 px] 颜色;  用于向盒子添加阴影  [可选值] inset(内阴影) []
+
+		可叠加: box-shadow:x y 模糊度 颜色,x y 模糊度 颜色,x y 模糊度 颜色.........;
+
+
+
+渐变
+	线性 
+		background:-webkit-linear-gradient([方向],颜色,颜色);			
+
+					方向可给
+							1）deg角度		逆时钟走  0deg是在左边开始
+							2）background: -webkit-linear-gradient(left top, red, green);
+
+		跳变		-webkit-linear-gradient(color px/%,....);
+		background:-webkit-linear-gradient(0deg,#0f0 0px,#0f0 100px,#fff 100px,#fff 200px,#f00 200px,#f00 300px);
+
+		重复激变
+		background:-webkit-repeating-linear-gradient();
+
+		 background:-webkit-repeating-linear-gradient(-45deg,#f00 0px,#f00 20px,#fff 20px,#fff 40px,#0f0 40px,#0f0 60px,#fff 60px,#fff 80px);	
+	径向
+		如果给了颜色没有给  像素值的话 默认是会模糊的
+		把linear 换成 radial	玩法一样 的   径向渐变是从中心开始的
+
+		-webkit-background-clip:text;
+
+文字切片
+			background-clip: border-box|padding-box|content-box|text;	
+
+			background:-webkit-linear-gradient(-45deg, #f00,#0f0,#00f,#ff9439);		//把背景设置渐变的
+			-webkit-background-clip:text;		//背景只在文字处展示
+			color:rgba(0,0,0,0);				//把文字透明
+
+			-webkit-background-clip: text;
+				只有透明的文字才能显示颜色。
+				注意：-webkit-background-clip一定要写在background后面
+============================================================================
+
+蒙板	
+	只有有颜色的地方才能透出来		---->   只支持透明图PNG  	GIF   原理是按照透明度走的
+	-webkit-mask:url() no-reqeat x y;
+
+eg:
+	 div{
+		width: 100%;
+		height: 500px;
+		background:url(1.jpg) no-repeat;		// 做个背景
+		background-size: cover;
+
+		1) -webkit-mask:url(png/gif格式) no-reqeat x y;
+
+		2) -webkit-mask:-webkit-linear-gradient(rgba(255,0,0,1),rgba(0,255,0,0));//也可配合渐变
+	}
+
+
+		==================================
+
+		transition					简写属性，用于在一个属性中设置四个过渡属性。	3
+		transition-property			规定应用过渡的 CSS 属性的名称。	3
+		transition-duration			定义过渡效果花费的时间。默认是 0。	3
+		transition-timing-function	规定过渡效果的时间曲线。默认是 "ease"。	3
+		transition-delay			规定过渡效果何时开始。默认是 0。	3
+
+
+
+======================  运动 transition =============================
+
+
+运动	
+	transition: 时间 选项 运动类型; 	transition:1s all ease;
+
+			oDiv.style.WebkitTransition='1s all ease';	//transition  要写在改变样式的前面 
+			oDiv.style.marginLeft='500'+'px';
+
+			运动形式：
+				ease		缓冲	√
+				ease-in	加速
+				ease-out	减速
+				ease-in-out	先快后慢
+				linear		匀速(线性)	√
+
+			all:
+				* 只要属性值，有变化的区间
+
+	========================  链式运动	====================================
+
+transitionend
+
+	eg:
+
+		window.onload=function(){
+		  var oDiv=document.querySelector('div');
+		  var dis=0;
+		  oDiv.onclick=function(){
+		    dis+=100;
+		    oDiv.style.WebkitTransition='1s all linear';
+		    oDiv.style.left=dis+'px';
+
+		    function tranEnd(){//  transitionend  事件是DOM3中的事件要用 事件绑定
+		      oDiv.removeEventListener('transitionend',tranEnd,false);//解绑
+		      oDiv.style.top=dis+'px';
+		    }
+		    oDiv.addEventListener('transitionend',tranEnd,false);//绑定
+
+		    /*
+		    *   链式运动  transitionend 事件  每次运动完之后执行下一次运动
+		    * 如果是在事件外面的话就不用解绑  因为只会绑定一次
+		    * 在事件里面的话就要解绑  因为每点击一次就会绑定一次  不解绑的话就会绑定累加
+		    * */
+		  };
+		};
+
+=========================	transform =====================================
+
+
+transform:		怎么放大缩小/移动 都不会改变盒子模型(操作的是gpu,视觉)
+
+	transform:rotate();
+旋转	1) transform:rotate(deg);		有X Y Z    默认是Z
+平移	2) translate(x,y);				有X Y Z
+缩放	3) scale(x,y); 			默认是1		1向上是放大	向下是缩小	负数是掉头了	
+扭曲	4) skew(deg,deg);	x,y		
+		5) origin(200px,200px); x,y	允许您更改转化元素中心点位置 单位(px,px)	(left top)
+
+		多个值用空格分开	后写的先执行,前写的后执行transform:rotate() rotate()。。。。。;
+
+透视:
+	transform:perspective(n)		n-->多个px    越小越明显  一般800--1200
+	在transform中只要加了透视就要加初始值 
+
+转3D
+	transform-style: flat|preserve-3d;		加给父级
+
+		//遇到display:block;  有时运动效果会无效果的问题 直接加个Timeout  就可解决
+		把要改变的效果放入定时器中   《这是触发css3中的某些功能更产生的》
+
+
+============================  H5  ============================
+vedio	视频
+audio	音频
+video 		播放视频
+	视频格式
+		MP4 	AVI 	WEBB 	OGG
+		√
+		src 		视频源
+		controls 	控制台
+		autoplay 	自动播放
+		loop 		重复播放
+
+==========================	geolocation	地图 ======================
+		navigator.geolocation
+		window.navigator.geolocation.getCurrentPosition(function(pos){
+		 console.log(pos.coords);		//当前位置信息  里面包涵有 经度 纬度 海拔高度.......
+		  /*var longitude = pos.coords.longitude;
+		  var latitude = pos.coords.latitude;
+		  document.write('当前位置是:'+longitude+','+latitude);*/
+		});
+
+
+		进入百度地图/高德地图-->点地图开发平台-->移入开发--->点javascript API---->示例DEMO
+		里面已经有各种写好的地图   自己找  复制过来用就OK
+		var map = new BMap.Map("box");    // 创建Map实例  box是用于放地图盒子的 id  
+	
+==================	文件拖拽	================
+
+文件拖拽
+	ondragenter 			拖进去
+	ondragleave 			拖出去
+	ondragover 				拖着就触发
+	ondrop 					释放鼠标
+		如果想触发ondrop的事件，必须把ondragover的默认事件阻止
+		ondrop默认事件要阻止
+
+操作文件
+	obj.ondrop = function(ev){
+		ev.dataTransfer.files 			文件列表
+		var oFile = ev.dataTransfer.files[i];
+		oFile.name 				文件名
+		oFile.size 				文件大小
+		oFile.type 				文件类型
+		var reader = new FileReader();      //文件读取对象
+
+		reader.onprogress = function(ev){
+			ev.loaded 			当前读取多少
+			ev.total 			总大小
+			(ev.loaded/ev.total*100).toFixed(2)+'%';
+		};
+
+		reader.onload = function(){
+			reader.result; 			读取到的内容
+		};
+
+		//读取文件
+		reader.readAsText(oFile); 		通过文本读取
+		reader.readAsDataURL(oFile);	通过Base64读取
+	}
+	MIME-Type
+		主类型/子类型
+		text/plain
+		image/png
+		video/mp4
+		image/jpeg
+
+
+======================   h5  新标签   ==========================
+
+<header></header>		头部(页眉)
+<footer></footer>		底部(页脚)
+<section></section>		区块(部分)
+<article></article>		文章
+<aside></aside>		侧边
+<nav></nav>			导航
+
+=============================
+zepto事件
+	tap 点击
+	doubleTap	双击
+	singleTap	点击延迟触发
+	longTap - 当元件被敲击并且手指按住超过750ms时触发。《时间可以在js原码上改》
+
+原生手机事件
+	不要用window.onload（用DOMContentLoaded事件） 不要用*清默认 
+	一定要使用事件绑定	
+	touchstart 按下
+		var oTouch=ev.targetTouches[]; 有多少手指按下了
+	oTouch.pageX
+	touchmove	手指移动
+	touchEnd	手指离开
+		var oTouch=ev.chengeTouches[];
+
+	卡怎么办？ 开户3D加速
+	translate3d(x,y,z);
+		translate3d(x,y,0);
+
+
+
+swipe，
+swipeLeft，
+swipeRight，
+swipeUp，
+swipeDown

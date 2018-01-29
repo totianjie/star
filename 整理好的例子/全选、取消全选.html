@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content=""/>
+    <meta name="copyright" content=""/>
+    <meta name="description" content=""/>
+    <title></title>
+    <style>
+    </style>
+    <script>
+        window.onload = function(){
+            var oCheckAll = document.getElementById('checkall');
+            var aCheck = document.querySelectorAll('.list input');
+            oCheckAll.onclick = function(){
+                for(var i=0;i<aCheck.length;i++){
+                    aCheck[i].checked = oCheckAll.checked;
+                }
+            };
+            for(var i=0;i<aCheck.length;i++){
+                aCheck[i].onclick = function(){
+                    var count = 0;
+                    for(var j=0;j<aCheck.length;j++){
+                        if(aCheck[j].checked){
+                            count++;
+                        }
+                    }
+                    if(count==aCheck.length){
+                        oCheckAll.checked = true;
+                    }else{
+                        oCheckAll.checked = false;
+                    }
+                };
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <input type="checkbox" id="checkall"/>全选
+    <div class="list">
+        <input type="checkbox" name="type" value="1" />这是1
+        <input type="checkbox" name="type" value="2" />这是2
+        <input type="checkbox" name="type" value="3" />这是3
+        <input type="checkbox" name="type" value="4" />这是4
+        <input type="checkbox" name="type" value="5" />这是5
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>呵呵</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+	<input type="button" value="按钮">
+	<script type="text/javascript">
+		var oBtn = document.querySelector('input');
+		var w1 = new Worker('4.js');
+		w1.postMessage(oBtn);
+	</script>
+</body>
+</html>

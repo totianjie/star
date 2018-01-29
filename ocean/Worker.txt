@@ -1,0 +1,70 @@
+WebWorker		
+	多线程
+	js就是单线程
+		资源浪费
+		线程
+
+	单线程
+		只能处理一件事，这件事没处理完，后面的走不了。
+	多线程
+		主线程
+			DOM处理 UI
+		子线程
+			把比较耗费性能的计算放入子线程
+
+
+	主线程和子线程之间的通信
+		发送数据
+			worker.postMessage(消息);
+		接收数据
+			worker.onmessage = function(ev){
+
+			};
+
+
+
+	注意:
+		不能跨域,需要放到服务器环境
+		WebWorker的子线程中不能操作BOM和DOM，先操作在主线程
+		DOM元素不能传递
+		子线程中this就是worker
+		主线程可以开子线程
+			子线程能不能再开线程？
+				子线程不能再开线程
+
+
+-----------------------------------------------
+
+<body>
+	<input type="button" value="按钮">
+	<script type="text/javascript">
+		var oBtn = document.querySelector('input');
+		oBtn.onclick = function(){
+			var w1 = new Worker('3.js');		使用worker      3.js就是子线程了
+			w1.postMessage(40);					发送数据给子线程
+			w1.onmessage = function(ev){		接收数据
+				alert(ev.data);
+			};
+		};
+	</script>
+</body>
+
+
+
+3.js
+
+
+	function fn(n){
+		if(n==1){
+			return 1;
+		}else if(n==2){
+			return 1;
+		}else{
+			return fn(n-1)+fn(n-2);
+		}
+	}
+	this.onmessage = function(ev){  接收主线程发送过来的数据
+		var n = ev.data;
+		var result = fn(n);
+		this.postMessage(result);   发送数据出
+	};

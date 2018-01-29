@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	* {margin: 0; padding: 0;}
+	body {text-align: center;}
+	ul {list-style: none;}
+	#pingfen {width: 600px; height: 92px; border: 1px solid #31639C; margin: 20px auto; overflow: hidden; background: #E7EFF7;}
+	#pingfen h2 {width: 100%; height: 18px; background: url(top.jpg) repeat-x; border-bottom: 2px solid #31639C; font-size: 12px; line-height: 18px; padding-left: 10px; text-align: left;}
+	#pingfen div {clear: both; text-align: left; margin: 10px;}
+	#pingfen div ul li {float: left; width: 30px; height: 30px; padding-top: 30px; text-align: center;}
+	#pingfen div ul li.st1 {background: url(1a.jpg) no-repeat center top;}
+	#pingfen div ul li.st11 {background: url(1b.jpg) no-repeat center top;}
+	#pingfen div ul li.st2 {background: url(2a.jpg) no-repeat center top;}
+	#pingfen div ul li.st22 {background: url(2b.jpg) no-repeat center top;}
+	#pingfen div span {float: left; height: 50px; line-height: 50px; text-align: left; margin-left: 40px; color: #666;}
+</style>
+<script>
+	window.onload=function(){
+	    var oPingfen=document.getElementById('pingfen');
+	    var aLi=oPingfen.getElementsByTagName('li');
+	    var aSpan=oPingfen.getElementsByTagName('span')[0];
+
+	    for(var i=0; i<aLi.length; i++){
+	        aLi[i].index=i;
+	        aLi[i].onmouseover=function(){
+	            for(var i=0; i<aLi.length; i++){
+	                if(i<6){
+	                    if(i>=this.index){
+                            aLi[i].className='st11'
+						}else{
+                            aLi[i].className='st1'
+						}
+					}
+					if(i>=6){
+                        if(i<=this.index){
+                            aLi[i].className='st22'
+						}else{
+                            aLi[i].className='st2'
+						}
+					}
+				}
+				aSpan.innerHTML='当前评分：'+aLi[this.index].innerHTML;
+			};
+		}
+	};
+</script>
+</head>
+
+<body>
+	<div id="pingfen">
+		<h2>对本文中的事件或人物评分：</h2>
+		<div>
+			<ul>
+				<li class="st1">-5</li>
+				<li class="st1">-4</li>
+				<li class="st1">-3</li>
+				<li class="st1">-2</li>
+				<li class="st1">-1</li>
+				<li class="st1">0</li>
+				<li class="st2">1</li>
+				<li class="st2">2</li>
+				<li class="st2">3</li>
+				<li class="st2">4</li>
+				<li class="st2">5</li>
+			</ul>
+			<span>当前评分：打分后显示</span>
+		</div>
+	</div>
+</body>
+</html>

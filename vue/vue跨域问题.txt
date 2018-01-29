@@ -1,0 +1,38 @@
+当前端工程师搭建好页面开始与后端进行联调时，总是会面对跨域的问题：
+No ‘Access-Control-Allow-Origin’ header is present on the requested resource. Origin ‘http://localhost:8080‘ is therefore not allowed access.”
+
+解决办法：
+进入你的vue项目下 -> config -> index.js，里面的dev对象下有一个proxyTable的属性，这个参数主要是一个地址映射表，可以帮助我们将复杂的url简化。
+
+如要请求的地址是api.xxx.com/list/1，可以对proxyTable进行如下配置：
+
+proxyTable: {
+    '/list': {
+    target: 'http://api.xxx.com',
+    pathRewrite: {
+      '^/list': '/list'
+    }
+  }
+}
+如此一来就可以用/list/1来代替api.xxx.com/list/1。
+
+那么又是如何解决跨域问题的呢？其实在上面的’list’的参数里有一个changeOrigin参数，接收一个布尔值，如果设置为true,那么本地会虚拟一个服务端接收你的请求并代你发送该请求，这样就不会有跨域问题了，当然这只适用于开发环境。增加的代码如下所示：
+
+proxyTable: {
+  '/list': {
+    target: 'http://api.xxxxxxxx.com',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/list': '/list'
+    }
+  }
+}
+如果想要一套代码兼容开发和生产环境，避免在开发环境和生产环境之间切换时，频繁修改接口调用的代码。可以作如下判断：
+
+let urlApi = ''
+let url = window.location.href
+if(url.indexOf('8080') > -1){
+    urlApi = '/list/1/xxx'
+}else{
+    urlApi = 'http://api.xxxxxxxx.com/1/xxx'
+}

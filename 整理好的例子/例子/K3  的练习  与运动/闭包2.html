@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var aBtn=document.getElementsByTagName('input');
+
+            function show(a){
+                return function(){
+                    alert(a);
+                }
+            }
+
+            for(var i=0; i<aBtn.length; i++){
+                aBtn[0].onclick=show(i);
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

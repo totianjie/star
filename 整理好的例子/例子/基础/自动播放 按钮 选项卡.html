@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .on{
+            background:skyblue;
+            color:#fff;
+
+        }
+        #box div{
+            width:200px;
+            height:200px;
+            background:salmon;
+            display:none;
+            font-size:50px;
+            font-family:微软雅黑;
+            font-weight:bold;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var oLeft=document.getElementById('left');
+            var oRight=document.getElementById('right');
+            var aBtn=oBox.getElementsByTagName('input');
+            var aDiv=oBox.getElementsByTagName('div');
+            var iNow=0;
+
+            /*苏宁选项卡*/
+            for(var i=0; i<aBtn.length; i++){
+                /*索引 给每个aBtn上面加了个自定义属性*/
+                aBtn[i].index=i;
+                aBtn[i].onmouseover=function(){
+                    /*定时器里面不能用this  所以在外面改变了*/
+                    var _this=this;
+                    iNow=_this.index;
+                    timer=setTimeout(function(){
+                        tab();
+                    },300);
+                };
+                aBtn[i].onmouseout=function(){
+                    clearTimeout(timer);
+                };
+            }
+            /*苏宁选项卡结束*/
+
+
+            function tab(){
+                for(var i=0; i<aBtn.length; i++){
+                    aBtn[i].className='';
+                    aDiv[i].style.display='none';
+                }
+                aBtn[iNow].className='on';
+                aDiv[iNow].style.display='block';
+            }
+
+
+            /*点击右*/
+            function right(){
+                iNow++;
+                if(iNow==3){
+                    iNow=0;
+                }
+                tab();
+            }
+            /*点击左边*/
+            function left(){
+                iNow--;
+                if(iNow==-1){
+                    iNow=2
+                }
+                tab();
+            }
+            /*点击左右选项卡*/
+            oLeft.onclick=left;
+            /*自动播放选项卡*/
+            setInterval(left,500);
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <a href="javascript:;" id="left">←</a>
+    <input type="button" value="aaa" class="on">
+    <input type="button" value="bbb">
+    <input type="button" value="ccc">
+    <a href="javascript:;" id="right">→</a>
+
+    <div style="display:block;">111</div>
+    <div>222</div>
+    <div>333</div>
+</div>
+
+</body>
+</html>

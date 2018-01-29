@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:#ccc;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('box');
+
+            document.onmousemove=function(ev) {
+                var oEvent = ev || event;
+
+                var left = oEvent.clientX + (document.documentElement.scrollLeft || document.body.scrollLeft);
+                var top = oEvent.clientY + (document.documentElement.scrollTop || document.body.scrollTop);
+                oDiv.style.left = left + 'px';
+                oDiv.style.top = top + 'px';
+                alert(top);
+
+            };
+        };
+
+    </script>
+</head>
+<body style="height:3000px;">
+    <div id="box"></div>
+</body>
+</html>

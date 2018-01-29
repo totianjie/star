@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ajax封装</title>
+	<script></script>
+	<link rel="stylesheet" type="text/css" href="./component/css/layui.min.css"/>
+	<script src="./component/layui.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<script>
+layui.define(['jquery', 'layer', 'common', 'form', 'upload','tree','laypage'], function(exports){
+	var $ = layui.jquery,
+		layer = layui.layer,
+		common = layui.common;
+
+	common.ajax({
+		url:'/nets-authority/syswin/role_category/all',
+		type:'get',
+		data:{
+			pageIndex:0,
+			pageSize:10,
+			sortField:'',
+			sortOrder:''
+		},
+		success: function (res) {
+			console.log(res);
+		}
+	});
+});
+</script>
+</body>
+</html>

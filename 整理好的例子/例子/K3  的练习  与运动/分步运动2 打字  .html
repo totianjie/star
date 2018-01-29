@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            font-size:40px;
+            color:skyblue;;
+            background:#fef58c;
+        }
+        span{
+            opacity:0;
+        }
+    </style>
+    <script src="../../js/frame.js"></script>
+    <script>
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        window.onload=function(){
+            var str='“党内政治生活质量在相当程度上取决于这个武器用得怎么样”“要让批评和自我批评成为党内生活的常态，成为每个党员、干部的必修课”。十八届六中全会再次强调了坚持批评和自我批评的重要性。全会公报指出，批评和自我批评是我们党强身治病、保持肌体健康的锐利武器，也是加强和规范党内政治生活的重要手段，必须坚持不懈把批评和自我批评这个武器用好。';
+
+            for(var i=0; i<str.length; i++){
+                var oSpan=document.createElement('span');
+                oSpan.innerHTML=str.charAt(i);//字符串的下标是   charAt
+                oSpan.style.color='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+                document.body.appendChild(oSpan);
+            }
+            var aSpan=document.getElementsByTagName('span');
+
+            var timer=null;
+            var i=0;
+            timer=setInterval(function(){
+                startMove(aSpan[i],{opacity:1});
+                i++;
+                if(i==aSpan.length){
+                    clearInterval(timer);
+                }
+            },30);
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

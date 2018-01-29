@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oT=document.getElementById('t1');
+            var oBtn=document.getElementById('btn');
+            var aUl=document.getElementsByTagName('ul')[0];
+            var aLi=aUl.children;
+
+            aUl.onclick=function(ev){//事件委托  把子级的事件委托给父级   （性能高，可以给未来添加的元素增加属性）
+                var oEvent=ev || event;
+                var target=oEvent.srcElement || oEvent.target;
+
+                if(target.tagName=='LI'){
+                    alert(target.innerHTML);
+                }
+            };
+
+            oBtn.onclick=function(){//每点击一次添加一个
+                var oLi=document.createElement('li');
+                oLi.innerHTML=oT.value;
+                aUl.appendChild(oLi);
+                oT.value='';
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="t1">
+<input type="button" value="点击添加" id="btn">
+<ul>
+    <li>
+        111
+    </li>
+    <li>
+        222
+    </li>
+</ul>
+
+</body>
+</html>

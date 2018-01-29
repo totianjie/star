@@ -1,0 +1,500 @@
+文档头
+	<!DOCTYPE html>
+	<html lang="zh-CN">
+	  ...
+	</html>
+引入mate标签
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+引入必要文件
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">	//重置样式
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>		//要有jquery文件
+	<script src="./js/bootstrap.js"></script>	
+
+==============================================================================================
+
+.col-xs-		超小屏幕 手机 (<768px)
+.col-sm-		小屏幕 平板 (≥768px)
+.col-md-		中等屏幕 桌面显示器 (≥992px)
+.col-lg-		大屏幕 大桌面显示器 (≥1200px)
+
+
+
+.container 
+	类用于固定宽度并支持响应式布局的容器。
+.container-fluid 
+	类用于 100% 宽度，占据全部视口（viewport）的容器。
+.row
+	必须包含在 .container （固定宽度）或 .container-fluid （100% 宽度）中
+.col- -*
+	必须包含在row中
+
+
+.col-md-offset-4	左边空出四个栅格
+.col-md-pull-4		向左平移四个栅格
+.col-md-push-4		向右平移四个栅格
+
+
+.visible-xs-*		以超小屏幕（xs）为例，可用的 .visible-*-* 类是：.visible-xs-block、.visible-xs-inline 和 .visible-xs-inline-block。   在xs屏显示
+.hidden-xs			在xs屏消失
+
+==============================================================================================
+
+.lead				段落突出
+<small></small>		副标题		小号文本
+<del></del>			被删除
+<s></s>				无用的文本
+<u></u>				带下划线的文本
+<ins></ins>			插入文本
+<strong><strong>	着重
+<em></em>			斜体
+<addr></addr>		缩略语
+<address></address>	地址
+<samp></samp>		程序输出
+
+==============================================================================================
+
+清除小点  只对一层有效
+	<ul class="list-unstyled">
+	  <li>...</li>
+	</ul>
+所有元素排列一行
+	<ul class="list-inline">
+	  <li>...</li>
+	</ul>
+
+dl 水平排列
+	<dl class="dl-horizontal">
+	  <dt>...</dt>
+	  <dd>...</dd>
+	</dl>
+
+.table 					表格
+	
+	.table-striped		条纹表格
+	.table-bordered		带边框的表格
+	.table-hover		hover表格
+	.table-condensed 	紧凑表格
+
+	背景色		加给tr
+		.active
+		.success
+		.info
+		.warning
+		.danger
+
+==============================================================================================
+
+都可以配合栅格来做
+
+readonly 	只读
+颜色
+	.has-primary
+	.has-success
+	.has-info
+	.has-warnint
+	.has-danger
+尺寸
+	.input-sm
+	.input-lg
+
+	.form-group-sm
+	.form-group-lg
+表单样式
+	.form-control
+.form-inline
+	加给form标签  子级全部排成一排	
+
+	eg:
+		加个小图标
+			<div class="form-group has-success">
+				<label class="control-label" for="inputSuccess2">Input with success</label>
+				<input type="text" class="form-control" id="inputSuccess2">
+				<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+			</div>		
+		加个占了位置的小图标
+			form-inline  默认文字和输入框是各占一行的加上后两个占一行
+			<form class="form-inline has-success">
+				<div class="form-group">
+					<label for="text">姓名</label>
+					<div class="input-group">
+						<div class="input-group-addon">@</div>
+						<input type="text" id="text" name="" value="" class="form-control">
+						<div class="input-group-addon">￥</div>
+					</div>
+				</div>
+			</form>	
+		下拉
+			<select class="form-control">
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+	单选，复选样式没怎么变化
+
+
+	<!-- 输入框旁边加了个按钮 -->
+	<div class="input-group">
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default">abc</button>
+			<button type="button" class="btn btn-default">cda</button>
+		</div>
+		<input type="text" class="form-control">
+	</div>
+	<!-- 输入框旁边加了个图标 -->
+	<div class="input-group">
+		<div class="input-group-addon">@</div>
+		<input type="text" class="form-control">
+		<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+	</div>		 					
+==============================================================================================
+
+<button class="btn btn-default"></button>
+	.btn-primary
+	.btn-success
+	.btn-info
+	.btn-warnint
+	.btn-danger
+	.btn-link
+	.btn-sx		.btn-md		.btn-lg
+	.btn-block	变成块
+按钮组----->  按钮的外层用一个   .btn-group 包起来
+	eg:
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">按钮1</button>
+			<button type="button" class="btn btn-default">按钮1</button>
+			<!-- 这一层的btn-group可以去掉   可以试试看效果 如果要默认打开加个  .open -->
+			<div class="btn-group">
+				<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">按钮</button>
+				<ul class="dropdown-menu">
+					<li class="dropdown-menu-item"><a href="javascript:;">123</a></li>
+					<li class="dropdown-menu-item"><a href="javascript:;" class="tc-red">123</a></li>
+					<li class="dropdown-menu-item"><a href="javascript:;">123</a></li>
+				</ul>			
+			</div>
+		</div>
+	响应式按钮组----->外层加一个  .btn-group-justified   包起来       不包的话默认只是占文字大小
+		<div class="btn-group btn-group-justified">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default">按钮1</button>
+			</div>
+		</div>				
+
+==============================================================================================
+
+.img-responsive		图片响应式
+.img-rounded		有一点点圆角
+.img-circle			圆
+.img-thumbnail		有一点内补
+		
+			如果需要让使用了 .img-responsive 类的图片水平居中，请使用 .center-block 类，不要用 .text-center
+
+==============================================================================================
+
+文字颜色
+	.text-muted
+	.text-primary
+	.text-success
+	.text-info
+	.text-warning
+	.text-danger
+背景颜色
+	.bg-primary
+	.bg-success
+	.bg-info
+	.bg-warning
+	.bg-danger	
+关闭图标
+	.close 		
+三角符号		
+	.caret				
+快速浮动
+	.pull-left			
+	.pull-right
+清浮动
+	.clearfix
+
+让内容块居中
+	.center-block
+让文字居中
+	.text-center  .text-right
+显示
+	.show
+消失
+	.hidden 	.sr-only
+消失内容但占空间
+	.invisible
+
+==============================================================================================
+
+提示框
+	.alert
+	.alert-success		.....
+	链接
+		.alert-link
+
+
+==============================================================================================
+
+进度条
+	<div class="progress">
+		<!-- 加min-width  给默认width .progress-bar-striped条纹   .active条纹动起来  progress-bar-success-->
+		<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 30%;">
+			<!-- 进度条上的文字   需要就去掉class -->
+			<span class="sr-only">60% Complete</span>
+		</div>
+	</div>	
+
+==============================================================================================
+
+标签
+	.label 
+
+	颜色
+		.label-default
+			。。。。
+徽章
+	.badge
+	<span class="badge">123</span>
+==============================================================================================
+
+下拉菜单
+	.open
+		默认打开
+	.dropdown
+	.dropup   
+		加给父级菜单向上
+	.dropdown-menu-right
+	.dropdown-menu-left
+		加给-->ul
+		可以左右对齐方式
+	.divider
+		加给-->li
+		添加了条分割线
+	.disabled
+		不可点击禁用
+	eg:	
+		<div class="dropdown">
+			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">dropdown</button>
+			<ul class="dropdown-menu">
+				<!-- 包个a标签移入时有hover效果 -->
+				<li class="text-center"><a href="javascript:;" title="">11111</a></li>
+				<li class="text-center"><a href="javascript:;" title="">11111</a></li>
+				<li class="text-center"><a href="javascript:;" title="">11111</a></li>
+				<!-- 添加一条线 -->
+				<li class="divider"></li>
+				<li class="text-center"><a href="javascript:;" title="">11111</a></li>
+			</ul>
+		</div>
+
+==============================================================================================
+
+导航--导航条
+
+.nav-justified
+	加上后变成响应式   默认不占满屏幕
+
+.nav-tabs
+	<!-- 标签页 -->
+	<ul class="nav nav-tabs nav-justified">
+		<li class="active"><a href="javascript:;" title="">导航</a></li>
+		<li><a href="javascript:;" title="">导航</a></li>
+		<li><a href="javascript:;" title="">导航</a></li>
+	</ul>
+选项卡
+	<div class="mt-20">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#home" data-toggle="tab">home</a></li>
+			<li class=""><a href="#news" data-toggle="tab">news</a></li>
+			<li class=""><a href="#login" data-toggle="tab">login</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="home">home</div>
+			<div class="tab-pane" id="news">news</div>
+			<div class="tab-pane" id="login">login</div>
+		</div>
+	</div>
+
+.nav-pills
+	胶囊式
+
+	.nav-stacked
+		默认是左右排的   加上之后上下排
+	eg:	
+		<!-- 带下拉的导航 -->
+		<ul class="nav nav-tabs nav-justified">
+			<li class="active"> <a href="javascript:;" title="">导航</a></li>
+			<li> <a href="javascript:;" title="">导航</a></li>
+			<li class="dropdown"> 
+				<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">导航<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li class="active"><a href="javascript:;" title="">项目1</a></li>
+					<li><a href="javascript:;" title="">项目1</a></li>
+					<li><a href="javascript:;" title="">项目1</a></li>
+				</ul>
+			</li>
+		</ul>	
+
+导航条
+
+	navbar navbar-default
+		navbar-header
+			navbar-toggle data-toggle="collapse" data-target="ID"
+		collapse navbar-collapse id=""
+			nav navbar-nav
+			.....
+
+	<!-- .navbar-fixed-top   .navbar-fixed-bottom   固定在顶部或底部   要自己加padding   .navbar-inverse反色导航 -->
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- .navbar-header  如果不加就不会占高度 -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#abc">缩小后出现</button>
+				<!-- .navbar-brand   加上下面这个a标签   会显示出来 -->
+				<a class="navbar-brand" href="#">Brand</a>
+			</div>
+			<div class="collapse navbar-collapse" id="abc">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="javascript:;">导航1</a></li>
+					<li><a href="javascript:;">导航1</a></li>
+					<li><a href="javascript:;">导航1</a></li>
+				</ul>
+				<!-- 将表单放在navbar-form里可以得很好的对齐  上下居中 -->
+				<div class="navbar-form navbar-left"></div>
+				<!-- 将文字放在navbar-text里可以得很好的对齐  上下居中   .navbar-link移入出现下划线-->
+				<p class="navbar-text navbar-left">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+				<!-- 都是可以居中的 -->
+				<button type="button" class="btn btn-default navbar-btn navbar-right">abc</button>			
+			</div>			
+		</div>
+	</nav>	
+
+页面屑		.breadcrumb
+	<ol class="breadcrumb">
+		<li><a href="#">Home</a></li>
+		<li><a href="#">Library</a></li>
+		<li class="active">Data</li>
+	</ol>
+
+==============================================================================================
+
+缩略图
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			<!-- thumbnail  加padding 4  margin-bottom 20 border-radius 4 background-color #fff  border:1px solid #ddd -->
+				<img src="img.jpg" height="603" width="705" alt="...">
+				<div class="caption">
+				<!-- caption    加padding 9  color #333 -->
+					<h3>Thumbnail label</h3>
+					<p>...</p>
+					<p><a href="javascript:;" class="btn btn-primary" role="button">Button</a> <a href="javascript:;" class="btn btn-default" role="button">Button</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+==============================================================================================
+
+进度条
+	<div class="progress">
+		<!-- 加min-width  给默认width .progress-bar-striped条纹   .active条纹动起来  progress-bar-success-->
+		<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: 30%;">
+			<!-- 进度条上的文字   需要就去掉class -->
+			<span class="sr-only">60% Complete</span>
+		</div>
+	</div>	
+
+==============================================================================================
+
+媒体对象
+	左边是图片右边文字的效果   图片都可以左右
+	<div class="media">
+		<!-- media-middle  上中下对齐  top   middle   bottom -->
+		<div class="media-left media-middle">
+			<!-- media-object   就是一个display:block  加不加都行 -->
+			<a href="#"><img class="media-object" src="img.jpg" height="64" width="64" alt="..."></a>
+		</div>
+		<div class="media-body">
+			<!-- media-heading  只是加了个margin-bottom:5px; 加不加都没关系 -->
+			<h4 class="media-heading">Middle aligned media</h4>
+			<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra </p>
+		</div>
+	</div>	
+
+==============================================================================================
+
+列表组
+	<ul class="list-group mt-20">
+		<li class="list-group-item">1111</li>
+		<li class="list-group-item">1111</li>
+		<li class="list-group-item">1111</li>
+		<li class="list-group-item">1111</li>
+	</ul>	
+
+==============================================================================================
+
+模态框
+	<button type="button" class="btn btn-info " data-toggle="modal" data-target="#abcd">点击弹出框</button>
+	<div class="modal fade" id="abcd">
+		<!-- modal-sm  modal-lg  模态框的大小 -->
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+				     header
+				</div>
+				<div class="modal-body">
+					body
+				</div>
+				<div class="modal-footer">
+					<!-- data-dismiss="modal"  关闭模态框 -->
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    				<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+==============================================================================================
+
+手风琴
+	<div class="panel-group">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<!-- href相对应id就可以了 -->
+				<h4 class="panel-title"><a data-toggle="collapse" href="#collapseOne">Collapsible Group Item #1</a></h4>
+			</div>
+			<!-- 加个   in    默认显示出来 -->
+			<div id="collapseOne" class="panel-collapse collapse in">
+				<div class="panel-body">123</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a data-toggle="collapse" href="#collapseOne2">Collapsible Group Item #1</a></h4>
+			</div>
+			<div id="collapseOne2" class="panel-collapse collapse">
+				<div class="panel-body">123</div>
+			</div>
+		</div>		
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><a data-toggle="collapse" href="#collapseOne3">Collapsible Group Item #1</a></h4>
+			</div>
+			<div id="collapseOne3" class="panel-collapse collapse">
+				<div class="panel-body">123</div>
+			</div>
+		</div>		
+	</div>	
+	eg：
+	 最简单的例子
+		<a class="btn btn-info" data-toggle="collapse" href="#collapseOne4">Collapsible Group Item #1</a>
+		<div class="collapse" id="collapseOne4">
+			abc
+		</div>	 		

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background:#000;
+    }
+    .box{
+      width: 200px;
+      margin: 100px auto;
+    }
+    img{
+      width: 100%;
+    }
+    .div2{
+      width: 100%;
+      height: 263px;
+      background:url(time.jpg) no-repeat;
+      background-size: 100%;
+      -webkit-transform:scale(1,-1);  /*y轴  缩放  就倒过来了*/
+      -webkit-mask: -webkit-linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0));/*利用 渐变做的蒙板*/
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+      <img src="time.jpg" alt="">
+      <div class="div2"></div>
+  </div>
+
+
+</body>
+</html>

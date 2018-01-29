@@ -1,0 +1,101 @@
+<!--
+智能社© - http://www.zhinengshe.com/
+
+微博：@北京智能社
+微信：zhi_neng_she
+
+最具深度的前端开发培训机构 HTML+CSS/JS/HTML5
+-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+.cont{ width:600px; height:60px; border:1px solid #ccc; padding:20px; margin:20px auto;}
+.j1{ background:url(image/j1.jpg); width:10px; height:15px; overflow:hidden; float:left; margin-top:20px; cursor:pointer;}
+.j2{ background:url(image/j2.jpg); width:10px; height:15px; overflow:hidden; float:right; margin-top:20px; cursor:pointer;}
+.cent{ width:560px; height:60px; overflow:hidden;float:left; margin:0px 10px; position:relative;}
+.cent ul{ height:60px; overflow:hidden; list-style:none; padding:0px; margin:0px; position:absolute; left:0px; top:0px;}
+.cent ul li{ width:80px; height:60px; overflow:hidden; float:left; padding:0px 7px;}
+</style>
+    <script>
+        window.onload=function(){
+            var oConTen=document.getElementById('content');
+            var oUl=oConTen.children[0];
+            var aLi=oUl.children;
+
+            var iNow=0;
+            var timer=null;
+
+            function seamless(){
+                /*先复制一份内容出来*/
+                oUl.innerHTML+=oUl.innerHTML;
+
+                /*UL的宽度就是全部li宽度的和*/
+                var n=0;
+                for(var i=0; i<aLi.length; i++){
+                    n+=aLi[i].offsetWidth;
+                }
+                oUl.style.width=n+'px';
+
+                /*当走到UL宽度一半时把iNow清零  就等于一直在走下去  注意是负数*/
+                var ulW=oUl.offsetWidth/2;
+
+                function time() {
+                    iNow--;
+                    if (iNow == -ulW) {
+                        iNow = 0;
+                    }
+                    oUl.style.left = iNow + 'px';
+                }
+                time();
+                timer=setInterval(time,30);
+
+                /*鼠标移入时关*/
+                oConTen.onmouseover=function(){
+                    clearInterval(timer);
+                };
+
+                /*鼠标移出时开*/
+                oConTen.onmouseout=function(){
+                    timer=setInterval(time,30);
+                };
+            }
+            seamless();
+
+
+        };
+    </script>
+</head>
+
+<body>
+
+<div class="cont" id="gund">
+	<span class="j1" id="left"></span>
+    <div class="cent" id="content">
+    	<ul>
+        	<li><img src="image/p1.jpg" /></li>
+            <li><img src="image/p2.jpg" /></li>
+            <li><img src="image/p3.jpg" /></li>
+            <li><img src="image/p4.jpg" /></li>
+            <li><img src="image/p5.jpg" /></li>
+            <li><img src="image/p6.jpg" /></li>
+            <li><img src="image/p7.jpg" /></li>
+            <li><img src="image/p8.jpg" /></li>
+            <li><img src="image/p9.jpg" /></li>
+            <li><img src="image/p1.jpg" /></li>
+            <li><img src="image/p2.jpg" /></li>
+            <li><img src="image/p3.jpg" /></li>
+            <li><img src="image/p1.jpg" /></li>
+            <li><img src="image/p2.jpg" /></li>
+            <li><img src="image/p3.jpg" /></li>
+        </ul>
+    </div>
+    <span class="j2" id="right"></span>
+</div>
+
+</body>
+</html>

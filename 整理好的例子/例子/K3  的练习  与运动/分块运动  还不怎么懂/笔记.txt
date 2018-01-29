@@ -1,0 +1,105 @@
+startMove(obj,json,options)
+	options:
+		duration
+		easing
+		complete
+无限运动:
+无缝滚动:
+分步运动:
+
+分块运动:
+
+if(条件)语句
+
+if(条件)
+	语句
+else
+	语句
+----------------------------------------------------
+ECMA:
+DOM
+BOM
+事件
+运动:
+---------------------------------------------
+BOM->
+	location
+		window.location.href	当前地址
+		window.location.search  当前网址后面数据
+		window.location.hash	获取锚点数据
+		window.location.reload()   重新刷新页面
+	history:
+		window.history.go(1)
+闭包:
+	子函数可以使用父函数局部变量
+冒泡:
+	div1
+		div2
+			div3
+-----------------------------------------------------------------
+项目:
+	shopcmd
+
+	项目结构:
+		|-css/
+			|-common.css  /*重置样式 公共定义*/
+			|-shop.css
+			|-mall.css
+		|-js/
+			|-common.js
+			|-shop.js
+			|-mall.js
+		|-img/
+			shop-banner.jpg
+			mall-banner.jpg
+		|-index.html
+		|-product.html
+		|-mall.html
+
+
+	公司团队:  命名空间
+		css:
+			/*小明*/
+			.shop-nav{}
+
+			/*小红*/
+			.mall-banner{}
+			.mall-product{}
+	--------------------------------------
+	要求:  
+		css+js一些特效
+-----------------------------------------------------------------
+svn: 
+	客户端-> 你需要安装
+	服务端 -> 公司内部svn服务器(项目代码)
+
+安装svn客户端工具:（小乌龟）
+	验证已经安装正确?
+		在电脑任何地方: '右键'
+
+	checkout -> 下载项目
+
+	使用svn原则:
+		1. 必须先 update
+		2. 在commit
+
+
+码云:（第三方服务器）
+	注册一个账号
+
+	
+	
+					
+
+
+
+
+
+
+
+
+
+
+
+
+	

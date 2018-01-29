@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:100%;
+            position: absolute;
+            left:0;
+            bottom:0;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            //获取元素
+            var oBox=document.getElementById('box');
+            var aImg=oBox.getElementsByTagName('img');
+            //求出鼠标到物体中心的直线距离
+            document.onmousemove=function (ev) {
+                var oEvent=ev||event;
+                for(var i=0;i<aImg.length;i++){
+                    //勾股定理
+                    var a=aImg[i].offsetLeft+aImg[i].offsetWidth/2-oEvent.clientX;
+                    var b=aImg[i].offsetTop+aImg[i].offsetHeight/2+oBox.offsetTop-oEvent.clientY;
+                    var c=Math.sqrt(a*a+b*b);//勾股定理--开根号 得出了鼠标到物体中心的直线距离
+//                    var scale=c/500; 这条代码表示c越小 c/500越小    scale是比例   (scale比例就越小)
+                                            //我们要的是越过越大所以这里用   1-;
+                    var scale =1-c/500;
+                    //宽度放大一倍，越靠近宽度越大
+                    scale<0.5&&(scale=0.5);//scale不能小于0.5，物理宽度不能小于初始宽度。
+                    aImg[i].width=128*scale;//这个width是属性 不是样式
+                }
+            }
+
+        }
+    </script>
+</head>g
+<body>
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+    <!--<input type="text">-->
+
+    <div id="box">
+        <img src="img2/1.png" width="64" alt="">
+        <img src="img2/2.png" width="64" alt="">
+        <img src="img2/3.png" width="64" alt="">
+        <img src="img2/4.png" width="64" alt="">
+        <img src="img2/5.png" width="64" alt="">
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

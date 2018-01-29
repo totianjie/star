@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            margin: 150px auto;
+            background: #ccc;
+            text-align: center;
+            line-height: 200px;
+            font-size: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        #box span{
+            width:100%;
+            position: absolute;
+            left:-200px;
+            top:0;
+            height:100%;
+            background: rgba(255,0,0,0.5);
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        function hoverDir(obj,ev){
+            var w=obj.offsetWidth;
+            var h=obj.offsetHeight;
+
+            var a=obj.offsetLeft+w/2-ev.clientX;
+            var b=obj.offsetTop+h/2-ev.clientY;
+
+            return Math.round((Math.atan2(b,a)*180/Math.PI+180)/90)%4;
+        }
+
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var oSpan=oBox.children[0];
+
+            oBox.onmouseenter=function(ev){
+                var oEvent=ev || event;
+
+                var n=hoverDir(this,oEvent);
+
+                switch (n){
+                    case 0:
+                        oSpan.style.left=200+'px';
+                        oSpan.style.top=0;
+                        break;
+                    case 1:
+                        oSpan.style.top=200+'px';
+                        oSpan.style.left=0;
+                        break;
+                    case 2:
+                        oSpan.style.left=-200+'px';
+                        oSpan.style.top=0;
+                        break;
+                    case 3:
+                        oSpan.style.top=-200+'px';
+                        oSpan.style.left=0;
+                        break;
+                }
+                startMove(oSpan,{left:0, top:0});
+            };
+
+            oBox.onmouseleave=function(ev){
+                var oEvent=ev || event;
+                var n=hoverDir(this,oEvent);
+
+                switch (n){
+                    case 0:
+                        startMove(oSpan,{left:200,top:0});
+                        break;
+                    case 1:
+                        startMove(oSpan,{left:0,top:200});
+                        break;
+                    case 2:
+                        startMove(oSpan,{left:-200,top:0});
+                        break;
+                    case 3:
+                        startMove(oSpan,{left:0,top:-200});
+                        break;
+                }
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="box">
+        <span>我是层</span>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

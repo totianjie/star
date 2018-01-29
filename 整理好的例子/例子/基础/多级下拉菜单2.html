@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body{
+            font-family: 黑体;
+            color: #fff;
+            font-size: 12px;
+        }
+        #ul1{
+            width:408px;
+            margin: 30px auto;
+        }
+        #ul1 ul{
+            display: none;
+        }
+        #ul1 li{
+            float: left;
+            width:100px;
+            height:30px;
+            border: 1px solid #ccc;
+            background: #282828;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+            position: relative;
+        }
+        #ul1 li.active{
+            background: #399;
+        }
+        .son{
+            position: absolute;
+            left:0;
+            top:31px;
+        }
+        .grandson{
+            position: absolute;
+            left: 101px;
+            top:-1px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oNavBox=document.getElementById('ul1');
+            var aLi=oNavBox.getElementsByTagName('li');
+
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].onmouseover=function(){
+                    var oUl=this.getElementsByTagName('ul')[0];
+                    if(oUl){
+                        oUl.style.display='block';
+                    }
+                    this.className='active';
+                };
+                aLi[i].onmouseout=function(){
+                    var oUl=this.getElementsByTagName('ul')[0];
+                    if(oUl){
+                        oUl.style.display='none';
+                    }
+                    this.className='';
+                };
+            }
+        };
+    </script>
+</head>
+<body>
+    <ul id="ul1">
+        <li>首页</li>
+        <li>
+            <span>产品展示</span>
+            <ul class="son">
+                <li>产品展示-1</li>
+                <li>
+                    <span>产品展示-2</span>
+                    <ul class="grandson">
+                        <li>22222</li>
+                        <li>22222</li>
+                        <li>
+                            <span>我还有子级</span>
+                            <ul class="grandson">
+                                <li>子级</li>
+                                <li>子级</li>
+                                <li>子级</li>
+                                <li>子级</li>
+                            </ul>
+                        </li>
+                        <li>22222</li>
+                    </ul>
+                </li>
+                <li>产品展示-3</li>
+                <li>产品展示-4</li>
+            </ul>
+        </li>
+        <li>公司简介</li>
+        <li>
+            <span>联系我们</span>
+            <ul class="son">
+                <li>我们</li>
+                <li>我们</li>
+                <li>
+                    <span>我们-></span>
+                    <ul class="grandson">
+                        <li>我们很好</li>
+                        <li>我们很好</li>
+                        <li>我们很好</li>
+                        <li>我们很好</li>
+                        <li>我们很好</li>
+                    </ul>
+                </li>
+                <li>我们</li>
+                <li>我们</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

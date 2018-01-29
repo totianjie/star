@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>阶乘</title>
+	<script>
+	//使用递归的方法自己调用
+	function factorial(n){
+		if(n>1){
+			return n*factorial(n-1);
+		}else{
+			return 1;
+		}
+	}
+
+	document.write(factorial(10));
+	//比如8的阶乘  8*7*6*5*4*3*2*1
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

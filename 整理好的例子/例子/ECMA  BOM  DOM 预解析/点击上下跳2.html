@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oUl=document.getElementById('ul1');
+            var aLi=oUl.children;
+            var aA=oUl.getElementsByTagName('a');
+
+            for(var i=0; i<aA.length; i++){
+                if(i%2){
+                    /*向下*/
+                    aA[i].onclick=function(){
+                        var oLi=this.parentNode;
+
+                       
+
+                        if(oLi==oUl.children[oUl.children.length-1]){
+                            alert('到底了');
+                            return;
+                        }
+                        /*这样 写不行  点倒数第二个的时候 要点两次才生效*/
+                        //var oNext=next.nextElementSibling.nextElementSibling || next.nextSibling.nextSibling;
+
+
+                        /*这样写是没问题的*/
+                        var next=oLi.nextElementSibling || oLi.nextSibling;
+                        var oNext=next.nextElementSibling || next.nextSibling;
+
+                        oUl.insertBefore(oLi,oNext);
+
+                    };
+                }else{
+
+                    /*向上*/
+                    aA[i].onclick=function(){
+                        var oLi=this.parentNode;
+                        if(oLi==aLi[0]){//oUl.children[0];
+                            alert('已经到顶了');
+                            return;
+                        }
+                        var previous=oLi.previousElementSibling || oLi.previousSibling;
+                        oUl.insertBefore(oLi,previous);
+
+                    };
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li>
+        <a href="javascript:;">↑</a>1111 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>2222 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>3333 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>4444 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>5555 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>6666 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>7777 <a href="javascript:;">↓</a>
+    </li>
+    <li>
+        <a href="javascript:;">↑</a>8888 <a href="javascript:;">↓</a>
+    </li>
+
+
+</ul>
+
+</body>
+</html>

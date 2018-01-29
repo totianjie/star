@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+
+    </style>
+    <script>
+        //var now=new Date().getTime();
+        var now=Date.now();
+        var timer=setInterval(function(){
+            var oT=document.getElementById('t1');
+            var end=Date.now();
+
+            var s=end-now;
+            oT.value+=s+'\n';
+
+            now=Date.now();
+
+        },1000);
+
+        document.onclick=function(){
+            clearInterval(timer);
+        };
+    </script>
+</head>
+<body>
+<textarea id="t1" cols="30" rows="10"></textarea>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

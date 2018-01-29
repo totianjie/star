@@ -1,0 +1,148 @@
+
+Canvas
+
+获取绘图上下文
+	var gd = oC.getContext('2d');
+
+重新开始路径
+	gd.beginPath();
+
+开始
+	gd.moveTo(x,y)
+结束
+	gd.lineTo(x,y)
+
+闭合路径
+	gd.closePath();
+
+描边
+	gd.stroke()
+
+描边颜色
+	gd.strokeStyle=''
+
+线宽
+	gd.lineWidth=''
+
+填充
+	gd.fill()	默认黑色
+
+填充颜色
+	gd.fillStyle=''
+
+清屏
+	gd.clearRect(x,y,w,h);
+
+画矩形
+		a)
+			gd.rect(x,y,w,h);
+			stroke()/fill()
+		b)
+			gd.fillRect(x,y,w,h)	不能在描边
+		c)
+			gd.strokeRect(x,y,w,h)	不能填充了
+
+	运动
+		先清屏，再画图
+				帧频 		1秒钟多少张图
+				30	低帧频 			34
+				16	高帧频 			63
+=================================================
+画弧
+	gd.arc(cx,cy,r,s,e,b);
+		cx,cy 		圆心坐标
+		r 			半径
+		s 			开始弧度
+		e 			结束弧度
+		b 			是否逆时针
+	gd.stroke()/fill();
+
+360度 = 2π
+180度 = π
+角度-》弧度
+	n*π/180			弧度=角度*PI/180
+弧度-》角度
+	n*180/π			角度=弧度*180/PI
+
+================================================
+
+改变线条端点样式
+	gd.lineCap = round 			圆
+	gd.lineCap = butt 			平
+
+文字
+	gd.font = '大小 字体类型';		必须一起设置，否则不生效
+		
+	gd.textAlign=''			水平对齐方式
+	gd.textBaseline='' 		基线对齐方式
+		middle		中间对齐
+	gd.fillText(str,x,y); 		填充文字
+	gd.strokeText(str,x,y); 	描边文字
+			位置是
+				x 		左侧
+				y 		基线
+
+渐变
+	创建线性渐变
+		var lg = gd.createLinearGradient(x1,y1,x2,y2);    开始的x y   结束的x y
+		设置颜色
+		lg.addColorStop(系数,颜色);
+	径向渐变
+		var rg = gd.createRadialGradient(cx1,cy1,r1,cx2,cy2,r2);
+		rg.addColorStop(系数,color);
+================================================
+
+gd.isPointInPath(x,y)	只作用于最后一个	
+
+变形
+
+旋转
+	gd.rotate(弧度);
+
+平移
+	gd.translate(x,y);
+
+缩放
+	gd.scale(x,y);
+还原画布
+		gd.save(); 			保存画布当前状态
+		gd.restore(); 		还原回保存的状态
+
+					如果要用变形
+							1.gd.save();	保存
+							2.操作
+							3.画图
+							4.gd.restore();	还原
+
+
+		画布左上角是原心,原心是不可以改变的。
+		操作的是整个画布
+		变形会叠加
+		操作完，画图，画完图之后，把画布还原回去
+===============================================
+
+设置图片背景		背景是从画布左上角走的
+	gd.createPattern(oImg,'平铺方式');	no-repeat	repeat-x	repeat-y	repeat
+
+===============================================				
+							
+引入图片
+	gd.drawImage(oImg,dx,dy);
+
+	gd.drawImage(
+		oImg,
+		dx,dy,[dw],[dh]
+	);
+
+	gd.drawImage(
+		oImg,
+		[sx],[sy],[sw],[sh],
+		dx,dy,[dw],[dh]
+	);						
+===============================================
+导出图片
+	oC.toDataURL([mime-type]);
+
+	可以指定图片类型
+		oC.toDataURL('image/png');
+		oC.toDataURL('image/jpeg');							

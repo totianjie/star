@@ -1,0 +1,240 @@
+GET：获取资源； 
+POST：创建资源； 
+PUT：也是创建资源； 
+PATCH：修改资源（的一部分）； 
+DELETE：删除资源。 
+通常认为，对创建资源来说，POST 不是幂等的，PUT 是幂等的
+
+
+提交方式
+		GET		明文提交 	不安全 		32KB 	快 	有缓存
+		POST	密文提交 	相对安全 	1GB 	慢 	没有缓存
+
+localhost 			本机
+	127.0.0.1 			本机IP地址
+
+var json=eval('('+result+')');
+var json=new Function("return"+result);
+var json=JSON.parse(result);
+var json=$.parseJSON(result);
+
+ajax交互  异步的javascript和XML
+    无刷新从服务器取数据
+    
+    
+ajax注意:
+	1.	中文乱码
+		字符编码问题
+			UTF-8
+			GB2312
+		一定要统一编码格式。
+			统一使用：UTF-8
+	2.	ajax返回的都是字符串
+			JSON
+				{"A":12,"B":5}
+
+			$.parseJSON(str);
+	3.	不关心后缀名
+			后缀名是给人看的。电脑并不关心你的后缀名。
+	4.	有缓存 	cache
+		访问同一个地址，会发生缓存
+			www.a.com?a=1
+			www.a.com?a=2
+			www.a.com?a=0.5443426842384
+			www.a.com?a=0.3642837439747
+						Math.random()
+
+			www.a.com?t=Math.random()
+
+			Math.random();
+
+=====================  原生 GET   =========================
+
+0 － （未初始化）还没有调用send()方法 
+1 － （载入）已调用send()方法，正在发送请求 
+2 － （行完成，已经接收到全部响应内容 
+3 － （交互）正在解析响载入完成）send()方法执应内容 
+4 － （完成）响应内容解析完成，可以在客户端调用了 
+
+function ajax(url,success,error){
+    //创建一个ajax对象
+    if(window.XMLHttpRequest){
+        var oAjax=new XMLHttpRequest();     //不兼容 IE6
+    }else{
+        var oAjax=new ActiveXObject('Microsoft.XMLHTTP');//兼容 IE6 7 8
+    }
+
+    //打开链接  oAjax.open('交互方式'，'url',是否异步);
+    oAjax.open('GET',url,true);
+    //发送请求
+    oAjax.send();
+    //接收响应
+    oAjax.onreadystatechange=function(){
+        if(oAjax.readyState==4){
+            if(oAjax.status>=200 && oAjax.status<300 || oAjax.status==304){//http状态码
+                success && success(oAjax.responseText);
+            }else{
+                error && error(oAjax.status);
+            }
+        }
+    }
+}
+
+
+======================  原生POST  ================================
+
+function ajax(url,success,error){
+    //创建一个ajax对象
+    if(window.XMLHttpRequest){
+        var oAjax=new XMLHttpRequest();     //不兼容 IE6
+    }else{
+        var oAjax=new ActiveXObject('Microsoft.XMLHTTP');//兼容 IE6 7 8
+    }
+
+    //打开链接  oAjax.open('交互方式'，'url',是否异步);
+    oAjax.open('POST',url,true);
+    oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');   //设置头部
+    //发送请求
+    oAjax.send('a=12&b=5');  //放问号后面的数据
+    //接收响应
+    oAjax.onreadystatechange=function(){
+        if(oAjax.readyState==4){
+            if(oAjax.status>=200 && oAjax.status<300 || oAjax.status==304){
+                success && success(oAjax.responseText);
+            }else{
+                error && error(oAjax.status);
+            }
+        }
+    }
+}
+
+
+======================  jq中  jsonp  语法  =============================
+
+玩jsonp，必须有后台提供的接口。
+
+<script>
+    $(document).ready(function(){
+            $.ajax({
+                "url":'https://sug.so.360.cn/suggest', //链接
+                "dataType":'jsonp',         //数据类型
+                "jsonp":"callback",         //回调函数
+                "data":{                //给后台的数据
+                    "word":"b"
+                },
+                "success":function(res){        //成功回调函数  ( res后台返回的 )
+                    alert(res.s);
+                },
+                "error":function(){
+                    alert('失败');            //失败回调函数
+                }
+            });
+        });
+</script>
+360接口
+        https://sug.so.360.cn/suggest?callback=show&word=a
+
+百度提供的jsonp接口:
+    https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=show
+        wd      word        关键词
+        cb      callback    回调函数
+
+================== jq 中的 post交互 ================================
+
+$.ajax({
+            url:'交互地址',
+            type:'post'
+            data:{
+                数据
+            },
+            success:function(){
+                成功的回调函数
+            },
+            error:function(){
+                失败的回调函数
+            }
+        });
+ ================== get    post   集合 ================================       
+
+function json2url(json){
+            var arr = [];
+            for(var key in json){
+                arr.push(key+'='+encodeURIComponent(json[key]));
+            }
+            return arr.join('&');
+        }
+        function ajax(json){
+            json = json||{};
+            if(!json.url)return;
+            json.data = json.data||{};
+            json.type = json.type||'get';
+            json.timeout = json.timeout||15000;
+            json.data.t = Math.random();
+            if(window.XMLHttpRequest){
+                var oAjax = new XMLHttpRequest();
+            }else{
+                var oAjax = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+            switch(json.type.toLowerCase()){
+                case 'get':
+                    oAjax.open('GET',json.url+'?'+json2url(json.data),true);
+                    oAjax.send();
+                    break;
+                case 'post':
+                    oAjax.open('POST',json.url,true);
+                    oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                    oAjax.send(json2url(json.data));
+                    break;
+                default:
+                    oAjax.open('GET',json.url+'?'+json2url(json.data),true);
+                    oAjax.send();
+                    break;
+            }
+            var timer = setTimeout(function(){
+                oAjax.onreadystatechange = null;
+                json.error&&json.error('亲，网络不给力。');
+            },json.timeout);
+            oAjax.onreadystatechange = function(){
+                if(oAjax.readyState==4){
+                    clearTimeout(timer);
+                    if(oAjax.status>=200&&oAjax.status<300||oAjax.status==304){
+                        json.success&&json.success(oAjax.responseText);
+                    }else{
+                        json.error&&json.error(oAjax.status);
+                    }
+                }
+            };
+        }
+        
+        
+        
+        
+        
+        ------------------------------------
+        $http({
+                    url:'a.php',
+                    method:'post',//提交方式
+                    headers:{       //设置头部
+                        'Content-Type':'application/x-www-form-urlencoded'
+                    },
+                    data:{  //数据
+                        a:12,
+                        b:5
+                    },
+                    transformRequest:function(data){
+                        var arr=[];
+                        for(var key in data){
+                            arr.push(key+'='+data[key]);
+                        }
+                        return arr.join('&');
+                    }
+                }).then(
+                    function(res){
+                        alert(res.data);
+                    },
+                    function(e){
+                        console.log(e);
+                        alert('失败了');
+                    }
+                );
+        -----------------------------------

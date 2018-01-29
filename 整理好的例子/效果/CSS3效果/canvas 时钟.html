@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      text-align:center;
+      background:#000;
+    }
+    canvas{
+      background:#ccc;
+    }
+  </style>
+  <script>
+    function d2a(n){  //求角度函数
+      return n*Math.PI/180;
+    }
+    function toDon(n){//补零
+      return n<10?'0'+n:''+n;
+    }
+    window.onload=function(){
+      var oC=document.querySelector('#c1');
+      var gd=oC.getContext('2d');//获取绘图上下文
+      var cx=oC.width/2;//用于圆的中心点
+      var cy=oC.height/2;
+
+      var lg=gd.createLinearGradient(260,110,540,390);//渐变  开始x y   结束x y
+      lg.addColorStop(0,'rgb(255,0,0)');
+      lg.addColorStop(0.25,'rgb(255,255,0)');
+      lg.addColorStop(0.5,'rgb(255,0,255)');
+      lg.addColorStop(0.75,'rgb(255,255,0)');
+      lg.addColorStop(1,'rgb(0,0,255)');
+
+      function clock(){
+        gd.clearRect(0,0,oC.width,oC.height);//每走一次清屏
+        var oDate=new Date();
+        var h=oDate.getHours();
+        var m=oDate.getMinutes();
+        var s=oDate.getSeconds();
+        var ms=oDate.getMilliseconds();
+
+        //时间走的进度条
+        drawArc(100,0,(h%12*30+m/60*30),lg);
+        drawArc(120,0,(m*6+s/60*6),lg);
+        drawArc(140,0,(s*6+ms/1000*6),lg);
+
+        var str=toDon(h)+':'+toDon(m)+':'+toDon(s);//中间的文字
+        gd.font='30px 宋体';//设置字体大小
+        gd.textAlign='center';//x轴居中
+        gd.textBaseline='middle';//y轴居中
+        gd.fillStyle=lg;//激变的字体颜色
+        gd.fillText(str,cx,cy);//放入文本  现在放入的是中间位置
+      }
+      clock();
+      timer=setInterval(clock,1);//开定时器时时改变结束的位置
+
+      function drawArc(r,e,s,color){
+        gd.beginPath();// 重新开户路径
+        gd.arc(cx,cy,r,d2a(e-90),d2a(s-90),false); //圆心x 圆心y 半径  开始弧度 结束弧度 是否逆时钟
+        gd.lineWidth='20';//描边大小  就是边框大小
+        gd.strokeStyle=color;//描边颜色
+        gd.lineCap='round';//改变线条端点样式
+        gd.stroke();//描边
+      }
+    };
+
+    /*
+    * 画弧
+       gd.arc(cx,cy,r,s,e,b);
+       cx,cy 		圆心坐标
+       r 			半径
+       s 			开始弧度
+       e 			结束弧度
+       b 			是否逆时针
+       gd.stroke()/fill();
+
+       360度 = 2π
+       180度 = π
+       角度-》弧度
+       n*π/180			弧度=角度*PI/180
+       弧度-》角度
+       n*180/π			角度=弧度*180/PI
+
+     *
+    * */
+  </script>
+</head>
+<body>
+  <canvas width="800" height="500" id="c1"></canvas>
+</body>
+</html>

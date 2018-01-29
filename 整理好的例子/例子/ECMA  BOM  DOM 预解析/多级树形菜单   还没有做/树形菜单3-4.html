@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>树形菜单 - 智能课堂 - www.zhinengshe.com</title>
+<style type="text/css">
+* { padding: 0; margin: 0; }
+li { list-style: none; }
+
+#menu { font: 12px arail; color: #333;}
+#menu ul { padding-left: 24px; display:none; }
+#menu li { line-height: 20px; line-height: 20px; cursor: pointer; }
+</style>
+	<script>
+		window.onload=function(){
+		    var oMenu=document.getElementById('menu');
+            var aDiv=oMenu.getElementsByTagName('div');
+
+
+            for(var i=0; i<aDiv.length; i++){
+				aDiv[i].bSign=true;
+				aDiv[i].onclick=function(){
+				    var aImg=this.children[0];
+				    var oUl=this.nextElementSibling || this.nextSibling;
+				    if(aImg && oUl){
+				        if(this.bSign){
+				            aImg.src='tt2.gif';
+				            aImg.alt='-';
+				            oUl.style.display='block';
+						}else{
+                            aImg.src='tt1.gif';
+                            aImg.alt='+';
+                            oUl.style.display='none';
+						}
+						this.bSign=!this.bSign;
+					}
+				};
+			}
+
+		};
+	</script>
+</head>
+
+<body>
+
+<ul id="menu">
+	<li>
+		<div><img src="tt1.gif" alt="+" /> 一级菜单</div>
+		<ul>
+			<li>
+				<div><img src="tt1.gif" alt="+" /> 二级菜单</div>
+				<ul>
+					<li>
+						<div>三级菜单</div>
+						<ul></ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<div><img src="tt1.gif" alt="+" /> 二级菜单</div>
+				<ul>
+					<li>
+						<div>三级菜单</div>
+						<div>三级菜单</div>
+						<div>三级菜单</div>
+						<div>三级菜单</div>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li>
+		<div><img src="tt1.gif" alt="+" /> 一级菜单</div>
+		<ul>
+			<li>
+				<div><img src="tt1.gif" alt="+" /> 二级菜单</div>
+				<ul>
+					<li>
+						<div>三级菜单</div>
+					</li>
+				</ul>
+			</li>
+			<li>二级菜单</li>
+			<li>二级菜单</li>
+			<li>二级菜单</li>
+			<li>二级菜单</li>
+		</ul>
+	</li>
+</ul>
+</body>
+</html>

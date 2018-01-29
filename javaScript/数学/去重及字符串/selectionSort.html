@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择排序</title>
+    <script>
+        /*
+         找最小或者最大的(看自己需求) 返回变化位置就好了
+         */
+        var arr = [1, 3, 4, 5, 32, 54, 12, 64, 2, 14];
+
+        function findMinIndex (arr, index) {
+            var iMin = arr[index];//当前查找的那一个的值
+            var iMinIndex = index;
+
+            for (var i = index; i < arr.length; i++) {
+                if (iMin > arr[i]) {//找比自己小的 如果找到了就把自己变成那个最小的
+                    iMin = arr[i];
+                    iMinIndex = i;//把最小的位置保存下来  用于返回
+                }
+            }
+            return iMinIndex;
+        }
+
+        function selectionSort (arr) {
+            for (var i = 0; i < arr.length; i++) {
+                var index = findMinIndex(arr, i);//找最小值的位置
+                var tmp = arr[i];//把当前这一个保存起来; 用于变位置后赋值
+                arr[i] = arr[index];
+                arr[index] = tmp;
+            }
+            return arr;
+        }
+        document.write(selectionSort(arr));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

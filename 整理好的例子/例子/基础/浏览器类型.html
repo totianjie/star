@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        var ua=navigator.userAgent;
+        alert(ua);
+        if(ua.toLowerCase().indexOf('chrome')!=-1){
+            alert('是chrome');
+        }else if(ua.toLowerCase().indexOf('msie')!=-1||ua.toLowerCase().indexOf('rv')){
+            alert('是IE');
+        }else if(ua.toLowerCase().indexOf('nt')){
+            alert('是FF');
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

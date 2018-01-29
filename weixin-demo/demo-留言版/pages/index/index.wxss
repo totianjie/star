@@ -1,0 +1,29 @@
+.send-box{
+  display: flex;
+  padding: 20px;
+}
+.input{
+  border: 1px solid #ccc;
+  flex: 1;
+  border-radius: 5px;
+  text-indent: 10px;
+}
+.place-class{
+  color: #ff6600;
+}
+.add-btn{
+  margin-left: 20px;
+}
+.list-view .item{
+  overflow: hidden;
+  line-height: 40px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px dashed #ccc;
+}
+.list-view .item> .text{
+  float:left;
+}
+.list-view .item > .close-btn{
+  float:right;
+} 

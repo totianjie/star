@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link id="link1" rel="stylesheet" href="">
+    <style>
+
+    </style>
+    <script>
+        window.onload=function(){
+            var oLink=document.getElementById('link1');
+            var aBtn=document.getElementsByTagName('input');
+
+            //使用
+            var str=localStorage.skin;
+
+            if(str){
+                oLink.href=str;
+            }
+
+            aBtn[0].onclick=function(){
+                oLink.href='skin1.css';
+
+                localStorage.skin='skin1.css';
+            };
+
+            aBtn[1].onclick=function(){
+                oLink.href='skin2.css';
+                localStorage.skin='skin2.css';
+            };
+
+            aBtn[2].onclick=function(){
+                oLink.href='skin3.css';
+                localStorage.skin='skin3.css';
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="皮肤一">
+<input type="button" value="皮肤二">
+<input type="button" value="皮肤三">
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

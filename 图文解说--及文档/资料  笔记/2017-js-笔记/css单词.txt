@@ -1,0 +1,2 @@
+CSS--red blue pink gray  tomato opacity filter alpha white-space wrap vertical-align
+word-break:break-all letter-spacing	word-spacing cursor:pointer dashed dotted white-space:nowrap verflow:hidden text-overflow:ellipsis weight family clearfix both password submit reset label basket checked select option selected textarea outline:none placeholder table collapse vertical rowspan colspan header footer section article aside transition ease linear linear-gradient radial-gradient text-shadow transform

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script>
+		window.onload=function(){
+			var oT=document.getElementById('t1');
+			var oBtn=document.getElementById('btn');
+
+			oBtn.onclick=function(){
+				var str=oT.value;
+				var re=/^\w+\@[a-zA-Z0-9\-]+(\.[a-zA-Z]{2,6}){1,2}$/;
+				var res=re.test(str);
+				alert(res);
+				/*
+				\w+  		所有英文数字 下划线
+				\@
+				[a-zA-Z0-9\-]+ 	所有英文数字 中划线
+				\.
+				([a-zA-Z]{2,6}){1,2}   所有英方2-6位  最少出现一次最多出现两次
+
+				 */
+			};
+		};
+	</script>
+</head>
+<body>
+
+	<input type="text" id='t1'>
+	<input type="button" value="校验" id='btn'>
+
+</body>
+</html>

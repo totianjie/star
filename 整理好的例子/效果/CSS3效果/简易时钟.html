@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .box{
+      width: 400px;
+      height: 400px;
+      border:5px solid pink;
+      position:absolute;
+      left: 50%;
+      margin-left: -200px;
+      top: 50%;
+      margin-top: -200px;
+      border-radius:50%;
+    }
+    .h{
+      height: 150px;
+      width: 10px;
+      border-radius:50% 50% 0 0;
+      position:absolute;
+      left:50%;
+      margin-left: -5px;
+      top:50px;
+      background:#ff6800;
+      -webkit-transform-origin:bottom;/*改变圆心位置  设置在它自己的底部*/
+    }
+    .m{
+      height: 170px;
+      width: 6px;
+      border-radius:50% 50% 0 0;
+      position:absolute;
+      left:50%;
+      margin-left: -3px;
+      top:30px;
+      background:#f0f;
+      -webkit-transform-origin:bottom;/*改变圆心位置  设置在它自己的底部*/
+    }
+    .s{
+      height: 180px;
+      width: 4px;
+      border-radius:50% 50% 0 0;
+      position:absolute;
+      left:50%;
+      margin-left: -2px;
+      top:20px;
+      background:pink;
+      -webkit-transform-origin:bottom;/*改变圆心位置  设置在它自己的底部*/
+    }
+    span{
+      width: 4px;
+      height: 6px;
+      background:red;
+      position:absolute;
+      left: 50%;
+      margin-left: -2px;
+      -webkit-transform-origin:center 200px;/*把圆心位置  设置在父级的中心  围绕着中心转*/
+    }
+    span.active{
+      height: 10px;
+      width: 6px;
+      background:#f0f;
+    }
+    span em{
+      position:absolute;
+      margin-top:10px;
+    }
+    .cap{
+      width: 16px;
+      height: 16px;
+      position:absolute;
+      top: 50%;
+      margin-left: -8px;
+      left: 50%;
+      margin-top: -8px;
+      border-radius:50%;
+      background:-webkit-radial-gradient(#fff,#000);  /*中心小圆点   渐变*/
+    }
+  </style>
+  <script>
+    window.onload=function(){
+      var oBox=document.querySelector('.box');
+      var oH=document.querySelector('.h');
+      var oM=document.querySelector('.m');
+      var oS=document.querySelector('.s');
+
+      var n=60;
+      for(var i=0; i<n; i++){
+        var oSpan=document.createElement('span');
+        if(i%5==0){
+          oSpan.classList.add('active');//设置比较粗的时钟样式
+
+          oSpan.innerHTML='<em>'+(i/5||12)+'</em>';  //设置数字  数字是跟着父级一起旋转的  所以要反转回来
+          var oEm=oSpan.children[0];
+          oEm.style.WebkitTransform='rotate(-'+i*6+'deg)';  //一圈360deg  60次  一次6deg
+        }
+
+        oSpan.style.WebkitTransform='rotate('+i*6+'deg)';
+        oBox.appendChild(oSpan);
+      }
+      function clock(){
+        var oDate=new Date();
+        var H=oDate.getHours();
+        var M=oDate.getMinutes();
+        var S=oDate.getSeconds();
+        var Ms=oDate.getMilliseconds();
+
+        oH.style.WebkitTransform='rotate('+(H*30+M/60*30)+'deg)';
+        oM.style.WebkitTransform='rotate('+(M*6+S/60*6)+'deg)';
+        /*oS.style.WebkitTransform='rotate('+S*6+'deg)';*/  //一秒一秒的跳  两钟走的方式
+        oS.style.WebkitTransform='rotate('+(S*6+Ms/1000*6)+'deg)';
+      }
+      clock();
+      setInterval(clock,1);
+
+
+      /*
+      * 时钟		一圈360°
+       时针 		12小时 		30 		h*30
+       分针 		60分钟 		6 		m*6
+       秒针 		60秒钟 		6 		s*6
+
+       12:30
+       时针 			15 		30*0.5
+       分针 			30 	 	30/60 		0.5
+
+       h*30+(m/60*30)
+       m*6+(s/60*6)
+       s*6
+
+       秒针			s*6+(ms/1000*6)
+
+       获取毫秒		oDate.getMilliseconds;
+
+      * */
+    };
+  </script>
+</head>
+<body>
+    <div class="box">
+      <div class="h"></div>
+      <div class="m"></div>
+      <div class="s"></div>
+      <div class="cap"></div>
+    </div>
+
+</body>
+</html>

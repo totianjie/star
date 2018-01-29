@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        input{
+            width:100px;
+            height:30px;
+            position:absolute;
+            left:50px;
+            top:50px;
+        }
+        .active{
+            width:100px;
+            height:100px;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+    </style>
+    <script>
+        /*
+        * 1 把自己需要要的函数封闭起来    getStyle    rdn
+        * 2
+        *
+        *
+        * */
+
+        //获取非行间样式
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                return obj.currentStyle[name];
+            }else{
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+        //随机数
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        function playback(id){
+            var oDiv=document.getElementById(id);
+            alert(oDiv);
+        }
+        window.onload=function(){
+            for(var i=0; i<10; i++){//创建DIV
+                var oDiv=document.createElement('div');
+                oDiv.style.left=rnd(0,document.documentElement.clientWidth-getStyle(oDiv,'width'));
+                oDiv.style.top=rnd(0,document.documentElement.clientHeight-getStyle(oDiv,'height'));
+                oDiv.setAttribute('index','div'+i);
+                oDiv.className='active';
+                document.body.appendChild(oDiv);
+
+
+                playback('div'+i);//把ID传过去
+            }
+
+        };
+
+    </script>
+</head>
+<body>
+<input type="button" value="点击回放">
+</body>
+</html>

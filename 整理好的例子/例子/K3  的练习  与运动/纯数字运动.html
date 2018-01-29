@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        * 1 总次数
+        * 2 初始值
+        * 3 总路程  （总路-初始值）
+        * 4 定义一个变量n++
+        * 5 走多远了   初始值+n*总路程/总次数
+        * 6 n=总次数时 关定时器
+        * */
+        window.onload=function(){
+            var oT=document.getElementsByTagName('input')[0];
+            var oBtn=document.getElementsByTagName('input')[1];
+
+            var timer=null;
+            oBtn.onclick=function(){
+                var count=Math.floor(3000/30);//总次数  //必须要是整数
+                var start=parseInt(oT.value);//初始值
+                var dis=100-start;
+                var n=0;
+
+                clearInterval(timer);
+                timer=setInterval(function(){
+                    n++;
+
+                    //var sum=start+n*dis/count;//走了多远了    这是正常运动
+                    var a=1-n/count;
+                    var sum=start+dis*(1-a*a*a);
+                    oT.value=sum.toFixed(2);//toFixed   保久几位小数
+                    if(n==count){
+                        clearInterval(timer);
+                    }
+
+                },30);
+            };
+        };
+
+    </script>
+</head>
+<body>
+<input type="text" value="50">
+<input type="button" value="开始">
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var oT=document.getElementById('t1');
+            var oBtn=document.getElementById('btn');
+            var aUl=document.getElementsByTagName('ul')[0];
+            var aLi=aUl.children;
+
+            for(var i=0; i<aLi.length; i++){
+                aLi[i].onclick=function(){
+                    alert(this.innerHTML)//点自己弹出自己的内容   后面添加的就 没有这事件了
+                };
+            }
+
+            oBtn.onclick=function(){//这样在后面添加进去的   如果没有委托的话是不会有事件的
+                var oLi=document.createElement('li');
+                oLi.innerHTML=oT.value;
+                aUl.appendChild(oLi);
+                oT.value='';
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="t1">
+<input type="button" value="点击添加" id="btn">
+<ul>
+    <li>
+        111
+    </li>
+    <li>
+        222
+    </li>
+</ul>
+
+</body>
+</html>

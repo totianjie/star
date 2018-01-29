@@ -1,0 +1,518 @@
+				
+newStrong 123456 翻
+--------------------------交互返回的字符串  转换方法----------------------
+				//var json=eval('('+result+')');
+				//var json=new Function("return"+result);
+				//var json=JSON.parse(result);
+				//valerr json=$.parseJSON(result);
+
+
+================================用边框做小三角===========================
+
+						div{
+						    width: 0;
+						    height: 0;
+						    border:5px solid transparent;//边框透明
+						    border-top:5px solid #000;
+
+						}
+
+================================2017-2-22 ES6===========================
+使用ES6要引入		traceur.js		bootstrap.js
+在线编译
+https://babeljs.io/repl/
+http://google.github.io/traceur-compiler/demo/repl.html
+
+--------------------------ES6 自带模块化-------------------------------
+必须引入   traceur.js		bootstrap.js
+
+	a.js里面的内容
+		const a=12;
+		export default a;	导出
+		export default function(){};		//导出可以是function
+		export default {};					//也可以是json
+
+--------------------------------------------------------
+<script type="module">	//必须写type="module"
+	import aMod from 'a.js'导入	//用aMod(名字随意)这个名字去接受a.js这个模块
+</script>
+
+--------------------------------------------------------
+
+
+
+变量的声明
+	let
+		声明变量（同一作用域不能重新再声明，再次声明会报错）----值可更改
+		块级作用域---> {}   在块级作用域以外是不可以拿到  let  的
+
+
+常量的声明(常量在后台一般是大写的)
+	const
+		一经定义-----<同作用域下不可重新定义>，不可修改，(更改会报错)----->
+		const a=12;		块级作用域是可以重新在定义的（ 跟外面定义的不是同一东西 ）
+
+--------------------------------------------------------
+字符串拼接
+
+	`${变量名},${变量名}`
+
+	let age=12;
+    let name='张三';
+    let str=`我叫${name},今年${age}`;
+    alert(str);
+
+-------------------------------解构赋值--------------------------------------
+
+
+解构赋值---->作用:解析简单数据,接收返回值
+	let [a,b,c]=[12,5,3];
+	let [a,b=12]=[12,8];	//---->可以给默认值（如果右边不给默认用左边的）
+
+	let {a,b}={a:12,b:5};---->按json名字走
+	let {a,b=12}={a:5};		//---->可以给默认值（如果右边不给默认用左边的）
+	var {error,msg} = {error:0,msg:'有问题'};//应用在数据交互应该会比较方便  还没用过 有时间用用
+
+
+-------------------------------扩展运算符--------------------------------------
+扩展运算符
+	（引用  对象与对象之间会引用  指向的都是一块空间）（只要是对象都会引用）*
+	引用的解决是   去循环一个一个复制
+	原生 eg:
+		{
+            let arr=[1,2,3,4];
+            let arr2=[];
+            for(let i=0; i<arr.length; i++){
+                arr2[i]=arr[i];
+            }
+            arr.push(8); //------>给arr添加东西arr2不会被引用
+            document.write(`arr-->${arr},arr2--->${arr2}`);
+        }
+
+    ES6 eg:
+	只能应用于数组*
+	 var arr=[1,2,3,4]
+        var arr2=[...arr];
+        arr.push(8);	//------>给arr添加东西arr2不会被引用
+        alert(arr2);
+
+        eg:
+        let aUl=document.getElementsByTagName('ul');//aUl是个伪数组  不能用数组的方法
+        var arr=[...aUl];//用ES6的扩展运算符就OK了
+
+
+
+-------------------------------箭头函数--------------------------------------
+
+箭头函数 ---->this就是window    没有arguments(可以用 ...args代替)
+	eg:
+		show=(a,b)=>a+b;   a+b相当于returnn a+b;
+		alert(show(2,5));
+
+	eg:
+		show=(a,b)=>{}
+			(a,b)		形参参数
+			{}			平时function后面的 { }	里面该怎么写就怎么写
+			eg:
+				show=(...args)=>{
+			        var result=0;
+			        for(var i=0; i<args.length; i++){
+			            result+=args[i];
+			        }
+		        	return result;
+
+			    }
+			    var result=show(2,3,5);
+			    alert(result);
+
+
+--------------------------------------------------------
+循环:
+	while
+	for
+	for	in
+	for	of
+		可以操作数组，但没有索引
+		不能操作json
+		操作Map对象    也是一种数据结构，相当于json。也是键、值对的。
+
+
+-------------------------------Map--------------------------------------
+Map:
+	let map=new Map();
+		//设置
+        map.set('name','张三');
+        map.set('age','18');
+        //获取
+        let str=map.get('age');
+        //删除
+        map.delete('age');
+        console.log(map);
+        	0:{"name" => "张三"}
+			1:{"age" => 18}
+
+
+    for of循环:
+        eg:
+		    let map=new Map();
+		    map.set('name','张三');
+		    map.set('age','18');
+
+			for(let i of map){
+				//这里的 i 是一个数组  里面存的是名字和值
+				alert(i[0]);
+			}
+			-------------------------------------------------------
+		    for(let [key,value] of map){
+		        document.write(`key-->${key}<br>value-->${value}<br>`);
+		    }
+			for(let [key,value] of map.entries()){
+				alert(value);
+			}
+			-------------------------------------------------------
+		    map.values()	-->单纯拿value
+		    	eg:
+					for(let value of map.values()){
+						document.write(`${value}<br>`);
+					}
+		    map.keys()		---->单纯的拿key
+		    	eg:
+					for(let key of map.keys()){
+						document.write(`${key}<br>`);
+					}
+
+
+-------------------------------promise--------------------------------------
+
+
+promise		（许诺） 解决异步还没到同步就已经走完的问题
+	以同步的操作的方式来操作异步
+	resolve
+	reject
+	eg:
+		<script>					//必须要传resolve reject
+		    var pl=new Promise(function(resolve,reject){
+		        //resolve()   代表成功
+		        //reject()   代表失败
+
+
+		        ajax(url,function(res){
+		        	resolve(res);
+		        },
+		        functioon(err){
+		        	reject(err);
+		        });
+		    });
+
+		    第一种方式)
+			    pl.then(function(res){
+			        //成功后代码
+			        alert(res);
+			    },function(err){
+			        //失败后代码
+			        alert(err);
+			    });
+		    第二种方式)
+		    	pl.then(function(res){
+			        //成功后代码
+			        alert(res);
+			    },catch(function(err){
+			    	//失败后代码
+			    	alert(err);
+			    });
+
+    </script>
+
+    //  两个条件都满足的情况下
+    <script>
+        var p1=new Promise(function(resolve,reject){
+            //resolve()   代表成功
+            //reject()   代表失败
+            resolve('ok');
+        });
+
+        var p2=new Promise(function(resolve,reject){
+            resolve('ok2');
+        });
+
+        Promise.all([p1,p2]).then(function(res){
+            alert(res[1]);//两个都是成功  就走这里
+        },function(err){
+            alert('失败了');//p1,p2中有一个走的是失败 就走这里
+        });
+
+
+        -----------------------------------------------
+        var p1 = new Promise(function(resolve,reject){
+			//resolve('成功');
+            //reject('失败');
+            throw '失败了，别灰心'; //抛出错误  在catch里面执行
+        });
+
+        p1.then(function(res){
+            alert(res)
+        }).catch(function(res){
+            alert(res);//抛出的错误
+        });
+
+        ----------------那一个先执行就用那一个----------------------------------
+
+        var p1 = new Promise(function(resolve,reject){
+            setTimeout(resolve,200,'abc');
+        });
+        var p2 = new Promise(function(resolve,reject){
+            setTimeout(resolve,500,'bcd');
+        });
+        Promise.race([p1,p2]).then(function(res){
+            alert(res);		//那一个先执行就用那一个
+        },function(){
+            alert('失败');
+        });
+    </script>
+
+ ---------------------如何读取文件------------------------
+			const fs = require('fs');
+			var p1 = new Promise(function(resolve,reject){
+					fs.readFile('b.txt',function(error,data){//fs模块读取文件  erorr读取失败与成功  data数据
+						if(error){
+							reject('404');
+						}else{
+							resolve(data.toString());
+					}
+				});
+			});
+			p1.then(function(res){
+				console.log(res);//读取成功时的
+			},function(res){
+				console.log(res);//读取失败时的
+			});
+	---------------------ajax交互---------------------------------
+			var p1 = new Promise(function(resolve,reject){
+				ajax('b.txt',function(res){//这是举例的ajax交互
+					resolve(res);
+				},function(e){
+					reject(e);
+				});
+			});
+			p1.then(function(res){
+				alert(res);
+			},function(e){
+				alert(e);
+			});
+
+
+-------------------------------cookie--------------------------------------
+
+	大小	4kb
+	存东西的(走网络的  必须放在服务器环境下)
+	不能跨域（跨浏览器）
+	有生命周期  默认是session
+
+	//设置cookie
+        let oDate=new Date();
+        oDate.setFullYear(2020);
+        document.cookie='namu=17; PATH=/; EXPIRES='+oDate.toUTCString();
+    //获取
+        document.cookie='age';//获取单个
+        document.cookie		//获取的是全部
+        	age=18; gender=男; namu=18; age; namu=17  拿回来的是用 ;   隔开的
+	//删除
+		let oDate=new Date();
+        oDate.setFullYear(2020);
+        document.cookie='namu=17; PATH=/; EXPIRES='+oDate.toUTCString();
+		要删除那个就给那个设置一个过期时间
+
+	Application（浏览器开发者工具）
+		name:名字
+		value:值
+		path:目录	/   --->代表根目录  一般都放在根目录下
+		expires:有效期
+			session (会话的意思  就是打开浏览器有  关闭浏览器就没有)
+			时间格式有（UTC,GMT）两种   要设置统一格式
+			oDate.toUTCString();	UTC格式
+			oDate.toGMTString();	GMT格式
+
+
+	jquery中的cookie
+		//设置
+		$.cookie('name', 'value', { expires: 7, path: '/' });
+		//获取
+		$.cookie('name');  如果没有这个cookie返回的是undefined
+		$.cookie();   获取的是全部
+		//删除
+		$.removeCookie('name');		那种都行
+		$.removeCookie('name', { path: '/' });
+
+-------------------------------localStorage--------------------------------------
+	大小	5M	(1024kb)
+	本地存储(不走网络);
+	存的都是字符串，取回来的也是字符串  要解析
+	不兼容	(在服务器环境下兼容IE6+ FF chromr)
+
+	//设置
+		localStorage.age=18;
+	//获取
+		let age=localStorage.age;
+	//删除		删除某个对象上的属性都是  delete 对象.属性
+		delete localStorage.age;
+
+		序列化	持久化
+			var json={"left":oBox.offset().left,"top":oBox.offset().top};	//先把坐标存入json或arr中
+			var str=JSON.stringify(json);	成字符串
+			localStorage.Pos=str;			//在存loc//在把对象变alStorage
+			存的时候序列化
+		反序列化	反持久化
+			var n=JSON.parse(str);//把字符串变成对象
+			取的时候反序列化
+
+		window.onstorage=function(ev){	//当localStorage发生变化时
+
+			var res=localStorage[ev.key];	//先获取localStorage 直接点名字也行 ev.key获取的是正在改变的
+            var json=JSON.parse(res);		//解析成对象	反持久化
+            oBox.style.left=json.left+'px';
+            oBox.style.top=json.top+'px';
+
+		}
+-----------------------------------Nodejs------------------------
+
+为什么选择node.js
+1.性能好  正常比较比PHP高86倍
+2.和js的搭配非常好
+3.语法就是js
+4.不能使用DOM,BOM的东西 因为控制台没有
+检测版本		node -v
+装包,装插件		 npm -var
+npm install
+----------------------------
+基础的dos命令
+	查看自己ID	ipconfig
+	打开命令行	win+R
+	关闭 		exit
+	清屏		cls
+	帮助		help
+	换盘符		e: 		c:
+	查看盘符里的东西	dir
+	切换目录  	cd 路径
+	返回上层目录			cd ../
+	↑ ↓ 键可以找回之前输过的命令
+	如果忘记文件名 可以按 tab 补全
+
+	打开文件	node 文件名
+	http 	超文本传输协议（https超文本超安全传输协议）
+
+
+	-------------------原生nodejs自己搭建服务器----------------------
+
+	const http=require('http');		//引入http模块
+	var server=http.createServer(function(request,response){//使用http创建服务
+	//request   请求  接收
+	//response  响应  发送
+	console.log('有人来了');	//有人访问时提示  现在是用来测试能不能用
+
+
+	response.write('向页面写入内容');//响应
+    response.end(); //响应结束
+	});
+	server.listen(8081);	//设置 监听端口
+
+
+	//读取文件 		//需要引入fs模块
+		const fs=require('fs');
+					//文件路径  （就是自己要看的那一个文件）
+		fs.readFile('文件路径',function(err,data){	//文件名   err报错信息   data是数据
+
+			if(err){
+			    console.log('404');
+			}else{
+			    console.log(data+'');  //也可以是data.toString()   就是把内容变成字符串
+			}
+		});
+		--------------------------------------------------
+		const http=require('http');		//引入http模块
+		const fs=require('fs');			//引入fs模块
+		let server=http.createServer(function(request,response){	//使用http创建服务
+
+			request		//请求	接受
+			response	//响应  发送
+			request.url		//请求文件的路径  返回的是根目录   
+			response.write('响应的内容');
+			response.end();		//响应结束
+
+			fs.readFile('www'+request.url,function(err,data){
+			//'www'+request.url  设置根目录在www下   就可以访问www下的文件   我们在网页上打开www下的页面会先返回给后台   后台在返回所打开页面的信息  比如http://localhost:8081/2.html
+
+				err		//报错信息,如果是真的就有错
+				data    //读取到的数据
+				if(err){
+					response.write('404');
+				}else{
+					response.write(data);
+
+				}
+				response.end();		//响应结束
+			});
+		});
+		server.listen(8081);	//监听端口  设置端口号
+
+	-----------------------------------------
+
+	ctrl+c  退出端口
+	8080
+	8081
+
+	----------------------------------nodejs框架--------------------------------------
+
+NodeJs的框架
+	1.express
+	2.KOA
+
+	express
+	网站:http://www.expressjs.com.cn/
+
+
+接收请求
+	server.get(); 			接收get请求
+	server.post(); 			接收post请求
+	server.use(); 			接收所有请求
+
+
+	服务器：
+	1.接口(动态)
+	2.文件(静态)
+
+	中间件:
+		express-static  //读取文件要有中间件
+
+----------------------------- 模板 ---------------------------------
+
+eg:
+	const express = require('express');//引入模块
+	const static = require('express-static');//引入读取文件模块
+
+	let server = express();//使用模块创建服务器
+	server.listen(8081);//监听端口
+	server.use(static('root/'));//设置路由
+
+	server.get('/getData',function(request,response){  ///getData  数据文件
+			request		//接收
+			response	//响应
+		let a = request.query.a;	//request.query  接收前台返回的数据
+		let b = request.query.b;
+		
+		response.send(a+b);//响应
+	});
+	
+
+-------------------------------------------------------------------
+
+
+
+	npm install 文件名(express)
+	cnpm的安装https://npm.taobao.org/
+	cnpm i 文件名(express)
+	express
+
+
+
+
+	文件的访问要中间件     下载npm install express-static

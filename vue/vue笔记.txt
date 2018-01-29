@@ -1,0 +1,592 @@
+
+utilrd /s xxx	rm -r xxx		删除xxx目录
+del xxx.txt	rm xxx.txt	删除xxx.txt文件
+dir	ls	列出当前目录内容
+  工具文件夹
+var vm=new Vue({     手动挂载
+            data:{
+                a:1
+            }
+    }).$mount('#box');  
+
+===================================================
+
+new Vue({
+        el:'#box',
+        data:{
+            msg:'welcome vue2.0'
+        },
+        methods:{
+            update(){
+                this.msg='大家好';
+            },
+            destroy(){
+                this.$destroy();
+            }
+        },
+        beforeCreate(){
+            console.log('组件实例刚刚被创建');
+        },
+        created(){
+            console.log('实例已经创建完成');
+        },
+        beforeMount(){
+            console.log('模板编译之前');
+        },
+        mounted(){
+            console.log('模板编译完成');
+        },
+        beforeUpdate(){
+            console.log('组件更新之前');
+        },
+        updated(){
+            console.log('组件更新完毕');
+        },
+        beforeDestroy(){
+            console.log('组件销毁之前');
+        },
+        destroyed(){
+            console.log('组件销毁之后');
+        }
+    });
+
+	================================================
+
+
+事件：	v-on:click/mouseover.....  		简写@click='';
+	
+事件冒泡：
+	阻止冒泡：1.ev.cancelBubble=true;		2.@click.stop='fn'
+阻止默认行为								@contextmenu.prevent="fn"
+		
+键盘:
+	@keyup、@keydown	$event	ev.keyCode
+		常用键:
+			回车
+				a). @keyup.13
+				b). @keyup.enter
+			上、下、左、右
+				@keyup/keydown.left
+				@keyup/keydown.right
+				@keyup/keydown.up
+				@keyup/keydown.down
+
+-----------------------------------------
+属性:
+	v-bind:src=""	width/height/title....  简写:   :src=""	推荐
+		
+	<img src="{{url}}" alt="">	效果能出来，但是会报一个404错误
+	<img v-bind:src="url" alt="">	效果可以出来，不会发404请求
+	<img :src="url" alt="">	
+模板:
+	v-text 	
+	{{msg}}		数据更新模板变化
+	{{*msg}}	数据只绑定一次
+	{{{msg}}}	v-html       HTML转意输出
+
+
+用户会看到花括号标记:
+	v-cloak		防止闪烁, 比较大段落	[v-cloak]{display:none}
+	
+		<span>{{msg}}</span>		->  v-text
+		{{{msg}}}			->   		v-html
+-----------------------------------------
+class和style:
+	:class=""	v-bind:class=""		:style=""	v-bind:style=""
+	
+
+	:class="[red]"	red是数据		字符串可以直接使用    也可以用数据定义
+	:class="{red:a, blue:false}" 	//放的是true/false
+
+	:class="json"
+		data:{
+			json:{red:a, blue:false}
+		}
+-----------------------------------------
+动画：    动画中的事件见页尾
+	---------------------------------------------
+	<transition name="fade">
+		运动东西(元素，属性、路由....)
+	</transition>
+	class定义:
+		.fade-enter{}	//初始状态
+		.fade-enter-active{}  //变化成什么样  ->  当元素出来(显示)
+
+		.fade-leave{}
+		.fade-leave-active{} //变成成什么样   -> 当元素离开(消失)
+
+	---------------------------------------------
+	animate.css  子元素要加个class="animated"  多个子元素就还要加个(:key)
+	<transition></transition>
+	多个子元素用
+	<transition-group enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">
+        <div :key="index" class="box animated" v-show="bShow" v-for="(value,index) in arr">{{value}}</div>
+    </transition-group>
+    enter-active-class进入	leave-active-class离开
+-----------------------------------------
+vue实例简单方法:
+	vm.$el	->  就是元素
+	vm.$data  ->  就是data
+	vm.$mount(标签) ->  手动挂在vue程序
+	
+	vm.$options	->   获取自定义属性
+	vm.$destroy	->   销毁对象
+
+	vm.$log();	->  查看现在数据的状态  就是data里面的东西
+-----------------------------------------
+监听数据变化:
+	vm.$watch(name,fnCb);  //浅度监听不了对象			fnCd(val)  val就是变化的值
+	vm.$watch(name,fnCb,{deep:true});  //深度监视  可以监听对象
+
+nextTick里面的代码会在DOM更新后执行   如果不行就加个watch等拿到数据后在nextTick
+	Vue.nextTick(function(){
+	    console.log(vm.$el.textContent) //可以得到'changed'
+	})
+-----------------------------------------
+自定义键盘信息:
+	Vue.directive('on').keyCodes.ctrl=17;
+	Vue.directive('on').keyCodes.myenter=13;
+	现在:  Vue.config.keyCodes.ctrl=17   2.0版本
+自定义指令：
+	Vue.directive(指令名称,function(参数){
+		this.el	-> 原生DOM元素
+	});
+	指令名称: 	v-red  ->  red		* 注意: 必须以 v-开头
+	局部的：
+	directives:{run(el){}}
+	 directives: {
+		inputFilter: function (el) {
+			console.log(el);
+		}
+	}
+	-----------------------------------------
+过滤器
+	局部过滤器
+		new Vue({
+			filters:{
+				'名字':function(input,值){
+
+				}
+			}
+		});
+	全局过滤器
+		Vue.filter('名字',function(input,值){
+
+		});
+	之前:	{{msg | toDou '12' '5'}} 	1.0
+	现在: 	{{msg | toDou('12','5')}} 	2.0
+
+	lodash	工具库	_.debounce(fn,200)
+-----------------------------------------
+
+slot:
+	位置、槽口
+	作用: 占个位置
+	<template>
+		<slot name='solot1'>这是slot占位的</slot>
+	</template>
+	<aaa><div solot='solot1'>多个就可以使用name名</div></aaa> --->组件掉用的地方
+-----------------------------------------
+
+组件之前的数据传递
+
+	子级要父级的数据
+		调用子组件的地方：
+		<bbb :m="数据"></bbb>
+		子组件之内:
+			a）props:['m','myMsg']
+
+			b）props:{
+				'm':String,
+				'myMsg':Number
+			}
+
+	父级要子级的数据 									  自己的数据名
+		子级通过事件发送  send(){this.$emit('自定义事件名',this.msg)}
+		<div id="box">
+			<aaa @自定义事件名='父级事件'>子级</aaa>
+		</div>
+		通来绑定自定义事件去执行父级中的事件   在父级的事件中会有一个返回值   就是子级发送过来的数据 
+
+	单一事件管理：
+		lket vm=new Vue();   //全局的
+
+		vm.$emit('名字',数据);
+		vm.$on('名字',function(res){res就是返回过来的数据}.bind(this));  因为this指向的是vm所以要绑定过来
+		vm.$on('名字',res=>{.....})   es6中的写法
+组件的复用
+	通过绑定属性的方法实现  在使用的地方通过绑定属性把数据传递过去
+	在定义组件的地方通过props把绑定在属性上的数据拿到
+		watch:{		一定要通过watch监听属性的变化  得到时时的更新
+			itemData:function(val){
+				//itemData是绑定的属性上它身上的数据
+				this.data=val;
+			}
+		},
+
+-----------------------------------------
+动态组件:
+	<component :is="组件名称"></component>
+-----------------------------------------
+自己定义的组件加事件   @click.native=""   相当于是一个事件委托
+组件：
+	Vue.component('my-h3',{ 		//全局组件
+		template:'<h3>我是标题</h3>',
+		data(){							//在组件中的数据一定要return 返回一定要是个对象
+			return {
+				msg:''//数据 
+			}
+		}
+	});
+	new Vue({
+		el:'#box2',
+		components:{ 				//局部组件
+			'my-h3':{
+				tmplate:'<h3>我是标题</h3>',
+				data(){
+					return {}
+				},
+				.......
+			}
+		}
+	});
+
+-----------------------------------------
+
+
+
+
+计算属性的使用:
+	computed:{
+		b:function(){	//默认调用get
+			return 值
+		}
+	}
+	--------------------------
+	computed:{
+		b:{
+			get:
+			set:
+		}
+	}
+
+	* computed里面可以放置一些业务逻辑代码，一定记得return
+
+	------------------------------------------
+vue2.0 路由:
+	http://router.vuejs.org/zh-cn/index.html
+	基本使用:
+	1.  布局
+		<router-link to="/home">主页</router-link>
+
+		<router-view></router-view>
+	2. 路由具体写法
+		//组件
+		var Home={
+		    template:'<h3>我是主页</h3>'
+		};
+		var News={
+		    temlate:'<h3>我是新闻</h3>'
+		};p
+
+		//配置路由
+		const routes=[
+		    {path:'/home', componet:Home,children,children:[{path:'',component:}......},
+		    {path:'/news', componet:News},
+		    {path:'*', redirect:'/home'}
+		];
+
+		//生成路由实例
+		const router=new VueRouter({
+		    routes
+		});
+
+		//最后挂到vue上
+		new Vue({
+		    router,
+		    el:'#box'
+		});
+	路由实例方法:
+		router.push({path:'home'});  //直接添加一个路由,表现切换路由，本质往历史记录里面添加一个
+		router.replace({path:'news'}) //替换路由，不会往历史记录里面添加
+		router.go() 				前进或后退
+	==============================================
+less 
+	scoped  局部
+	lang="less"
+	需要要less 和  less-loader
+vue-loader:
+	
+	broserify  模块加载，只能加载js
+	webpack   模块加载器， 一切东西都是模块, 最后打包到一块了
+	vue-loader基于webpack
+
+webpak准备工作:
+	cnpm install webpack --save-dev
+	cnpm install webpack-dev-server --save-dev
+
+	App.vue	-> 变成正常代码		vue-loader@8.5.4
+	cnpm install vue-loader@8.5.4 --save-dev
+
+	cnpm install vue-html-loader --save-dev
+	
+	vue-html-loader、css-loader、vue-style-loader、
+	vue-hot-reload-api@1.3.2
+	vue-router
+
+	babel-loader
+	babel-core
+	babel-plugin-transform-runtime
+	babel-preset-es2015
+	babel-runtime
+vue-cli
+	--------------------------------------------
+	项目模板
+		webpack	可以使用(大型项目)
+				Eslint 检查代码规范，
+				单元测试
+		webpack-simple	个人推荐使用, 没有代码检查	√
+
+		browserify	->  自己网上看使用方法
+		browserify-simple
+	--------------------------------------------
+	基本使用流程:
+	1. npm install vue-cli -g	安装 vue命令环境
+		验证安装ok?
+			vue --version
+	2. 生成项目模板
+		vue init <模板名> 本地文件夹名称
+	3. 进入到生成目录里面
+		cd xxx
+		npm install
+	4. npm run dev
+--------------------------------------------
+
+
+--------------------------------------------
+element-ui的使用  pc端
+	npm i element-ui -S  安装elementUI
+
+		import ElementUI from 'element-ui'
+		import 'element-ui/lib/theme-default/index.css'
+
+		Vue.use(ElementUI)  所有的ui库一定要use
+
+按需引入
+	npm install babel-plugin-component -D  
+	然后，将 .babelrc 修改为：
+			{
+				"presets": [
+					["es2015", { "modules": false }]
+				],
+				"plugins": [["component", [
+				{
+				  "libraryName": "element-ui",
+				  "styleLibraryName": "theme-default"
+				}
+				]]]
+			}
+	webpack.config.js中添加
+		{
+       		test: /\.css$/,
+        	loader: 'style-loader!css-loader'   引入css必须添加
+        },
+        {
+        	test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,   解析字体小图标
+        	loader: 'file-loader'
+        }
+------------------------------------------
+使用方式
+		import Vue from 'vue'
+		import { Button, Select } from 'element-ui'//引入需要的模块
+		import App from './App.vue'
+
+		Vue.component(Button.name, Button) //使用模块
+		Vue.component(Select.name, Select)
+		/* 或写为
+		* Vue.use(Button)
+		* Vue.use(Select)
+		*/
+
+-------------------------------------------------------
+分栏间隔	:gutter="20"
+	
+分栏偏移		
+
+flex 布局对分栏的对齐。
+	type="flex"    		默认从左向右排
+	justify="center"  	中间向两边排
+	justify="end		右向左排
+	justify="space-between"  左  中   右  
+	justify="space-around"	 平均分	
+
+	
+响应式布局		:xs="8" :sm="6" :md="4" :lg="3"
+
+	span	栅格占据的列数
+	offset	栅格左侧的间隔格数
+
+
+	span	栅格占据的列数		:span="6"
+	offset	栅格左侧的间隔格数	:offset="5"
+	push	栅格向右移动格数
+	pull	栅格向左移动格数
+常用颜色
+	blue	Success成功		Warning警告		Danger危险		info信息
+按钮
+	:disabled="false"	禁用状态
+	:plain="true" type="success"  加plain  type值决定hove时的颜色
+	:loading="true"				loading动态
+	size=""		large大、small不、mini超小
+	native-type=""	原生 type 属性		button,submit,reset
+按钮组
+	<el-button-group></el-button-group>		
+
+-----------------------------------------------------
+mint-ui
+	移动端 ui库
+
+	http://mint-ui.github.io/
+
+1. 下载
+	npm install mint-ui -S
+
+	-S
+	--save
+2. 引入
+	import Vue from 'vue';
+	import Mint from 'mint-ui';
+	import 'mint-ui/lib/style.css'
+	Vue.use(Mint);
+
+	按需引入:
+	import { Cell, Checklist } from 'minu-ui';
+	Vue.component(Cell.name, Cell);
+	Vue.component(Checklist.name, Checklist);
+
+http://mint-ui.github.io/docs/#!/zh-cn2
+https://github.com/itstrive/striveCode/tree/js/vue2.0-Mint-ui-demo   手册
+
+------------------------------------------------------
+
+
+
+交互: （用那个交互都行  只要引入直接用就可以 官方推荐----》axios   不能jsonp交互） 
+	这里是1.0中的交互
+$http	（ajax）
+
+如果vue想做交互		引入: vue-resource
+
+get:
+	给服务发送数据:√
+	this.$http.get('get.php',{
+	    a:1,
+	    b:2
+	}).then(function(res){
+	    alert(res.data);
+	},function(res){
+	    alert(res.status);
+	});
+post:
+	this.$http.post('post.php',{
+	    a:1,
+	    b:20
+	},{
+	    emulateJSON:true		//将request body以application/x-www-form-urlencoded content type发送
+	}).then(function(res){
+	    alert(res.data);
+	},function(res){
+	    alert(res.status);
+	});
+jsonp:
+	https://sug.so.360.cn/suggest?callback=suggest_so&word=a
+
+	https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=jshow
+
+	this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+	    wd:'a'
+	},{
+	    jsonp:'cb'	//callback名字，默认名字就是"callback"
+	}).then(function(res){
+	    alert(res.data.s);
+	},function(res){
+	    alert(res.status);
+	});
+	
+https://www.baidu.com/s?wd=s
+
+
+this.$http({
+	url:地址
+	data:给后台提交数据,
+	method:'get'/post/jsonp
+	jsonp:'cb' //cbName
+});
+----------------------------------
+动画的事件
+	methods:{
+        beforeEnter(el){
+            console.log('动画enter之前');
+        },
+        enter(el){
+            console.log('动画enter进入');
+        },
+        afterEnter(el){
+            console.log('动画进入之后');
+        },
+        beforeLeave(){
+            console.log('动画leave之前');
+        },
+        leave(){
+            console.log('动画leave');
+        },
+        afterLeave(){
+            console.log('动画leave之后');
+        }
+    }
+    html:
+	<transition name="fade"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+
+        @before-leave="beforeLeave"
+        @leave="leave"
+        @after-leave="afterLeave"
+    >
+        <p v-show="show"></p>
+    </transition>
+
+
+<input type="" name="">
+    -------------------------------------------------
+
+解决跨域问题  cli		http://www.jianshu.com/p/95b2caf7e0da
+	config文件   index.js中
+	    proxyTable: {
+		  '/list': {  ---接口
+		    target: 'http://api.xxxxxxxx.com',  比如http://localhost:8081
+		    changeOrigin: true,
+		    pathRewrite: {
+		      '^/list': '/list' ---接口
+		    }
+		  }
+		}
+
+cors  模块解决跨域问题
+
+		var express = require('express')
+		var cors = require('cors')    引入模块
+		var app = express()
+
+		app.use(cors())  use一下就OK了
+
+		app.get('/products/:id', function (req, res, next) {   这个可以不写
+			res.json({msg: 'This is CORS-enabled for all origins!'})
+		})
+
+		app.listen(80, function () {
+			console.log('CORS-enabled web server listening on port 80')
+		})
+		https://github.com/expressjs/cors
+

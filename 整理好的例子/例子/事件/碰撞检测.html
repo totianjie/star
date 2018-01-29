@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            background:#ccc;
+            height:100px;
+            position:absolute;
+        }
+        #div1{
+            left:0;
+            top:0;
+        }
+        #div2{
+            left:200px;
+            top:200px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv1=document.getElementById('div1');
+            var oDiv2=document.getElementById('div2');
+
+            /*
+            * 1 先让去碰撞的div可以拖拽
+            * 2 在move的时候求出两个div备自 四个边的边距
+            * 3 判断四个边的边距有没有被碰到
+            * **可以判断被碰到的情况
+            *   也还可以判断没被碰到的情况
+            *   可能反着去思考
+            *
+            * */
+            oDiv1.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX-oDiv1.offsetLeft;
+                var disY=oEvent.clientY-oDiv1.offsetTop;
+
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var left=oEvent.clientX-disX;
+                    var top=oEvent.clientY-disY;
+                    oDiv1.style.left=left+'px';
+                    oDiv1.style.top=top+'px';
+
+                    //2个div的四个边距
+                    var l=oDiv1.offsetLeft,
+                        r=oDiv1.offsetLeft+oDiv1.offsetWidth,
+                        t=oDiv1.offsetTop,
+                        m=oDiv1.offsetTop+oDiv1.offsetHeight,
+                        l2=oDiv2.offsetLeft,
+                        r2=oDiv2.offsetLeft+oDiv2.offsetWidth,
+                        t2=oDiv2.offsetTop,
+                        m2=oDiv2.offsetTop+oDiv2.offsetHeight;
+                    console.log(l+','+t+','+r+','+m);
+                    /*if(r>l2&&m>t2&&l<r2&&t<m2){
+                        oDiv2.style.background='#399';
+                    }else{
+                        oDiv2.style.background='#ccc';
+                    }*/
+                    if(l2<r||t2>m||r2>l||m2>t){
+                        if(r>l2&&m>t2&&l<r2&&t<m2){
+                            oDiv2.style.background='#399';
+                        }else{
+                            oDiv2.style.background='#ccc';
+                        }
+                    }
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

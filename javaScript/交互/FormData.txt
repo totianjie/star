@@ -1,0 +1,15 @@
+var img=$("#img")
+var input=null
+$("#tef").on("change",function(){
+	var that=$(this)[0];
+	if (!that.files[0]) {return false;}
+	input=that.files[0];
+	console.log(that.files[0]);
+	img.prop("src",window.URL.createObjectURL(input));
+});
+			
+			
+var s={aa:"aa"};
+var  a=new FormData();
+a.append("aa",s.aa);
+a.append('file1',input);

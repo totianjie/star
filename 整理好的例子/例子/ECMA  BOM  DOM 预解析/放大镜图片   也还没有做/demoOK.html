@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<meta name="description" content="智能社是一家专注于web前端开发技术的公司，目前主要提供JavaScript培训和HTML5培训两项服务，同时还推出了大量javascript基础知识教程，智能课堂为你带来全新的学习方法和快乐的学习体验。" />
+<title>智能社— http://www.zhinengshe.com</title>
+<style>
+*{ margin:0; padding:0;}
+#box{ position:relative; left:100px; top:100px;}
+#small{ width:300px; height:193px; position:relative; overflow:hidden;}
+#small img{ display:block; width:300px; position:absolute;}
+#small .float{ width:50px; height:50px; background:#f00; position:absolute; z-index:2; display:inline-block; opacity:0.5; cursor:move; display:none;}
+#big{ width:300px; height:300px; position:absolute; display:none; left:320px; top:0; overflow:hidden;}
+#big img{ position:absolute; left:0; top:0;}
+</style>
+<script>
+    window.onload=function(){
+        var oBox=document.getElementById('box');
+        var oSmall=document.getElementById('small');
+        var aFloat=oSmall.children[0];
+        var oBig=document.getElementById('big');
+        var aImg=oBig.children[0];
+
+        //移入移出  消失  隐藏
+        oSmall.onmouseover=function(){
+            aFloat.style.display='block';
+            oBig.style.display='block';
+        };
+        oSmall.onmouseout=function(){
+            aFloat.style.display='none';
+            oBig.style.display='none';
+        };
+        //鼠标移动时   oFloat跟着走
+        oSmall.onmousemove=function(ev){
+            var oEvent=ev || event;
+            //这里用getPos应该会更好一点那是绝对距离    offsetTop/Left/2 是到定位父级的距离
+            var left=oEvent.clientX-oBox.offsetTop-aFloat.offsetWidth/2;//aFloat.offsetWidth/2 加这个是鼠标居中
+            var top=oEvent.clientY-oBox.offsetTop-aFloat.offsetHeight/2;
+
+            //不让aFloat   移出oSmall的框外
+            //简写
+            left<0 && (left=0);           //if(left<=0){left=0;}
+            //if(){}简写
+            if(left>oSmall.offsetWidth-aFloat.offsetWidth)left=oSmall.offsetWidth-aFloat.offsetWidth;
+            top<0 && (top=0);
+            if(top>oSmall.offsetHeight-aFloat.offsetHeight)top=oSmall.offsetHeight-aFloat.offsetHeight;
+
+
+
+            aFloat.style.left=left+'px';
+            aFloat.style.top=top+'px';
+
+            /*
+            * 1，小图的比列=大图的比列
+            * 2，用一个变化的数去除以一个定死的数
+            *   小图比列  left/oSmall.offsetWidth-aFloat.offsetWidth
+            *
+            *   大图比列  left/aImg.offsetHeight-oBig.offsetHeight
+            * */
+            aImg.style.left=-left/(oSmall.offsetWidth-aFloat.offsetWidth)*(aImg.offsetWidth-oBig.offsetWidth)+'px';
+            aImg.style.top=-top/(oSmall.offsetHeight-aFloat.offsetHeight)*(aImg.offsetHeight-oBig.offsetHeight)+'px';
+        };
+    };
+
+</script>
+</head>
+
+<body>
+<div id="box">
+	<div id="small">
+    	<div class="float"></div>
+        <img src="small.jpg">
+    </div>
+    <div id="big">
+    	<img src="big.jpg">
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background:#ccc;
+            position:absolute;
+            top:50px;
+            left:0;
+        }
+    </style>
+    <script>
+        /*
+        * 1 算总次数    总时间（比如你想让它走多长时间）/定时器定多少的值（单次时间）
+        * 2 总的距离    也是以知的   你要它走多远（比如top left  height width ......）
+        * 3 单次距离    总距离/总次数
+        * 4 定一个变量放在定时器中++
+        * */
+        window.onload=function(){
+            var oBtn=document.getElementsByTagName('input')[0];
+            var oDiv=document.getElementsByTagName('div')[0];
+
+            var timer=null;
+            function startMove(obj,iTarget,time){
+                clearInterval(timer);
+                var count=Math.floor(time/30);//总次数   总时间/单次时间
+                var start=obj.offsetLeft;//初始值
+                var dis=iTarget-start;//路程  总的距离-初始值
+
+                var n=0;
+                timer=setInterval(function(){
+                    n++;//多少次的意思
+                    var cur=start+n*dis/count;//走多远了   次数*单次距离（路/总次数）
+                    obj.style.left=cur+'px';
+                    if(cur==count){
+                        clearInterval(timer);
+                    }
+                },30);
+            }
+            oBtn.onclick=function(){
+                startMove(oDiv,200,2000);//标签  路程  总时间（自己定的）
+            };
+
+
+
+        };
+    </script>
+</head>
+<body>
+<input type="button" value="点击">
+    <div></div>
+</body>
+</html>

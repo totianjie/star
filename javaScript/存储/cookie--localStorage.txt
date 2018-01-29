@@ -1,0 +1,72 @@
+-------------------------------cookie--------------------------------------
+
+	大小	4kb
+	存东西的(走网络的  必须放在服务器环境下)
+	不能跨域（跨浏览器）
+	有生命周期  默认是session
+
+	//设置cookie
+        let oDate=new Date();
+        oDate.setFullYear(2020);
+        document.cookie='namu=17; PATH=/; EXPIRES='+oDate.toUTCString();
+    //获取
+        document.cookie='age';//获取单个
+        document.cookie		//获取的是全部
+        	age=18; gender=男; namu=18; age; namu=17  拿回来的是用 ;   隔开的
+	//删除
+		let oDate=new Date();
+        oDate.setFullYear(2020);
+        document.cookie='namu=17; PATH=/; EXPIRES='+oDate.toUTCString();
+		要删除那个就给那个设置一个过期时间
+
+	Application（浏览器开发者工具）
+		name:名字
+		value:值
+		path:目录	/   --->代表根目录  一般都放在根目录下
+		expires:有效期
+			session (会话的意思  就是打开浏览器有  关闭浏览器就没有)
+			时间格式有（UTC,GMT）两种   要设置统一格式
+			oDate.toUTCString();	UTC格式
+			oDate.toGMTString();	GMT格式
+
+
+	jquery中的cookie
+		//设置
+		$.cookie('name', 'value', { expires: 7, path: '/' });
+		//获取
+		$.cookie('name');  如果没有这个cookie返回的是undefined
+		$.cookie();   获取的是全部
+		//删除
+		$.removeCookie('name');		那种都行
+		$.removeCookie('name', { path: '/' });
+
+-------------------------------localStorage--------------------------------------
+	大小	5M	(1024kb)
+	本地存储(不走网络);
+	存的都是字符串，取回来的也是字符串  要解析
+	不兼容	(在服务器环境下兼容IE6+ FF chromr)
+
+	//设置
+		localStorage.age=18;
+	//获取
+		let age=localStorage.age;
+	//删除		删除某个对象上的属性都是  delete 对象.属性
+		delete localStorage.age;
+
+		序列化	持久化
+			var json={"left":oBox.offset().left,"top":oBox.offset().top};	//先把坐标存入json或arr中
+			var str=JSON.stringify(json);	成字符串
+			localStorage.Pos=str;			//在存loc//在把对象变localStorage
+			存的时候序列化
+		反序列化	反持久化
+			var n=JSON.parse(str);//把字符串变成对象
+			取的时候反序列化
+
+		window.onstorage=function(ev){	//当localStorage发生变化时
+
+			var res=localStorage[ev.key];	//先获取localStorage 直接点名字也行 ev.key获取的是正在改变的
+            var json=JSON.parse(res);		//解析成对象	反持久化
+            oBox.style.left=json.left+'px';
+            oBox.style.top=json.top+'px';
+
+		}

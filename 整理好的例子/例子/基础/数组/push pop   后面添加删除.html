@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function(){
+            var aBtn=document.getElementsByTagName('input')[0];
+            var aBtn2=document.getElementsByTagName('input')[1];
+
+            var arr=[];
+            aBtn.onclick=function(){
+                arr.push(2,3);
+                alert(arr);
+            };
+            aBtn2.onclick=function(){
+                arr.pop();
+                alert(arr);
+            };
+        };
+    </script>
+    
+</head>
+<body>
+<input type="button" value="push">
+<input type="button" value="pop">
+</body>
+</html>

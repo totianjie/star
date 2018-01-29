@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background:#282828;
+        }
+        #box{
+            width:100px;
+            height:100px;
+            background:#fef58c;
+            position:absolute;
+            box-shadow:0 0 10px #fff;
+            top:0;
+            left:0;
+        }
+        .new{
+            width:5px;
+            height:5px;
+            box-shadow:0 0 5px #fff;
+            background:#fff;
+
+        }
+    </style>
+    <script>
+        //随机数
+        function rnd(n,m){
+            return Math.floor(Math.random()*(m-n)+n);
+        }
+        //获取绝对距离
+        function getPos(obj){
+            var l=0;
+            var t=0;
+            while(obj){
+                l+=obj.offsetLeft;
+                t+=obj.offsetTop;
+                obj=obj.offsetParen;
+            }
+            return {left:l, top:t};
+        }
+        window.onload=function(){
+            var oDiv=document.getElementById('box');
+
+            var arr=[];
+            var timer=null;
+            oDiv.onmousedown=function(ev){
+                var oEvent=ev || event;
+                //求出一个不变的值
+                var disX=oEvent.clientX-getPos(oDiv).left;
+                var disY=oEvent.clientY-getPos(oDiv).top;
+                //push坐标
+                arr.push({
+                    left:getPos(oDiv).left,
+                    top:getPos(oDiv).top
+                });
+
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    //移动的距离
+                    var left=oEvent.clientX-disX;
+                    var top=oEvent.clientY-disY;
+                    //把值赋给DIV
+                    oDiv.style.left=left+'px';
+                    oDiv.style.top=top+'px';
+                    //push坐标
+                    arr.push({
+                        left:getPos(oDiv).left,
+                        top:getPos(oDiv).top
+                    });
+                    //每移动一下都创建div
+                    var oNowDiv=document.createElement('div');
+                    oNowDiv.className='new';
+                    oNowDiv.style.background='rgb('+rnd(0,256)+','+rnd(0,256)+','+rnd(0,256)+')';
+                    oNowDiv.style.position='absolute';
+                    oNowDiv.style.left=getPos(oDiv).left+'px';
+                    oNowDiv.style.top=getPos(oDiv).top+'px';
+                    oDiv.parentNode.appendChild(oNowDiv);
+                    console.log(arr);
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                    //开之前都要清一次定时器
+                    clearInterval(timer);
+                    timer=setInterval(function(){
+                        //松开鼠标时把值全部从后面pop出来返 回给div就成了回放的效果
+                        if(arr.length){
+                            var json=arr.pop();
+                            oDiv.style.left=json.left+'px';
+                            oDiv.style.top=json.top+'px';
+                        }else{
+                            //如果arr里面没有了 就关定时器  不然会报错
+                            clearInterval(timer);
+                        }
+                    },30);
+                };
+                return false;
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="box"></div>
+
+</body>
+</html>

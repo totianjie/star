@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*var str='welcome to china';//字符串翻转
+        var str2=str.split(' ').reverse().join(' ');
+        str=str2;
+        alert(str);*/
+//--------------------------------------------------------------
+        /*var str='welcome to china';//翻转加首字母大写
+         var arr=str.split(' ');
+
+         var arr2=[];
+         for(var i=0; i<arr.length; i++){
+         var word=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+         //alert(word);
+         arr2.push(word);//没反转
+         //arr2.unshift(word);//翻转了
+         }
+         str=arr2.join(' ');
+
+         alert(str);*/
+//--------------------------------------------------------------
+       /* var str='welcome to china';//首尾字母大写
+
+        var arr=str.split(' ');
+        var arr2=[];
+        for(var i=0; i<arr.length; i++){
+            var word=arr[i].charAt(0).toUpperCase()+arr[i].substring(1,arr[i].length-1)+arr[i].charAt(arr[i].length-1).toUpperCase();
+            //alert(word);
+            arr2.unshift(word);//翻转了
+            //arr2.push(word);//没翻转
+        }
+        str=arr2.join(' ');
+        alert(str);*/
+//--------------------------------------------------------------
+        //多个数组的连接
+        var arr=[1,2];
+        var arr2=[3,4];
+        var arr3=[5,6];
+
+        arr=arr.concat(arr2).concat(arr3);
+        alert(arr);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

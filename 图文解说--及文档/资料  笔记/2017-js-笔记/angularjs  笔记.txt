@@ -1,0 +1,407 @@
+<html ng-app="app">   给ng-app   取个名字
+	<script src="js/angular.min.js"></script>
+	<script>
+		var app=angular.module('app',[]);
+		app.controller('main',function($scope){
+			//$scope   代表的就是  ng  环境
+			$scope.a=0;		//属性
+			$scope.b=0;
+			$scope.sum=function(){	//方法
+				 return parseInt($scope.a)+parseInt($scope.b);
+			}
+		});
+
+	</script>
+	<body ng-controller="main">  //使用controller
+		<input type="text" ng-model="a">				//input   属性
+		<input type="text" ng-model="b">
+		<div>{{sum()}}</div>					//方法的掉用
+
+	</body>
+</html>
+
+
+
+===========================================================================================
+angularJS原理:
+	1.双向绑定
+	2.依赖注入
+
+	  MVC
+	  	M 	Module 			数据层
+	  	V 	View 				视图层
+	  	C 	Controller 		控制层
+
+	  后台
+	  	M 			数据库映射
+	  	V 			页面
+	  	C 			业务逻辑
+	  前端
+	  	M 			数据交互
+	  	V 			DOM操作
+	  	C 			业务逻辑
+
+		库		辅助程序员开发，程序员占主导 		JQuery
+
+		框架	限制程序员开发，框架占主导		 	AngularJS
+
+-========================矫正this    bind-========================
+	bind:
+			function show(a,b){
+				document.write(
+					 'this=>'+this+'<br />'+
+						  'a=>'+a+'<br />'+
+						  'b=>'+b
+				);
+			}
+			var fn = angular.bind('abc',show);
+			fn(12,5);
+
+-========================复制对象但不会引用   copy-========================
+
+	var arr = ['a','b','c'];
+	var arr2 = angular.copy(arr);		arr2有了arr中的东西 但向arr中添加东西arr2不会被引用
+
+-========================小Jquery   element-========================
+
+	var oBox = document.getElementById('box');	//要获取元素
+	angular.element(oBox).on('click',function(){
+	   angular.element(oBox).css('background','#ccc');
+	});
+-========================比较是否相等   equals-========================
+
+
+	var a = [1,2,3];
+	var b = [1,2,3];
+	var result = angular.equals(a,b);   返回的是 true  false
+	document.write(result);
+
+比较的是同一类型的值。只要是同一类型，并且值一样，就相等
+
+
+-========================循环、迭代   forEach-========================
+
+	angular.forEach(obj,function(value,key){});   value是值    key arr中是下标   json中是名字
+
+
+
+-========================反序列化(反持久化)  fromJson-========================
+
+	var str = '{"name":"eric","age":18}';
+	var str2='[1,2,3,4]';
+	var json = angular.fromJson(str);
+	alert(json);
+
+	把字符串的json  arr  变成真正的json arr
+
+-========================判断是否是某一个对象 isArray isDate ========================
+
+	angular.isArray 	是否数组
+	angular.isDate		是否Data对象........
+	
+
+	var arr = [1,2,3];
+	var json = {"name":"eric"};
+	var oDate = new Date();
+	var result = angular.isArray(arr);    返回的是 true   false
+	document.write(result);
+
+-===================================================================================
+
+	ng 			angular环境
+
+
+	ng-model 			数据从哪来		<input type="text" ng-model="abc">
+
+	ng-bind 				数据到哪去		<div ng-bind="abc"></div>
+
+	ng-app 				起作用的范围		一个页面只能加一个
+
+	单向绑定
+		ng-model
+		ng-bind
+	双向绑定					指的是两个输入框都是可以相互改变的   div中的值也跟着变
+		ng-model
+		ng-model
+
+	ng-bind 		有一个替代品			{{}}
+
+	ng-init		初始值						ng-init="name='张三';age=18;"
+
+-========================循环	ng-repeat-========================
+
+	ng-repeat="item in arr"  ------>item 中存的就是arr中的第一个
+
+
+
+	注意:ng-repeat循环的时候，默认把值当成key，但是key是唯一的。所以一旦有重复的值，就报错了。
+	解决:	重新指定key为index
+
+		ng-repeat="item in arr track by $index"
+
+		{{$index}}  {{$first}}  {{$last}}   {{$even}}   {{$odd}}
+
+
+-========================ng-show="true/false"   ng-hide="true/false"-========================
+	ng-if=""
+	里面放的是 true   false    消失隐藏
+
+
+-========================$on  $emit  $broadcast     controller之间通信-==========
+	<script>
+        var app = angular.module('index',[]);
+        app.controller('con1',function($scope){
+            $scope.a = 1;
+
+            $scope.$on('num',function(ev,data){
+                $scope.a = data+1;
+            });
+        });
+        app.controller('con2',function($scope){
+            $scope.a = 0;
+            $scope.changeNumber = function(){
+                $scope.$emit('num',$scope.a);
+                $scope.$broadcast('num',$scope.a);
+            };
+        });
+        app.controller('con3',function($scope){
+            $scope.a = -1;
+            $scope.$on('num',function(ev,data){
+                $scope.a = data-1;
+            });
+        });
+    </script>
+
+	 子级发送给父级
+	 	$scope.$emit('名字',要传的东西);
+
+	父级发送给子级
+	 	$scope.$broadcast('名字','要传的东西');
+
+	接收
+	 	$scope.$on('传过来的名字',function(ev,data){
+			data  就是传来的东西  也就是值
+		});
+
+-========================$scope.$apply  脏检查========================
+
+	$scope.$apply(function(){
+		//代码
+	});
+
+	var app=angular.module('index',[]);
+		 app.controller('main',function($scope){
+			  $scope.time=Date.now();
+			  setInterval(function(){
+					$scope.$apply(function(){-------->放入apply中
+						 $scope.time=Date.now();
+					});
+			  },1000);
+		 })
+	$scope上的数据已经更新  但是DOM上的数据没有得到更新   就要用到脏检查
+
+
+-========================filter 过滤器===============================
+
+	{{number|currency:'¥'}}				 $scope.number = 111043242;  这只是一串数字
+
+	{{time|date:'yyyy-MM-dd HH:mm:ss:sss a EEEE'}}  年月日  时分秒  毫秒。。。。。。。
+
+	{{a|lowercase}}	转小写
+
+	{{a|appercase}}	转大写
+
+	{{num|number}}		把数字以三位数用逗号隔开  0,000,000,000
+
+	<li ng-repeat=" item in arr|orderBy track by $index">{{item}}</li>
+	{{str|orderBy}}	 排序
+
+	{{str|limitTo:2}}  保留几位   str 是一个字符串  后面的2就是保留的位数
+
+
+	<div ng-controller="main">
+        <input type="text" ng-model="word">
+        <ul>
+            <li ng-repeat="item in arr|filter:word track by $index">{{item}}</li>
+        </ul>
+    </div>
+	 筛选出filter  后面要的东西
+
+
+================================  自定义过滤器  ===============
+首字母大写的例子:
+						app.filter('capitalize',function(){
+						    return function(input){
+						        return input.charAt(0).toUpperCase()+input.substring(1);
+						    }
+						});
+
+全部首字母大写
+						app.filter('capitalizes',function(){
+							return function(input){
+							    var arr=input.split(' ');
+							  
+							    for(var i=0; i<arr.length; i++){
+							        arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);
+							    }
+							    <!-- return arr.join(' '); -->  <!--  这一行字会把下面的字变色所以在这里就先注释了 -->
+							}
+						});
+
+    ---------------------------------------------------
+
+    
+
+
+值|过滤器:参数
+
+	app.filter('名字',function(){
+		return function(input,str){
+			//input 		要操作的数据
+			//str 			传进来的参数
+			return 结果;
+		};
+	})
+
+	首字母大写 		capitalizes
+	获取中文星期	getCnDay
+	
+	app.filter('getCnDay',function(){
+        return function(input,a){
+            var oDate=new Date();
+            oDate.setTime(input);
+            var arr=['日','一','二','三','四','五','六'];
+            if(a=='b'){
+                //return '星期'+('日一二三四五六'.charAt(oDate.getDay()));
+                return '星期'+arr[oDate.getDay()];
+            }else{
+                return oDate.getDay();
+            }
+
+        }
+    });
+
+
+
+	-------------------------------
+
+自定义指令
+	app.directive('指令名字',function(){
+		return function(scope,element,attr){
+ 			scope 		ng域
+ 			element 	元素
+ 			attr 		属性
+		};
+	});
+	app.directive('指令名字',function(){    <!-- 指令的名字  ng-red  就要在指令名字的地方写成  ngRed -->
+		return {
+			link:function(scope,element,attr){
+
+			}
+		};
+	});
+
+
+========================  控制器的别一种写法==================
+
+var app=angular.module('index',[],['$controller	',function(controller){
+    controller.register('main',['$scope',function($scope){
+        $scope.a=12;
+    }]);
+}]);
+
+
+	var app=angular.module('index',[],['$controllerProvider','$filterProvider','$compileProvider',function(controller,filter,compile){
+        controller.register('main',['$scope',function($scope){  <!-- 因为怕压缩所工作中都是像现在这样 要用数组方式预防压缩 -->
+            $scope.a=12;
+        }]);
+        filter.register('toFixed',function(){
+            return function(input,a){
+                return input.toFixed(a)
+            }
+        });
+        compile.directive('ngRed',function(){	<!-- 自定义指令 -->
+            return {
+                link:function(scope,element,attr){
+                    console.log(element);
+                    var oDiv=element[0];
+                    oDiv.style.background='red';
+                }
+            }
+        });
+    }]);
+
+
+	================		watch	当值发生变化时  ===================
+
+	watch	当值发生变化时
+	
+	$scope.$watch('要发生变化的值',function(str){
+					返回的   str  就是变化后的值    <!-- 就好比input中你输入什么str就会变化成什么 -->
+	})
+
+
+	=================   POST 交互方式================
+
+	app.controller('main',function($scope,$http){
+	    $scope.getData=function(){
+	        $http({
+	            url:'a.php',
+	            method:'post',<!-- 提交方式 -->
+	            headers:{       <!-- 设置头部 -->
+	                'Content-Type':'application/x-www-form-urlencoded'
+	            },
+	            data:{  <!-- 给后台的数据 -->
+	                a:12,
+	                b:5
+	            },
+	            transformRequest:function(data){
+	                var arr=[];
+	                for(var key in data){
+	                    arr.push(key+'='+data[key]);
+	                }
+	                return arr.join('&');
+	            }
+	        }).then(
+	            function(res){		<!-- 成功的回调函数 -->
+	                alert(res.data);
+	            },
+	            function(e){		<!-- 成功的回调函数 -->
+	                console.log(e);
+	                alert('失败了');
+	            }
+	        );
+	    };
+
+	});
+
+====================   jsonp  数据交互    ================
+
+
+	$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+        params:{
+            "wd":str,	<!-- 关键字 -->
+            "cb":'JSON_CALLBACK'  <!-- 必需写成 大写  JSON_CALLBACK  -->
+        }
+    }).then(function(res){
+        $scope.arr=res.data.s;
+    },function(){
+        alert('失败了');
+    });
+
+    ====================================  GET   的数据交互	========================
+
+    $http.get(url,
+		{
+			params:{
+				<!-- 给后台的数据 -->
+			}  
+		}
+    ).then{
+    	function(res){
+			var arr=res.data;  <!-- 成功的回调函数 -->
+    	},
+    	function(){
+    		<!-- 失败的回调函数 -->
+    	}
+    };

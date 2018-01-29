@@ -1,0 +1,194 @@
+ECMA是标准 ,JS是实现者
+HTML5是标准高级浏览器实现 
+
+---------------------------------
+在线编译 ---主要用于测试
+	google.github.io
+	babeljs.io
+
+需要要用到的编译工具
+	babel
+	traceur  ---由google开发的编译器
+	bootstrap.js   引导程序
+
+	<script type="module">
+
+	</script>
+
+node里面使用
+	直接用，需要要添加 'use strict'
+	如果需要用某些功用不好使的话
+		加上node--harmony_desctructuring xxx.js
+---------------------------------
+新增工能
+1，定义变量
+	let 	a.块级作用域块以外不可使用   {}
+			b.定义变量不可重复声明
+			注意定义的值是可以被修改的   let a=12;   a=5; console.log(a);//5
+		总结：块级作用域，其实就是匿名函数立即调用
+		类似于之前的   ()();
+	var 函数作用域
+
+	const a=12;   定义常量
+		必须给初始值 ，不能重复声明
+
+2，字符串连接
+	之前 '+变量+'
+	`${变量}`
+3，解构赋值
+
+	var [a,b,c]=[1,2,3];
+	var {a,b,c}={a:1,b:2,c:3}  跟顺序无关
+	模式匹佩
+		var [a,[b,c],d]=[1,[2,3],4];  左右结构一定要一样
+		var [a,{b,c},d]=[1,{}]
+
+	解构可以给默认值
+	var {time=12,id=2}={}
+4，复制数组  扩展运算符
+	var arr=[1,2,3];
+	循环复制
+	var arr2=Array.from(arr);
+	var arr2=[...arr]
+
+	function show(...args){
+		//arguments  实参参数数组   但没有数组的方法  pop  push  这些都没有
+		args  就解决了这个问题   它就变成了一个数组
+	}
+	show(1,2,3)
+5，循环----map（为for of  而生）   但不可以循环json  会报错
+	
+
+	-------------------------------------------------
+	数组：
+
+		for(var name in arr){}  出来的是索引 
+		只循环值：
+			for(var value of arr){}  可以循环数组(出来的是值)  
+		只循环索引
+			for(var key of arr.keys()){}
+		索引和值都循环
+			for(var some of arr.entries()){}
+
+	-------------------------------------------------
+	map
+		var map=new map();
+		map.set('名字'，'值');
+		map.get('name');
+		map.delete.名字
+
+		默认是entries()  循环的是key,value(可以不加entries())
+			for(var name in map.entries()){}
+			for(var [key,value] of map.entries){}
+		只循环key
+			for(var key of map.keys()){}
+		只循环value
+			for(var value of map.values()){}
+6，箭头函数  =>     
+	注意：
+		this指向window
+		arguments   不能使用了   应该可以用...args  （有时间测试）
+
+7，单体模式
+	json
+	----------------
+	之前的：
+		var json={
+			name:'abc',
+			age:123,
+			showName:function(){
+				return this.name;
+			},
+			showAge:function(){
+				return this.age;
+			}
+		}
+
+	----------------
+	
+	es6
+		var name='abc';
+		var age=124;
+		var preson={
+			name,
+			age,
+			showName(){
+				return this.name;
+			},
+			showAge(){
+				return this.age;
+			}
+		}
+8，面向对象
+	cless Person{   //类
+		constructor(name,age){
+			this.name=name;
+			this.age=age;
+		}
+		showName(){
+			return this.name;
+		}
+		showAge(){
+			return this.age;
+		}
+	}
+	var p1=new Person('aaa',12);
+	var p2=new Person('bbb',12);
+
+	p1.constructor==p2  true
+
+	-------------------------------
+	class Worker extends Person{
+		constructor(name,age,job='工人'){   job='工人'  这是给默认值
+			super(name,age);  //调用父级构造
+			this.age=age;  
+		}
+	}
+9，模块化
+
+10，promise   用来传递异步操作的数据
+	
+		pending(等待,处理中)->Resolve(完成)
+		                    ->rejected(拒绝，失败)
+        var p1=new Promise(resolve,reject){
+        	resolve()//成功
+        	reject()//失败了
+        }
+
+        p1.then(function(resolve){成功了},function(reject){失败了});
+        p1.catch()----用来捕获错误
+        Promise.all([p1,p2,pe]).then(function(res){})  都是resolve才是成功  
+
+        Promise.race([p1,p2]).then(function(res){}); 谁先到就用谁  
+
+        -------------------------------
+
+        Promise.reject('失败的').then(function(res){});
+
+        Promise.resolve(value).then(function(){});
+        Promise.resolve(p1).then(function(){});
+       	返回值就是p1的结果
+
+        Promise.resolve(arr).then();
+11，Generator-----生成器
+	是一个函数
+	可以遍历
+
+	function* show(){  //generator函数
+		//yield语句
+		yield 'aaaa'
+		yield 'bbbb'
+		yield 'cccc'
+		return '结束了'
+	}
+	var res=show();
+	res.next();{value:'aaa',done:false}
+	res.next();{value:'bbb',done:false}
+	res.next();{value:'ccc',done:false}
+	res.next();{value:'结束了',done:true}  结束了
+
+	总结：每次返回一个value和done结束 
+	value是yield后面的值 
+	done是个布尔值    判断是否已经走完
+
+	for of 可以循环generator

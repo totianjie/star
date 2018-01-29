@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:#ccc;
+            position:absolute;
+            left:500px;
+            top:200px;
+        }
+        #left{
+            width:20px;
+            height:100%;
+            background:red;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        #top{
+            width:100%;
+            height:20px;
+            background:red;
+            position:absolute;
+            left:0;
+            top:0
+        }
+        #right{
+            width:20px;
+            height:100%;
+            background:red;
+            position:absolute;
+            right:0;
+            top:0;
+        }
+        #bottom{
+            width:100%;
+            height:20px;
+            background:red;
+            position:absolute;
+            bottom:0;
+            left:0
+        }
+        #lt,#rt,#lb,#rb{
+            width:20px;
+            height:20px;
+            background:#399;
+            position:absolute;
+        }
+        #lt{
+            left:0;
+            top:0;
+        }
+        #rt{
+            right:0;
+            top:0;
+        }
+        #lb{
+            left:0;
+            bottom:0;
+        }
+        #rb{
+            right:0;
+            bottom:0;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var oLeft=document.getElementById('left');
+            var oTop=document.getElementById('top');
+            var oRight=document.getElementById('right');
+            var oBottom=document.getElementById('bottom');
+            var oLt=document.getElementById('lt');
+            var oLb=document.getElementById('lb');
+            var oRt=document.getElementById('rt');
+            var oRb=document.getElementById('rb');
+
+            /*
+            * 1 down时把本身的width存起来 本身的left存起来  坐标存起来
+            * 2 move时求出移动的距离  down的坐标-move的坐
+            * 3 width=本身的width+移动的距离    left=原来的left-移动的距离
+            * 4 赋值OK
+            *
+            * */
+            //left
+            oLeft.onmousedown=function(ev){
+                var oEvent=ev ||  event;
+                var disX=oEvent.clientX;
+                var oldW=oBox.offsetWidth;
+                var oldL=oBox.offsetLeft;
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var targetX=disX-oEvent.clientX;
+                    var width=oldW+targetX;
+                    var left=oldL-targetX;
+                    oBox.style.width=width+'px';
+                    oBox.style.left=left+'px';
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+            /*
+             * 1 down时把本身的height存起来 本身的top存起来  坐标存起来
+             * 2 move时求出移动的距离  down的坐标-move的坐
+             * 3 height=本身的height+移动的距离    top=原来的top-移动的距离
+             * 4 赋值OK
+             *
+             * */
+            //top
+            oTop.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disY=oEvent.clientY;
+                var oldH=oBox.offsetHeight;
+                var oldT=oBox.offsetTop;
+
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var targetY=disY-oEvent.clientY;
+                    var newH=oldH+targetY;
+                    var newT=oldT-targetY;
+
+                    oBox.style.height=newH+'px';
+                    oBox.style.top=newT+'px';
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+            /*
+             * 1 down时把本身的width存起来  坐标存起来
+             * 2 move时求出移动的距离  down的坐标-move的坐
+             * 3 width=本身的width+移动的距离
+             * 4 赋值OK
+             *
+             * */
+            //right
+            oRight.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disX=oEvent.clientX;
+                var lodW=oBox.offsetWidth;
+
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var targetX=oEvent.clientX-disX;
+                    var newW=targetX+lodW;
+                    oBox.style.width=newW+'px';
+
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+            /*
+            * 1 down 时把height 坐标存起来
+            * 2 求出移动了的距离   原来的坐-移动后的坐
+            * 3 height = 原来的height + 移动的距离
+            * */
+            //bottom
+            oBottom.onmousedown=function(ev){
+                var oEvent=ev || event;
+                var disY=oEvent.clientY;
+                var lodH=oBox.offsetHeight;
+                document.onmousemove=function(ev){
+                    var oEvent=ev || event;
+                    var targetY=oEvent.clientY-disY;
+                    var newH=targetY+lodH;
+                    oBox.style.height=newH+'px';
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+                return false;
+            };
+
+
+
+
+            //太多了  下一个重用  还有四个角没有做 在重用里做
+
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="left"></div>
+    <div id="top"></div>
+    <div id="right"></div>
+    <div id="bottom"></div>
+
+    <div id="lt"></div>
+    <div id="rt"></div>
+    <div id="lb"></div>
+    <div id="rb"></div>
+</div>
+
+</body>
+</html>

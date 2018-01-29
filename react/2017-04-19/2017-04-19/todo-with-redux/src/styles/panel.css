@@ -1,0 +1,7 @@
+.panel{
+    flex: 1;
+}
+.items-wrapper{
+    height: 100%;
+    overflow-y: auto;
+}

@@ -1,0 +1,4 @@
+<!--pages/news/news.wxml-->
+<text>{{msg}}</text>
+<button type="default" bindtap="fn">回来</button>
+<button type="default" bindtap="fn2">退出</button>

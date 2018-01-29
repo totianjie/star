@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:200px;
+            background:salmon;
+
+        }
+    </style>
+    <script>
+        function getStyle(obj,name){
+            if(obj.currentStyle){
+                //兼容IE系
+                return obj.currentStyle[name];
+            }else{
+                //兼容IE9+ chrome FF
+                return getComputedStyle(obj,false)[name]
+            }
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+
+            oBox.onclick=function(){
+                var style=getStyle(oBox,'width');
+                alert(style);
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>

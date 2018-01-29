@@ -1,0 +1,12 @@
+
+<?php
+  $a=$_POST["a"];
+  $b=$_POST["b"];
+  echo $a-$b;
+?>
+
+<?php
+  $a=$_GET["a"];
+  $b=$_GET["b"];
+  echo $a-$b;
+?>

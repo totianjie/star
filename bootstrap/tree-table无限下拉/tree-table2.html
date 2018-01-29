@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+	<title>treetable插件</title>
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+	<script src="./js/jquery-1.9.1.js"></script>
+
+	<style>
+        ul li{ list-style:none; cursor:pointer; }
+        .pl-20{ padding-left:20px; }
+        ul{ display:none;}
+        .active{ display:block; }
+		
+		.my-table{ overflow: hidden; }
+		.my-table span{     
+			float:left;
+			min-width: 100px;
+			height:40px;
+			line-height: 40px;
+			background: #F9FAFC;
+			border-left: 1px solid #8492A6;
+			border-bottom:1px solid #8492A6;
+			text-align:center;
+		}
+		.w-300{ width:300px; }
+		.my-table span.text-align-l{ text-align:left; }
+        /* 默认打开  是减号 */
+		.icon-1{ display:inline-block; width:20px; height:20px; background:url(images/treeIcon.png) no-repeat 0 4px;}
+        /* 收拢加号图标 */
+		.icon-1-bg{ background:url(images/treeIcon.png) no-repeat 0 -30px; }
+        /* 默认是打开的 */
+		.icon-2{ display:inline-block; width:20px; height:20px; background:url(images/treeIcon.png) no-repeat -107px -61px;}
+        /* 收拢图标 */
+		.icon-2-bg{ background:url(images/treeIcon.png) no-repeat -70px -61px; }
+        /* 无子级图标 */
+		.icon-2-no-list{ background:url(images/treeIcon.png) no-repeat -184px 4px; }
+
+
+    </style>
+    		<!-- 
+                这个插件默认全部都是打开的    如果需要收拢可以改变  active
+             -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+            var _arr=[
+                {
+                    'msg':'图片',
+                    'title':'广东',
+                    'content':'内容',
+                    'show':false,
+                    'rank':1,
+                    'child':[
+                        {
+                            'msg':'图片2',
+                            'title':'深圳',
+                            'content':'内容2',
+                            'show':false,
+                            'rank':2,
+                            'child':[
+                                {
+                                    'msg':'图片3',
+                                    'title':'深圳物业1',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'深圳物业2',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'深圳物业3',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'共同物业',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'共同物业1',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+
+                            ]
+                        },
+                        {
+                            'msg':'图片2',
+                            'title':'广州',
+                            'content':'内容2',
+                            'show':false,
+                            'rank':2,
+                            'child':[
+                                {
+                                    'msg':'图片3',
+                                    'title':'广州物业1',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'广州物业2',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'广州物业3',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                }
+                            ]
+                        },
+                        {
+                            'msg':'图片2',
+                            'title':'东莞',
+                            'content':'内容2',
+                            'show':false,
+                            'rank':2,
+                            'child':[
+                                {
+                                    'msg':'图片3',
+                                    'title':'东莞物业1',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'东莞物业2',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                },
+                                {
+                                    'msg':'图片3',
+                                    'title':'东莞物业3',
+                                    'content':'内容3',
+                                    'show':false,
+                                    'rank':3
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    'msg':'22图片',
+                    'title':'湖南',
+                    'content':'22内容',
+                    'show':false,
+                    'rank':1,
+                    'child':[
+                        {
+                            'msg':'22图片2',
+                            'title':'长沙',
+                            'content':'22内容2',
+                            'show':false,
+                            'rank':2,
+                            'child':[
+                                {
+                                    'msg':'22图片3',
+                                    'title':'长沙物业1',
+                                    'content':'22内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':null
+                                },
+                                {
+                                    'msg':'22图片3',
+                                    'title':'共同物业2',
+                                    'content':'22内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':null
+                                },
+                                {
+                                    'msg':'22图片3',
+                                    'title':'共同物业1',
+                                    'content':'22内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':null
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    'msg':'33图片',
+                    'title':'湖北',
+                    'content':'33内容',
+                    'show':false,
+                    'rank':1,
+                    'child':[
+                        {
+                            'msg':'33图片2',
+                            'title':'荆州',
+                            'content':'33内容2',
+                            'show':false,
+                            'rank':2,
+                            'child':[
+                                {
+                                    'msg':'33图片3',
+                                    'title':'荆州物业1',
+                                    'content':'33内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':[]
+                                },
+                                {
+                                    'msg':'33图片3',
+                                    'title':'共同物业',
+                                    'content':'33内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':[]
+                                },
+                                {
+                                    'msg':'22图片3',
+                                    'title':'共同物业2',
+                                    'content':'22内容3',
+                                    'show':false,
+                                    'rank':3,
+                                    'child':null
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
+            //拿到数据  默认上来创建一次
+            fn_list(_arr);
+
+
+            //当每一个标题点击时  处理显示与隐藏
+            $(document).off('dblclick','.my-table').on('dblclick','.my-table',function(){
+                //$(this).next()[0]
+                /*
+                 * 这是传成原生对象  先看看有没有下一个兄弟  如果有就会是一个对象  没有就是undefined
+                 * 如果不转成原生对象  返回的一直是个对象  判断不了
+                 * */
+                //如果没有下一级兄弟就不用去改变
+                if(!$(this).next()[0])return;
+                /*
+                 *   $(this).next().hasClass('block')  返回的是   true/false
+                 * */
+                if($(this).next().hasClass('active')){
+                    $(this).next().removeClass('active');
+                    $(this).children('span').find('.icon-1').addClass('icon-1-bg');
+                    $(this).children('span').find('.icon-2').addClass('icon-2-bg');
+                }else{
+                    $(this).next().addClass('active');
+                    $(this).children('span').find('.icon-1').removeClass('icon-1-bg');
+                    $(this).children('span').find('.icon-2').removeClass('icon-2-bg');
+                }
+                return false;
+            });
+
+ 			//当每一个加减号点击时  处理显示与隐藏
+            $(document).off('click','.my-table .icon-1').on('click','.my-table .icon-1',function(){
+                //$(this).next()[0]
+                /*
+                 * 这是传成原生对象  先看看有没有下一个兄弟  如果有就会是一个对象  没有就是undefined
+                 * 如果不转成原生对象  返回的一直是个对象  判断不了
+                 * */
+                //如果没有下一级兄弟就不用去改变
+                if(!$(this).parents('.my-table').next()[0])return;
+                /*
+                 *   $(this).next().hasClass('block')  返回的是   true/false
+                 * */
+                if($(this).parents('.my-table').next().hasClass('active')){
+                    $(this).parents('.my-table').next().removeClass('active');
+                    $(this).addClass('icon-1-bg');
+                    $(this).next().addClass('icon-2-bg');
+                }else{
+                    $(this).parents('.my-table').next().addClass('active');
+                    $(this).removeClass('icon-1-bg');
+                    $(this).next().removeClass('icon-2-bg');
+                }
+                return false;
+            });			
+            
+        });
+
+        //拿到数据创建列表
+        function fn_list(_arr){
+            /*
+            * createdList(_arr);  用来创建列表的函数   返回的是一个 ul
+            *   _arr   是后台返回的数据
+            * */
+            var oList=createdList(_arr);
+            //默认每一个ui  是显示的
+            // oList.addClass('active');
+            //每次创建之前先清空   不然会叠加
+            $('#list').html('');
+            //把创建好的列表放处到 父级
+            $('#list').append(oList);
+            // 如果要让所有的数据默认收起来   把下面这条代码取消就可以了   在把309行号  注释打开就可以了
+            $('#list').find('ul').addClass('active');
+        }
+
+        //此函数返回的是一个 ul
+        function createdList(_arr){
+            //如果过来的数据不是真的  或者没有子级就不用向下走了
+            if(!_arr && !_arr.length)return;
+            var oList=$('<ul></ul>');
+            $(_arr).each(function(index,item){
+            	console.log(index);
+                var oItem=$('<li data-show="'+item.show+'"></li>');
+                var oName=$('<div class="my-table">'+
+			        			'<span>123</span>'+
+				       			'<span class="w-300 text-align-l" style="text-indent:'+item.rank*2+'em"><i class="icon-1"></i><i class="icon-2"></i>123</span>'+
+				       			'<span>123</span>'+
+				       			'<span>123</span>'+
+				       			'<span>123</span>'+
+				       			'<span>123</span>'+
+				       			'<span style="border-right:1px solid #8492A6;">123</span>'+
+			        		'</div>');
+                oItem.append(oName);
+                //判断每条数据中的child有没有子级   如果有就递归掉用
+                if(item.child && item.child.length){
+                    var oChild=createdList(item.child);
+                    oItem.append(oChild);
+                }else{
+                	oName.find('.icon-1').hide();
+                	oName.find('.icon-2').addClass('icon-2-no-list');
+                }
+                //每一次循环完把创建好的扔进准备好的容器当中去
+                oList.append(oItem);
+            });
+            return oList;
+        }
+	</script>	
+</head>
+<body>
+	<div style="padding:50px;">
+	    <div  id="list" style="border-top:1px solid #8492A6;"></div>
+	</div>
+	
+</body>
+</html>

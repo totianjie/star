@@ -1,0 +1,178 @@
+parseInt() 			(转整数)
+parseFloat() 			(还可转小数)
+Number() 			(转长得像数字的)
+typeof() 			(测式元素类型)
+switch()
+case
+break				(跳出整个循环)
+default
+continue 			(跳出单次)
+return 返回值   			(后面代码不执行)
+setInterval() 			(无限定时器)
+clearTimeout()  		(一次性定时器)
+while 				(循环)
+Hours 				(小时)
+Minutes 			(分钟)
+Seconds 			秒
+FullYear 			年
+Month 				月
+Date 				日
+Day 				星期
+Time 				时间戳
+arguments[]			实参  有lemgth
+indexOf('字母') 			前面开始找
+laseIndexOf() 			后面开始找
+substring(开始，结束)		截取字符串
+charAt() 			字符串下标
+toUpperCase() 			转大写
+toLowerCase() 			转小写
+push() 				后面添加
+pop() 				后面删除
+unshift() 			前面添加
+shift() 			前面删除
+reverse() 			反转数组
+concat() 			连接多个数组
+splice(开始，删除个数，添加)
+join('连接方式') 		转成字符串
+sort()				排序
+
+random() 			随机
+abs() 				绝对值
+max() 				取大
+min() 				取小
+ceil() 				向上取整
+floor() 			向下取整
+round() 			四舍五入
+sqrt() 				平方根
+
+undefined 			未定义
+boolean 			布尔
+string 				字符串
+object 				对象
+function 			函数
+delete 				删除
+
+children 			孩子们
+parent 				父亲
+Node 				节点
+next 				下一个
+previous 			上一个
+sibling 			兄弟，姐妹
+first 				首节点
+last 				尾节点
+
+create 				创建
+append 				添加
+insertBefore 			添加 谁前面
+remove 				删除
+replace 			替换
+offset 				抵消 补偿
+client 				客户 委托人
+scroll 				卷轴 名册
+load 				加载
+obj.getBoundingclientRect() 获取宽高/left/top/bottom/right
+mouse 	鼠标
+out 	离去
+leave 	离开 出发 
+over 	越过 结束
+disabled 失去能力（=true不可以点）
+move 	移动
+up 	起来 上升
+down 	向下
+click 	点击 单击
+change 	变化 改变
+
+wheel 	转轮 方向盘
+delta 	三角洲
+detail 	细节 详情
+
+Attribute 属性 特质
+focus 	使集中 使聚焦
+blur  	污迹；模糊不清的事物
+error 	误差；错误；过失
+key 	键；关键；钥匙
+Fixed  	固执的
+page  	页；记录；大事件(oEvent.PageX/Y 滚动条滚动的距离)
+event  	事件，大事；项目；结果
+cancel  取消，撤销
+bubble 	气泡，泡沫 (oEvent.cancelBubble 取消冒泡)
+code 	代码，密码；编码；法典(keyCode)
+context  环境；上下文
+menu  	菜单 (oncontextmenu 右键事件)
+capture 捕获；战利品，俘虏 (obj.Capture() )
+release  释放；发布；让与  (obj.releaseCapture)
+clone 	克隆  （var obj=obj.cloneNode(true)）
+
+action 	行动；活动；功能；战斗；情节 (提交地址)
+name . 	名称，名字
+method 	方法；条理；类函数
+get 	使得；获得 (有缓存  32K)
+pust 	(没有缓存 1GB)
+eval
+parse  	解析 理解 （var JSON.parse()）解析json
+
+unicode 统一的字符编码标准
+encode 	译成密码；编码，编制成计算机语言
+component 组成的，构成的 ( de/encodeURIComponent(字符串) 转成unicode编码)
+location 位置 地点 hase获取锚点 href获取地址 search ?后面的数据
+open 	公开；打开   _bland  _self自身打开  _new新窗口打开
+history 历史，历史学；历史记录；来历 go(1/0/2....)  forward()下一页  back()上一页
+screen  屏，幕；屏风   (屏幕信息)
+navigator ；领航员；驾驶员
+user 	用户
+Agent 	代理 特工   (navigator.userAgent)UI
+
+confirm 确认 确定（confirm('要弹的内容') ）
+prevent 预防，防止；阻止  (oEvent.preventDefault())阻止默认事件
+
+add 	增加 添加
+listener 倾听者 听从 （obj.addEventListener() ）事件绑定
+attach  附加；附属；伴随 (obj.attachEvent()  )  带on  
+detach  分离；派遣；使超然
+
+property 性质，性能；财产；所有权 (oT.onpropertychange)  10 9 8 7
+target  目标；靶子
+
+options 选择
+duration  持续，持续的时间
+easing  吃势；容位；松型  (运动类型) liear  ease-in ease-out
+complete  完整的 (函数)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>并归排序 用的是二分法</title>
+
+    <script>
+        var arr = [23, 54, 12, 34, 12, 756, 8, 5, 3];
+
+        function marge (arr, s, e) {//s开始位置e结束位置
+            if (s > e) {//开始大于啊结束
+                return [];
+            } else if (s == e) {//开始位置等于位置只有一位数
+                return [arr[s]];
+            } else if (s == e - 1) {//只有两位数的情况下
+
+                if (arr[s] < arr[e]) {
+                    return [arr[s], arr[e]];
+                    //现在排的是从小到大  其它反之
+                } else {
+                    return [arr[e], arr[s]];
+                }
+            }
+
+            //取个中间位置分成两边  ceil向上取整
+            var c = Math.ceil((s + e) / 2);
+            var left = marge(arr, s, c);//自己掉用自己返回排好的顺序
+            var right = marge(arr, c + 1, e);
+            var aResult = [];
+
+            while (left.length && right.length) {
+
+                //把两个数组排好的序 进行整合
+                if (left[0] < right[0]) {
+                    aResult.push(left.shift());
+                } else {
+                    aResult.push(right.shift());
+                }
+
+                //其中有一个数组空了就把别一个剩下的整合
+                if (left.length == 0) {
+                    aResult = aResult.concat(right);
+                } else if (right.length == 0) {
+                    aResult = aResult.concat(left);
+                }
+            }
+
+            return aResult;
+
+        }
+
+        document.write(marge(arr, 0, arr.length));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

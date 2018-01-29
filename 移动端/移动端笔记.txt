@@ -1,0 +1,225 @@
+	
+
+需要改变viewport（视口）
+
+	<meta name="viewport" content="width=320"/>
+	<meta name="viewport" content="width=device-width"/>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"/>
+		user-scaclble=no 	在ios10下失效，js解决。
+
+	苹果才有的meta
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+定宽+百分比
+			max-width
+			min-width
+
+	=================================================
+响应式
+			在不同尺寸上，同一套页面使用不同的样式
+
+			媒体查询
+			@media	screen and (条件){
+				样式
+				.div{
+
+				}
+			}
+	可以加在  link上
+			<link rel="stylesheet" href="css/init.css">
+			<link rel="stylesheet" href="css/pc.css" media="screen and (min-width:800px)">
+			<link rel="stylesheet" href="css/pad.css" media="screen and (min-width:500px) and (max-width:800px)">
+			<link rel="stylesheet" href="css/phone.css" media="screen and (max-width:500px)">
+	可以加在	style上
+			<style>
+            @import url(css/pc.css) screen and (min-width:800px);
+            @import url(css/pad.css) screen and (min-width:400px) and (max-width: 800px);
+            @import url(css/phone.css) screen and (max-width: 400px);
+        </style>
+
+	=================================================
+
+弹性（flex布局）
+			width: calc(20% - 2px);	可以直接减宽度
+
+			width/height+padding+border
+			传统盒子模型：
+				尺寸不够，往外挤。
+			新的盒子模型
+				尺寸不够，往里挤。
+			box-sizing: centent-box; 		老
+			box-sizing: border-box; 		新
+			-webkit-box-sizing  ----->	要写兼容
+
+
+		display:-webkit-flex;	开户flex box(所有的float失效)	加给父级开启弹性
+		-webkit-flex:系数（占几份）子级
+
+
+
+		排例方式  （注意父级一定要有高度  不然没用）
+			body{
+				display:-webkit-flex;		开户弹性
+				-webkit-flex-direction:column;	 排例方式
+				}
+			div{
+		        -webkit-flex:1;		--->系数占几份
+			}
+
+			-webkit-flex-direction:			加给父级
+				column 				纵向排例
+				column-reverse		纵向翻转
+				row 				横向排例
+				row-reverse			横向翻转
+
+
+			.container {
+			 	display: flex;				//让子级
+			 	align-items: center; 		/* 垂直居中 */
+			 	justify-content: center;	/* 水平居中 */
+
+			 }
+
+	=================================================
+
+rem布局
+
+	px
+	%
+	deg
+	em 			1em相当于1个字体大小 (其实em跟rem差不多  em是如果父级设置了字体大小 面向的就是自己的低级)
+									（rem 一直面向的都是html）
+	rem单位 	根字体大小
+		html字体大小多少 = 1rem
+
+	html 定死的字体大小（比如20px）/总宽高（比如300px）=多少个rem  ----->(20/300)
+
+
+
+	-----------------------------------
+	基准rem/基准宽度 = 新rem/新宽度			基准宽度就是自己psd图的页面的宽度
+	基准rem/基准宽度 = ?/新宽度
+	新rem = 基准rem/基准宽度*新宽度
+	<script>
+        var rem = 20;		//默认字体大小
+        ;(function(win,doc){
+            rem =20/320*doc.documentElement.clientWidth;
+            doc.documentElement.style.fontSize = rem+'px';
+
+            //窗中改变时要rem的值也要跟着改变
+            win.addEventListener('resize',function(){
+                rem =20/320*doc.documentElement.clientWidth;
+                doc.documentElement.style.fontSize = rem+'px';
+            },false);
+        })(window,document);
+    </script>
+	----------------------------------
+
+	=============================
+zepto事件
+	tap 点击
+	doubleTap	双击
+	singleTap	点击延迟触发
+	longTap - 当元件被敲击并且手指按住超过750ms时触发。《时间可以在js原码上改》
+
+原生手机事件
+	不要用window.onload（用DOMContentLoaded事件） 不要用*清默认
+	一定要使用事件绑定
+	touchstart 按下
+		var oTouch=ev.targetTouches[]; 有多少手指按下了
+		oTouch.pageX	手指按下的坐标
+	touchmove	手指移动
+	touchend	手指离开
+		var oTouch=ev.changedTouches[];
+
+	卡怎么办？ 开户3D加速
+	translate3d(x,y,z);
+		translate3d(x,y,0);
+
+
+
+swipe，
+swipeLeft，
+swipeRight，
+swipeUp，
+swipeDown
+
+
+原生手机拖拽
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+
+
+      function drag(id){
+        var oBox=document.querySelector(id);
+        var x=0;
+        var y=0;
+        oBox.addEventListener('touchstart',function(ev){
+          var oTouch=ev.targetTouches[0];
+          var id=oTouch.identifier;
+          var disX=oTouch.pageX-x;
+          var disY=oTouch.pageY-y;
+
+          function fnMove(ev){
+            var oTouch=ev.targetTouches[0];
+            if(oTouch.identifier==id){
+              x=oTouch.pageX-disX;
+              y=oTouch.pageY-disY;
+              oBox.style.WebkitTransform='translate3d('+x+'px,'+y+'px,0)'
+            }
+
+          }
+          function fnUp(ev){
+            var oTouchEnd=ev.changedTouches[0];
+            if(oTouchEnd.identifier==id){
+              document.removeEventListener('touchmove',fnMove,false);
+              document.removeEventListener('touchend',fnUp,false);
+            }
+          }
+          document.addEventListener('touchmove',fnMove,false);
+          document.addEventListener('touchend',fnUp,false);
+          ev.preventDefault();
+        },false);
+      }
+      drag('.box1');
+      drag('.box2');
+
+    },false);
+  </script>
+
+
+
+
+开户弹性
+	display:flex;  
+垂直
+	align-items:center（中）（flex-end下）（space-between一左一右）;
+水平
+	justify-content:center（中）;(flex-end居右)
+上下
+	flex-direction:column;(一上一下)
+位置不够自动换行
+	flex-wrap: wrap;
+
+--------------加给子级的
+align-self:center(垂直中)flex-end（居底）;
+
+
+
+------------------------------------
+移动端字体问题
+	@mixin font-dpr($font-size) {
+		font-size: $font-size;
+		[data-dpr="2"] & {
+			font-size: $font-size * 2;
+		}
+		[data-dpr="3"] & {
+			font-size: $font-size * 3;
+		}
+	}
+
+使用
+	@include font-dpr(14px);

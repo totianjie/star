@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>智能社——http://www.zhinengshe.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        .box{
+            width:200px;
+            height:250px;
+            border: 1px solid #ccc;
+            position: relative;
+            margin: 30px auto;
+        }
+        .box .tip{
+            position: absolute;
+            right:10px;
+            top:10px;
+            padding: 5px 10px;
+            background: salmon;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 12px;
+        }
+        .box .active{
+            background: #399;
+        }
+        .box .info{
+            width:100%;
+            position: absolute;
+            left:0;
+            bottom:20px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function toDou(n){
+            return n<10?'0'+n:''+n;
+        }
+        window.onload=function(){
+            var oBox=document.getElementById('box');
+            var aTip=oBox.getElementsByTagName('span')[0];
+            var aStrong=oBox.getElementsByTagName('strong')[0];
+
+            var timer=null;
+            var aTime=[5,5];
+            var aText=['即将拍卖','正在拍卖'];
+
+            //开始时间内容
+            var time1=aTime[0]+1;//时间
+            var text1=aText[0];
+
+            //第二个时间内容
+            var time2=aTime[1]+1;//时间
+            var text2=aText[1];
+
+
+            function countDown(){
+                time1--;
+                aTip.innerHTML=text1;
+                aStrong.innerHTML=toDou(parseInt(time1/60))+'分'+toDou(time1%60)+'秒';
+                if(time1==0){
+                    clearInterval(timer);
+                    countDown2()
+                }
+            }
+            countDown();
+            timer=setInterval(countDown,1000);
+
+                function countDown2(){
+                    timer=setInterval(function () {
+                        time2--;
+                        aTip.innerHTML=text2;
+                        aTip.className='tip active';
+                        aStrong.innerHTML=toDou(parseInt(time2/60))+'分'+toDou(time2%60)+'秒';
+                        if(time2==0){
+                            clearInterval(timer);
+                            aStrong.innerHTML='本次拍卖以结束,期待下回精彩....';
+                        }
+                    },1000)
+                }
+        };
+    </script>
+</head>
+<body>
+    <div class="box" id="box">
+        <span class="tip">即将拍卖</span>
+        <div class="info">
+            剩余时间:<strong>03分33秒</strong>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,162 @@
+getById
+getByTagName
+getByClass
+
+html,body{ width:100%}
+
+/*
+* @desc   函数描述
+* @parmas 函数参数 {String}
+* @params ..
+* @return   {undefined}
+*/
+-----------------------------------------------
+index.js -> common.js
+
+之前写js遇到问题:
+	1. 彼此之间是有依赖的->手动解决
+	2. 手动引入所有js文件
+	3. 变量冲突
+都可以用模块化解决
+-----------------------------------------------
+模块化:
+	commonJS 规范  http://www.commonjs.org/
+		实施: NodeJs
+
+		requireJs  -> AMD  -> 国外，持续维护	√
+		seaJS  -> CMD  ->  国内，死了(停止更新、报废)
+
+-----------------------------------------		
+1. 上官网
+	seaJS
+	官网: http://seajs.org/docs/
+
+	requireJs
+	官网: http://requirejs.org/
+2. 拿到库文件，看帮助手册
+		API
+		docs
+		documation
+-----------------------------------------
+AMD:  Asynchronous Module define   异步模块定义
+	模块书写方式不一样
+	依赖模块
+CMD:  Common Module define      公共模块定义
+	用到哪个模块需要加载哪个模块，按需加载
+-----------------------------------------
+规范代码书写方式
+-----------------------------------------
+想玩好模块化:
+	如何定义模块?
+
+	如何使用模块?
+-----------------------------------------
+版本:
+	主版本.次版本.修订号
+
+	1.2.0
+	1.2.1
+	1.4.2
+	2.3.5
+	0.1.0
+	修订号: 可以忽略
+	次版本变化:  之前  arr.push()	/  arr.add()
+	主版本变化: 非常大的改动(兼容)
+-------------------------------------------------------
+* 一个js文件就是一个模块
+
+seajs:
+	定义模块:
+		define(function(){
+		    alert(1);
+		});
+
+		define(function(require,exports, module){
+		    //require   引入其他模块
+		    //exports   导出东西
+		    //module    批量导出东西
+
+		    exports.a=12;  //把a模块导出去
+		});
+	使用模块:
+		seajs.use('a');
+		seajs.use('b',function(modB){
+		    alert(modB.a);
+		});
+
+		seajs.use(['b','c'],function(modB,modC){
+		    alert(modC.a+modB.a);
+		});	
+模块化幻灯片:
+	
+---------------------------------------------------
+requireJs:
+	定义模块:
+		最简单定义方式：
+			define({
+			    a:1,
+			    b:2
+			});
+		函数形式:
+			define(function(){
+			    return {
+			        a:1,
+			        b:3
+			    };
+			});
+		有依赖:
+			define(function(require){
+			    var A=require('a');
+			    var B=require('b');
+			    return {
+			        res:function(){
+			            return A.b+B.b;
+			        }
+			    }
+			});
+			--------------------------------
+			define(['a','b'],function(A,B){
+			    return {
+			        res:function(){
+			            return A.b+B.b;
+			        }
+			    }
+			});
+			--------------------------------
+			define(function(require,exports,module){
+			    exports.a=12;
+			});
+
+	使用模块:
+		require(['a'],function(modA){
+		    alert(modA.a);
+		});
+
+r.js 打包requirejs代码	requirejs多个文件、多个模块，合并成一个
+	
+	使用方式:
+	1). node r.js -o baseUrl=./ name=init out=main-build.js
+		r.js 必须和init在同级目录
+	2). 配置文件
+		build-config.js  -> require-build目录里面
+		r.js
+		({
+		    baseUrl: "../js",  /*当前相对的路径*/
+		    name: "init", /* 程序的主入口文件*/
+		    out: "../js/main.build.js"  /*打包完的文件可以加目录*/
+		})
+	
+		运行: node r.js -o build-config.js
+	
+
+
+
+
+
+
+
+
+
+
+
+

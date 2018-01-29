@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div{
+            width:100px;
+            height:100px;
+            background:#ccc;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oDiv=document.getElementById('div');
+
+            /*if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+                oDiv.addEventListener('DOMMouseScroll',function(ev){
+                    var oEvent=ev || event;
+
+                    if(oEvent.detail<0){
+                        alert('向上2');
+                    }else{
+                        alert('向下2');
+                    }
+
+                },false)
+
+            }else{
+                oDiv.onmousewheel=function(ev){
+                    var oEvent=ev || event;
+                    if(oEvent.wheelDelta<0){
+                        alert('向下1');
+                    }else{
+                        alert('向上1');
+                    }
+                };
+            }*/
+            //写过在一次
+            /*
+            兼容写法
+            * 1 用浏览器信息判断firefox
+            * 2 写firefox的滚轮事件
+            *       判断向上向下的方向把方向
+            *
+            * 3 写谷歌IE的滚轮事件
+            *       判断向上向下的方向
+            * */
+            /*if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+                oDiv.addEventListener('DOMMouseScroll',function(ev){
+                    var oEvent=ev || event;
+                    if(oEvent.detail<0){
+                        alert('向上');
+                    }else{
+                        alert('向下');
+                    }
+                },false)
+            }else{
+                oDiv.onmousewheel=function(ev){
+                    var oEvent=ev || event;
+                    if(oEvent.wheelDelta<0){
+                        alert('向下');
+                    }else{
+                        alert('向上');
+                    }
+                };
+            }*/
+            /*
+            * 用oEvent.wheelDelta  在两个里面都多判断一次看有没有问题
+            *
+            * 证明没有问题   到下一步就应该合并起来
+            *
+            * */
+            /*if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+                oDiv.addEventListener('DOMMouseScroll',function(ev){
+                    var oEvent=ev || event;
+                    if(oEvent.wheelDelta){
+                        if(oEvent.wheelDelta<0){
+                            alert('向下');
+                        }else{
+                            alert('向上');
+                        }
+                    }else{
+                        if(oEvent.detail<0){
+                            alert('向上');
+                        }else{
+                            alert('向下');
+                        }
+                    }
+                },false)
+            }else{
+                oDiv.onmousewheel=function(ev){
+                    var oEvent=ev || event;
+                    if(oEvent.wheelDelta){
+                        if(oEvent.wheelDelta<0){
+                            alert('向下');
+                        }else{
+                            alert('向上');
+                        }
+                    }else{
+                        if(oEvent.detail<0){
+                            alert('向上');
+                        }else{
+                            alert('向下');
+                        }
+                    }
+                };
+            }
+*/
+
+            /*
+            * 把事件提出去  把判断方向的封装成一个函数在外面使用
+            * 把相同的代码都合并起来了
+            * 定义一个变量利用true false  把方向都调成相同的
+            * 方向相同就可以用了
+            *
+            * */
+           /* function wheel(ev){
+                var oEvent=ev || event;
+                var dDown=true;
+                if(oEvent.wheelDelta){
+                    //把方向都调成一样
+                    if(oEvent.wheelDelta<0){
+                        dDown=true;
+                    }else{
+                        dDown=false;
+                    }
+                }else{
+                    if(oEvent.detail<0){
+                        dDown=false;
+                    }else{
+                        dDown=true;
+                    }
+                }
+                //拿到方向后就可以控制样式了
+                if(dDown){
+                    oDiv.style.width=oDiv.offsetWidth+10+'px';
+                    oDiv.style.height=oDiv.offsetHeight+10+'px';
+
+                }else{
+                    oDiv.style.width=oDiv.offsetWidth-10+'px';
+                    oDiv.style.height=oDiv.offsetHeight-10+'px';
+                }
+            }
+            if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+                oDiv.addEventListener('DOMMouseScroll',wheel,false)
+            }else{
+                oDiv.onmousewheel=wheel;
+            }*/
+           //在写一次
+            function wheel(ev){
+                var oEvent=ev || event;
+                var dDown=true;
+                if(oEvent.wheelDelta){
+                    if(oEvent.wheelDelta<0){
+                        dDown=true;
+                    }else{
+                        dDown=false;
+                    }
+                }else{
+                    if(oEvent.detail<0){
+                        dDown=false;
+                    }else{
+                        dDown=true;
+                    }
+                }
+                //拿到了方向就可以改变样式了
+                if(dDown){
+                    oDiv.style.width=oDiv.offsetWidth+10+'px';
+                    oDiv.style.height=oDiv.offsetHeight+10+'px';
+                }else{
+                    oDiv.style.width=oDiv.offsetWidth-10+'px';
+                    oDiv.style.height=oDiv.offsetHeight-10+'px';
+                }
+                //阻止默认事件return false   在事件绑定中失效  用oEvent.preventDefault解决  兼容高级浏览器
+                oEvent.preventDefault&&oEvent.preventDefault();//if判断的简写 if(){}
+                return false;
+            }
+            if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
+                oDiv.addEventListener('DOMMouseScroll',wheel,false)
+            }else{
+                oDiv.onmousewheel=wheel;
+            }
+
+        };
+    </script>
+</head>
+<body>
+<div id="div">
+
+</div>
+</body>
+</html>
