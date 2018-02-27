@@ -1,10 +1,44 @@
+--------------------------交互返回的字符串  转换方法----------------------
+	//var json=eval('('+result+')');
+	//var json=new Function("return"+result);
+	//var json=JSON.parse(result);
+	//var json=$.parseJSON(result);
+
 ECMA是标准 ,JS是实现者
 HTML5是标准高级浏览器实现 
 
----------------------------------
+ECMA-262       ->   ES1.0
+--------------------------------------------
+ES2015
+
+ES6  ->   2015年6月    ES6.0
+
+每年6月份，发布一个版本
+
+	2016年6月    ES6.1	ES7		ES2016
+	2017年6月    ES6.2(async await)	ES8		ES2017
+
+	ESnext
+---------------------------------------------
+ESnext	'下一代 js'语言
+----------------------------------------------
+任何人都可以向 标准委员会 (TC39), 要求更改语言标准
+
+提案变成标准，经历5个阶段
+	Stage 0	展示阶段
+	Stage 1	征求意见阶段
+	Stage 2	草案阶段
+	Stage 3	候选阶段
+	Stage 4	定案阶段(标准)
+
+----------------------------------------------
+https://github.com/tc39/ecma262
+
+----------------------------------------------
+
 在线编译 ---主要用于测试
-	google.github.io
-	babeljs.io
+	https://babeljs.io/repl/
+	http://google.github.io/traceur-compiler/demo/repl.html
 
 需要要用到的编译工具
 	babel
@@ -22,7 +56,9 @@ node里面使用
 ---------------------------------
 新增工能
 1，定义变量
-	let 	a.块级作用域块以外不可使用   {}
+	let 	
+		没有预解析，不存在变量提升
+		a.块级作用域块以外不可使用   {}
 			b.定义变量不可重复声明
 			注意定义的值是可以被修改的   let a=12;   a=5; console.log(a);//5
 		总结：块级作用域，其实就是匿名函数立即调用
@@ -30,11 +66,40 @@ node里面使用
 	var 函数作用域
 
 	const a=12;   定义常量
-		必须给初始值 ，不能重复声明
+	const定义完变量，必须有值，不能后赋值，不能修改
+		Object.freeze(对象); 使对象中的值不可在修改  像const一样
 
 2，字符串连接
 	之前 '+变量+'
 	`${变量}`
+
+	关于字符串一些东西:
+		字符串查找:
+			str.indexOf(要找的东西)   返回索引(位置) ，没找到返回-1
+			str.includes(要找的东西)   返回值  true/false
+
+			判断浏览器:  includes
+
+		http://www.xxx.xx
+
+		字符串是否以谁开头:
+			str.startsWith(检测东西)
+
+			检测地址
+		字符串是否以谁结尾:
+			str.endsWith(检测东西)
+
+			.png
+
+		重复字符串:
+			str.repeat(次数);
+
+	填充字符串:
+		str.padStart(整个字符串长度, 填充东西)   往前填充
+		str.padEnd(整个字符串长度, 填充东西)    往后填充
+
+		str.padStart(str.length+padStr.length, padStr)
+
 3，解构赋值
 
 	var [a,b,c]=[1,2,3];
@@ -45,6 +110,8 @@ node里面使用
 
 	解构可以给默认值
 	var {time=12,id=2}={}
+
+
 4，复制数组  扩展运算符
 	var arr=[1,2,3];
 	循环复制
@@ -57,7 +124,13 @@ node里面使用
 	}
 	show(1,2,3)
 5，循环----map（为for of  而生）   但不可以循环json  会报错
-	
+	while
+	for
+	for	in
+	for	of
+		可以操作数组，但没有索引
+		不能操作json
+		操作Map对象    也是一种数据结构，相当于json。也是键、值对的。
 
 	-------------------------------------------------
 	数组：
@@ -85,9 +158,37 @@ node里面使用
 		只循环value
 			for(var value of map.values()){}
 6，箭头函数  =>     
+	eg:
+		show=(a,b)=>a+b;   a+b相当于returnn a+b;
+		alert(show(2,5));
+
+	eg:
+		show=(a,b)=>{}
+			(a,b)		形参参数
+			{}			平时function后面的 { }	里面该怎么写就怎么写
+			eg:
+				show=(...args)=>{
+			        var result=0;
+			        for(var i=0; i<args.length; i++){
+			            result+=args[i];
+			        }
+		        	return result;
+
+			    }
+			    var result=show(2,3,5);
+			    alert(result);
 	注意：
-		this指向window
-		arguments   不能使用了   应该可以用...args  （有时间测试）
+		1. this问题, 定义函数所在的对象，不在是运行时所在的对象
+		2. 箭头函数里面没有arguments, 用  ‘...’
+		3. 箭头函数不能当构造函数
+
+	函数变化：
+		函数参数默认已经定义了，不能再使用let，const声明
+		function show(a=18){
+		    let a = 101;  //错误
+		    console.log(a);
+		}
+		show()
 
 7，单体模式
 	json
@@ -145,6 +246,56 @@ node里面使用
 		}
 	}
 9，模块化
+	在ES6之前，社区制定一套模块规范:
+	Commonjs		主要服务端  nodeJs    require('http')
+	AMD			requireJs, curlJs
+	CMD			seaJs
+	
+
+	ES6出来，同意服务端和客户端模块规范:
+	注意： 需要放到服务器环境
+	a). 如何定义模块？
+		export  东西
+		export const a =12;
+		export{
+			a as aaa,
+			b as banana
+		}
+	b). 如何使用?
+		import
+		import './modules/1.js'; 
+		import {a as a, banana, c} from './modules/2.js'
+		import * as modTwo from './modules/2.js';
+
+
+	使用模块:
+		<script type="module"></script>
+
+
+	import:  特点
+		a). import 可以是相对路径，也可以是绝对路径
+			import 'https://code.jquery.com/jquery-3.3.1.js';
+		b). import模块只会导入一次，无论你引入多少次
+		c). import './modules/1.js';  如果这么用，相当于引入文件
+		d). 有提升效果，import会自动提升到顶部，首先执行
+		e). 导出去模块内容，如果里面有定时器更改，外面也会改动，不想Common规范缓存
+
+
+		* import()  类似node里面require， 可以动态引入, 默认import语法不能写到if之类里面
+		返回值，是个promise对象
+
+		import('./modules/1.js').then(res=>{
+			console.log(res.a+res.b);
+		});
+
+		优点:
+			1. 按需加载
+			2. 可以写if中
+			3. 路径也可以动态
+
+		Promise.all([])
+
+
 
 10，promise   用来传递异步操作的数据
 	
@@ -170,6 +321,9 @@ node里面使用
        	返回值就是p1的结果
 
         Promise.resolve(arr).then();
+
+	ES2017加  async  await:
+
 11，Generator-----生成器
 	是一个函数
 	可以遍历
@@ -192,3 +346,129 @@ node里面使用
 	done是个布尔值    判断是否已经走完
 
 	for of 可以循环generator
+
+
+-------------------------------
+	'use strict'		以后默认就是严格模式
+-------------------------------
+数组:
+	ES5里面新增一些东西
+
+	循环:
+		1. for
+			for(let i=0; i<arr.length; i++)
+		2. while
+
+	arr.forEach()  //  代替普通for
+		arr.forEach(function(val, index, arr){
+		    console.log(val, index, arr);
+		});
+	arr.map()  //  非常有用，做数据交互  "映射"
+		正常情况下，需要配合return，返回是一个新的数组
+		若是没有return，相当于forEach
+
+		注意：平时只要用map，一定是要有return
+		
+		重新整理数据结构:
+			[{title:'aaa'}]   ->  [{t:'aaaa'}]
+
+	arr.filter():  过滤，过滤一些不合格“元素”， 如果回调函数返回true，就留下来
+		
+	arr.some(): 类似查找,  数组里面某一个元素符合条件，返回true
+	arr.every(): 数组里面所有的元素都要符合条件，才返回true
+
+	其实他们可以接收两个参数:
+		arr.forEach/map...(循环回调函数, this指向谁);
+	------------------------------------------------------------
+	arr.reduce()   //从左往右
+		求数组的和、阶乘
+		
+	arr.reduceRight()  //从右往左
+	------------------------------------------------------------	
+
+ES2017新增一个运算符:
+	幂
+		Math.pow(2,3)
+		2 ** 3
+
+-------------------------------
+	
+for....of....：
+	arr.keys()	数组下标
+	arr.entries()	数组某一项
+
+	for(let val of arr){
+	    console.log(val);
+	}
+-------------------------------
+
+Array.from:
+	作用: 把类数组(获取一组元素、arguments...) 对象转成数组
+
+	个人观点： 具备 length这个东西，就靠谱
+
+Array.of():  把一组值，转成数组
+	let arr = Array.of('apple','banana','orange');
+
+	console.log(arr);
+
+arr.find():  查找，找出第一个符合条件的数组成员，如果没有找到，返回undefined
+
+arr.findIndex(): 找的是位置， 没找到返回-1
+
+
+arr.fill()	填充
+	arr.fill(填充的东西, 开始位置, 结束位置);
+
+在ES2016里面新增:
+
+	arr.indexOf()
+	arr.includes(); 找某个东西就返回true没有就返回false
+		str.includes()
+
+-------------------------------------------------
+
+Object
+
+Object.is():	用来比较两个值是否相等
+
+	Object.is('a','a');
+
+	比较两个东西相等:
+		==
+		===
+
+	Object.is(NaN, NaN);
+
+	Object.is(+0, -0);
+
+Object.assign():   用来合并对象
+	let 新的对象 = Object.assign(目标对象, source1, srouce2....)
+
+	function ajax(options){  //用户传
+		let defaults={
+			type:'get',
+			header:
+			data:{}
+			....
+		};
+
+		let json = Object.assign({}, defaults, options);
+		.....
+	}
+	
+
+	用途:
+		1. 复制一个对象
+		2. 合并参数
+ES2017引入:
+	Object.keys()
+	Object.entries();
+	Object.values();
+	let {keys, values, entries} = Object;
+
+对象身上:   计划在ES2018引入 
+	...
+
+	let json = {a:3, b:4};
+        let json2 = {...json}; // 可以复制对象
