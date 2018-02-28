@@ -1,0 +1,6 @@
+直接npm install 先把项目跑起来
+
+代码都放在了 example 目录
+
+文档地址
+	https://ustbhuangyi.github.io/better-scroll/doc/zh-hans/installation.html
