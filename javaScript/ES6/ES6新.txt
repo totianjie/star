@@ -260,18 +260,29 @@ node里面使用
 		export  东西
 		export const a =12;
 		export{
-			a as aaa,
+			a as aaa, // as 这样是取别名
 			b as banana
 		}
+
+		export const a = 12;  和 export {a, b}; 这样导出去的模块   接收时： import {} from './modules/1.js'    就是说export导出的模块就要用  {}  接收
+		export default {}  这样导出的模块  接收时： import mod from './modules/1.js'     意思就是说export default 导出的模块时不需要{}接收
+
+		同时一个js文件中有export const a = 12; export default {};   这两方式同时存的   接收时： import mod, {a} from './modules/1.js';
 	b). 如何使用?
 		import
 		import './modules/1.js'; 
 		import {a as a, banana, c} from './modules/2.js'
-		import * as modTwo from './modules/2.js';
+		import * as modTwo from './modules/2.js'; // * as modTwo  的意思就是把所有都拿过来 as后面跟的名字就是取个别名
 
 
 	使用模块:
-		<script type="module"></script>
+		<script type="module">
+		    import './1.js';                    相当于是直接把1.js文件拿引入过来用
+		    import mod from './2.js';           export default {};   导出方式
+		    import mod, {} from './3.js';       export const a = 12; 或 export {a, b} 和 export default {};   同时两种方式在一个js中导出
+		    import {} from './4.js';            export 的导出方式
+		    import * as mod from '5.js';        export 的导出方式   用*来全部接收   用as取了个别名
+		</script>
 
 
 	import:  特点
@@ -295,7 +306,9 @@ node里面使用
 			2. 可以写if中
 			3. 路径也可以动态
 
-		Promise.all([])
+		Promise.all([import('./1.js'), import('./2.js')]).then(res => {
+            // res就是1.js 和 2.js 导出来的东西
+		});
 
 
 
