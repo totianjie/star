@@ -93,7 +93,7 @@ function ajax(url,success,error){
 
     //打开链接  oAjax.open('交互方式'，'url',是否异步);
     oAjax.open('POST',url,true);
-    oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');   //设置头部
+    oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded utf-8');   //设置头部
     //发送请求
     oAjax.send('a=12&b=5');  //放问号后面的数据
     //接收响应

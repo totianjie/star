@@ -228,6 +228,12 @@ function compare () {
     return Math.random() - 0.5; // 每次返回一个随机数让数组乱序
 }
 
+// ------------------------------------------------------------------
+// 随机整数
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 // 数组乱序
 function shuffle (arr) {
     let _arr = arr.slice();
@@ -240,6 +246,7 @@ function shuffle (arr) {
     return _arr;
 }
 
+// ------------------------------------------------------------------
 // 处理数组上兼容问题
 
 // every()：对数组中的每一项运行给定函数，如果每一项都返回true，则返回true，否则false；

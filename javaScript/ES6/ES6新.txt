@@ -143,6 +143,8 @@ node里面使用
 		索引和值都循环
 			for(var some of arr.entries()){}
 
+			for(var [key, value] of arr.entries()){} // 也可以像这样解构一下
+
 	-------------------------------------------------
 	map
 		var map=new map();
@@ -438,12 +440,12 @@ Object.is():	用来比较两个值是否相等
 		==
 		===
 
-	Object.is(NaN, NaN);
+	Object.is(NaN, NaN);  // true
 
-	Object.is(+0, -0);
+	Object.is(+0, -0); // false
 
-Object.assign():   用来合并对象
-	let 新的对象 = Object.assign(目标对象, source1, srouce2....)
+Object.assign():   用来合并对象    
+	let 新的对象 = Object.assign(目标对象, source1, srouce2....); // 后面的会覆盖前面的
 
 	function ajax(options){  //用户传
 		let defaults={
@@ -453,7 +455,7 @@ Object.assign():   用来合并对象
 			....
 		};
 
-		let json = Object.assign({}, defaults, options);
+		let json = Object.assign({}, defaults, options);  // 一般都会写成这样的
 		.....
 	}
 	
@@ -463,9 +465,13 @@ Object.assign():   用来合并对象
 		2. 合并参数
 ES2017引入:
 	Object.keys()
+		var json = {name: 1, job: 'aa', age: 12}; console.log(Object.keys(json)); // ["name", "job", "age"]
 	Object.entries();
+		var json = {name: 1, job: 'aa', age: 12}; console.log(Object.entries(json));  // [["name", 1], ["job", "aa"], ["age", 12]]
 	Object.values();
+		let json = {name: 1, job: 'aa', age: 12}; console.log(Object.values(json)); //  [1, "aa", 12]
 	let {keys, values, entries} = Object;
+
 
 对象身上:   计划在ES2018引入 
 	...

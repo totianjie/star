@@ -94,8 +94,9 @@
 		abababababab 	×
 		abbbbbbbbbb 	√
 		量词只能作用于前一个
-		/(ab)+/
-		() 			分组
+	
+	分组		() 
+		/(ab)+/	
 		ababababab 		√
 		abababababa 	×
 		/a+b+c+/
