@@ -1,0 +1,52 @@
+﻿源码安装
+	切换到你的包文件存放目录下
+　　　　	cd /usr/src
+
+	1，到官网找到最新的gz包	（地址：https://www.kernel.org/pub/software/scm/git/）
+		复制链接地址
+	2，wget -c https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.gz
+		-c  是断点续传的意思
+
+	3，解压下载的源码包
+		tar -zvxf git-2.9.5.tar.gz
+	4，解压后进入 git-2.9.5 文件夹	
+		cd git-2.9.5/
+	5，配置git安装路径
+		./configure prefix=/usr/local/git/
+		
+	5,编译并且安装
+		make && make install
+		查看git版本号	git --version  （看到版本号说明安装成功了）
+		
+	6，将git指令添加到bash中
+		vi /etc/profile
+		在最后一行加入
+
+　　		export PATH=$PATH:/usr/local/git/bin
+
+　　	7，让该配置文件立即生效
+　　		source /etc/profile
+
+
+	要想下载clone文件还得配制ssh密钥
+		chkconfig  --list | grep sshd	生成密钥和
+			id_rsa
+			id_rsa.pub  **要的是这个
+			打开这个文件复制里面的内容到git上添加ssh就可以了
+			文件目录安装在	/root/.ssh/id_rsa.pub
+	要想push文件到远程还得配制
+		用户名	git config --global user.name "名字"
+		邮箱	git config --global user.email "主邮箱"
+
+
+
+
+
+
+
+
+
+
+
+
+

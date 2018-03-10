@@ -18,7 +18,7 @@ yum安装
 		./configure	使用默认配制
 			如果命令行出现下面的命令   checking for C compiler ... not found   就说明缺少相应模块（自己百度） 
 			输入下面的命令安装缺少的模块	yum install gcc gcc-c++ kernel-devel 
-			如果还是不行的话就按   缺少文档安装.txt里面的步骤安装相应的模块（安装时如遇到版本问题不成功就上相应的官网找最新的）
+			如果还是不行的话就按   nginx安装文档.html里面的步骤安装相应的模块（安装时如遇到版本问题不成功就上相应的官网找最新的）
 	
 			最好安装下这两个模块也安装一下	
 				yum install -y openssl*

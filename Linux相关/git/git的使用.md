@@ -176,6 +176,7 @@ exit 						退出
 cd E: 						切换盘符
 ls 							查看文件列表
 ll 							查看文件列表详细信息
+ll -a						隐藏文件也一起可以看到  不加-a隐藏文件是看不到的
 git mv 文件名 新的文件名	  改文件名
 mv /dist /web-view   		把根目录下的dist文件夹的内容移动到根目录下的web-view目录里面去了
 mkdir 文件名				  新建文件夹
@@ -189,8 +190,8 @@ ps aux | grep nginx   		查看进程是否有启用
 ping 域名					  查看这个域名是从哪个ip过来的
 rz							上传文件
 unzip						解压文件
-*ps aux | grep nginx			查看某个程序的进程
-*kill 杀掉某一进程
+ps aux | grep nginx			查看某个程序的进程
+kill 杀掉某一进程
 		kill 2868  杀掉2868编号的进程
 		★kill -9 2868  强制杀死进程kill 杀掉某一进程
 ```
