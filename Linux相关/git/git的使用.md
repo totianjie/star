@@ -194,6 +194,10 @@ unzip						解压文件
 *kill 杀掉某一进程
 		kill 2868  杀掉2868编号的进程
 		★kill -9 2868  强制杀死进程kill 杀掉某一进程
+vim /etc/sudoers			编辑器此文件给用户添加权限
+							添加tianyu    ALL=(ALL)       ALL		就这样就可以了	
+passwd root					修改root密码                            
+
 ```
 
 
