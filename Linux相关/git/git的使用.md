@@ -176,6 +176,7 @@ exit 						退出
 cd E: 						切换盘符
 ls 							查看文件列表
 ll 							查看文件列表详细信息
+ll -a						查看隐藏文件
 git mv 文件名 新的文件名	  改文件名
 mv /dist /web-view   		把根目录下的dist文件夹的内容移动到根目录下的web-view目录里面去了
 mkdir 文件名				  新建文件夹
@@ -193,6 +194,10 @@ unzip						解压文件
 *kill 杀掉某一进程
 		kill 2868  杀掉2868编号的进程
 		★kill -9 2868  强制杀死进程kill 杀掉某一进程
+vim /etc/sudoers			编辑器此文件给用户添加权限
+							添加tianyu    ALL=(ALL)       ALL		就这样就可以了	
+passwd root					修改root密码                            
+
 ```
 
 
