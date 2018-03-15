@@ -196,7 +196,15 @@ unzip						解压文件
 		★kill -9 2868  强制杀死进程kill 杀掉某一进程
 vim /etc/sudoers			编辑器此文件给用户添加权限
 							添加tianyu    ALL=(ALL)       ALL		就这样就可以了	
-passwd root					修改root密码                            
+passwd root					修改root密码    
+
+ls -la 						查看对文件的权限
+sudo chmod 777 文件夹名		 授权（给予有操作文件夹的权限）
+
+关闭进程
+	lsof -i:端口号（比如4000端口被某个程序占用了   就lsof -i:4000  会把占用的程序找出来）
+	kill -9 PID(lsof -i:4000找出来的PID)  关闭占用的程序 
+	
 
 ```
 
