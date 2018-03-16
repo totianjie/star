@@ -1,0 +1,287 @@
+git快速删除文件
+    rm -rf 文件夹
+dos快速删除文件
+    进入文件夹 del *.*   在返回上一级   rd 文件夹
+解决跨域模块
+	const cors=require('cors')
+	server.use(cors()) // 就这样调用一下就可以了
+
+建立链接
+
+	要有三个文件
+		npm install express --save
+		npm install express-static --save
+		npm install mysql --save
+		npm install body-parser --save
+		body-parser ---->	如果是post数据就要引入这个模块  获取post数据
+
+
+-----------------------------------------
+		server.use(body,urlencoded({extended:false}));
+		接收
+		request.body.xxxx    //post交互  接收前台返回的数据
+
+			下次使用就可以直接npm install  就会自动下载这三个模块
+--------------------------------------------------
+
+	增 	
+		INSERT INTO 表名 VALUES ('值','值','值');
+		INSERT INTO tab_user VALUES ('lisi','123456');
+		db.query(`INSERT INTO user_table (name,username,password) VALUES ("${name}","${username}","${password}")`
+											（表中的名字）						（前台返回的值）
+	删
+		DELETE FROM 表名;
+		DELETE FROM tab_user;	删除的是全部
+
+		DELETE FROM 表名 WHERE 条件;
+		DELETE FROM tab_user WHERE username='lisa';
+		DELETE FROM tab_user WHERE username='wanger' AND password='123';	或
+		DELETE FROM tab_user WHERE username='zhangsan' OR password='1234';	并且
+
+		注意：删除必须加个条件。要不然就哭了。
+	改
+		UPDATE 表名 SET 字段=值 WHERE 条件
+		UPDATE tab_user SET password='123';
+		UPDATE tab_user SET password='12345' WHERE username='lisi';
+	查	
+		SELECT * FROM 表名;
+		SELECT * FROM tab_user;
+		SELECT * FROM tab_user WHERE username='lisa';
+		SELECT * FROM 表名 LIMIT 从哪开始,拿多少
+
+		----------------------------------------------------------------------
+SQL语句   数据库独有的语言
+	
+
+建立连接
+
+	let db = mysql.createConnection({
+		host:'主机名或IP',
+		user:'用户名',
+		password:'密码',
+		database:'数据库名'
+	});
+执行SQL语句
+
+	db.query('SQL语句',function(err,data){
+		if(err){
+			错了
+		}else{
+			成功了
+			data数据
+		}
+	});
+
+
+	------------------------  基本的书写语法  ----------------------------------
+
+
+	const express=require('express');	---------->http服务
+	const static=require('express-static');	----->读取文件
+	const mysql=require('mysql');		------>操作数据库
+	const body=require('body-parser'); ----->post交互才会用到
+
+	let server=express();
+	server.listen(8081);	------>设置端口监听
+	server.use(static('www/'));	------------>设置文件路径
+	server.use(body.urlencoded({extended: false}));----->post交互才用到 
+
+	let db=mysql.createConnection({
+		host:'localhost',//主机名
+		user:'root',//用户名
+		password:'',//密码
+		database:'db_user'//数据库名
+	});
+
+	--------------------------------------------------------------
+
+
+=======================================================
+Navicat跟mysql建立连接
+	点击连接-》点击MySQL
+		填写
+			连接名 				随意
+			主机名或IP地址 		localhost 	127.0.0.1
+			端口 				默认 	3306
+			用户名 				默认	root
+			密码 				默认	不写
+
+
+创建数据库
+	右键-》新建数据库
+
+		数据库名 		随意
+		字符集 			utf8 -- UTF-8 Unicode
+		排序规则 		utf8_general_ci
+
+创建表
+	输入字段
+	类型
+		int 		整数 			12 	0 	1
+		float 		单精度浮点数 	12.5 	1.1 	1.0
+		double 		双精度浮点数	12.53 	2.345 	2.45678
+		char 		字符 			'a' 	'b' 
+		varchar 	字符串 	  255	"abcd" 	"你好"
+		text 		大字符串  21亿
+	长度
+==========================================================
+
+数据库 	DataBase
+
+mysql 		免费，凑合
+oracle 		收费，强大
+=========================
+两种选择 	工具
+	1.命令行
+	2.图形界面 			√
+		a).Wamp自带的phpMyAdmin
+		b).Navicat for MySQL 
+
+
+-------------------------------------------------
+-----------------------------------Nodejs------------------------
+
+为什么选择node.js
+1.性能好  正常比较比PHP高86倍
+2.和js的搭配非常好
+3.语法就是js
+4.不能使用DOM,BOM的东西 因为控制台没有
+检测版本		node -v
+装包,装插件		 npm -var
+npm install
+----------------------------
+基础的dos命令
+	查看自己ID	ipconfig
+	打开命令行	win+R
+	关闭 		exit
+	清屏		cls
+	帮助		help
+	换盘符		e: 		c:
+	查看盘符里的东西	dir
+	切换目录  	cd 路径
+	返回上层目录			cd ../
+	↑ ↓ 键可以找回之前输过的命令
+	如果忘记文件名 可以按 tab 补全
+
+	打开文件	node 文件名
+	http 	超文本传输协议（https超文本超安全传输协议）
+
+
+	-------------------原生nodejs自己搭建服务器----------------------
+
+	const http=require('http');		//引入http模块
+	var server=http.createServer(function(request,response){//使用http创建服务
+	//request   请求  接收
+	//response  响应  发送
+	console.log('有人来了');	//有人访问时提示  现在是用来测试能不能用
+
+
+	response.write('向页面写入内容');//响应
+    response.end(); //响应结束
+	});
+	server.listen(8081);	//设置 监听端口
+
+
+	//读取文件 		//需要引入fs模块
+		const fs=require('fs');
+					//文件路径  （就是自己要看的那一个文件）
+		fs.readFile('文件路径',function(err,data){	//文件名   err报错信息   data是数据
+
+			if(err){
+			    console.log('404');
+			}else{
+			    console.log(data+'');  //也可以是data.toString()   就是把内容变成字符串
+			}
+		});
+		--------------------------------------------------
+		const http=require('http');		//引入http模块
+		const fs=require('fs');			//引入fs模块
+		let server=http.createServer(function(request,response){	//使用http创建服务
+
+			request		//请求	接受
+			response	//响应  发送
+			request.url		//请求文件的路径  返回的是根目录   
+			response.write('响应的内容');
+			response.end();		//响应结束
+
+			fs.readFile('www'+request.url,function(err,data){
+			//'www'+request.url  设置根目录在www下   就可以访问www下的文件   我们在网页上打开www下的页面会先返回给后台   后台在返回所打开页面的信息  比如http://localhost:8081/2.html
+
+				err		//报错信息,如果是真的就有错
+				data    //读取到的数据
+				if(err){
+					response.write('404');
+				}else{
+					response.write(data);
+
+				}
+				response.end();		//响应结束
+			});
+		});
+		server.listen(8081);	//监听端口  设置端口号
+
+	-----------------------------------------
+
+	ctrl+c  退出端口
+	8080
+	8081
+
+	----------------------------------nodejs框架--------------------------------------
+
+NodeJs的框架
+	1.express
+	2.KOA
+
+	express
+	网站:http://www.expressjs.com.cn/
+
+
+接收请求
+	server.get(); 			接收get请求
+	server.post(); 			接收post请求
+	server.use(); 			接收所有请求
+
+
+	服务器：
+	1.接口(动态)
+	2.文件(静态)
+
+	中间件:
+		express-static  //读取文件要有中间件
+
+----------------------------- 模板 ---------------------------------
+
+eg:
+	const express = require('express');//引入模块
+	const static = require('express-static');//引入读取文件模块
+
+	let server = express();//使用模块创建服务器
+	server.listen(8081);//监听端口
+	server.use(static('root/'));//设置路由
+
+	server.get('/getData',function(request,response){  ///getData  数据文件
+			request		//接收
+			response	//响应
+		let a = request.query.a;	//request.query  接收前台返回的数据
+		let b = request.query.b;
+		
+		response.send(a+b);//响应
+	});
+	
+
+-------------------------------------------------------------------
+
+
+
+	npm install 文件名(express)
+	cnpm的安装https://npm.taobao.org/
+	cnpm i 文件名(express)
+	express
+
+
+
+
+	文件的访问要中间件     下载npm install express-static
+
+	npm安装的东西可以随便烤  不会出问题
+	cnpm安装的文件路径改个名字或者烤呗都不会出问题

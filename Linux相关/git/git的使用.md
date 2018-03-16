@@ -196,7 +196,39 @@ unzip						解压文件
 		★kill -9 2868  强制杀死进程kill 杀掉某一进程
 vim /etc/sudoers			编辑器此文件给用户添加权限
 							添加tianyu    ALL=(ALL)       ALL		就这样就可以了	
-passwd root					修改root密码                            
+passwd root					修改root密码     
+```
+
+> #### linux 重启
+
+```
+reboot  -f：强制重新开机，不调用shutdown指令的功能；
+
+ reboot  -i：在重开机之前，先关闭所有网络界面；
+
+ reboot  -n：重开机之前不检查是否有未结束的程序； 
+
+ reboot -w：仅做测试，并不真正将系统重新开机，只会把重开机的数据写入/var/log目录下的wtmp记录文件
+```
+
+> ##### linux 环境变量地址
+
+```
+vim /etc/profile		打开配制文件 编辑
+
+source /etc/profile		编辑保存后运行这个命令马上生效新增的环境变量
+```
+
+> #### linux防火墙文件地址
+
+```
+控制台输入：
+	sestatus   查看防火墙状态
+		enforcing 为开启
+		disabled为关闭
+vim /etc/sysconfig/selinux	打开防火墙配制文件  编辑
+	SELINUX=disabled
+		
 
 ```
 

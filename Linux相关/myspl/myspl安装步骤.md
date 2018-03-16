@@ -56,6 +56,13 @@ chown -R mysql:mysql ./
 
 ~~~
 ./scripts/mysql_install_db --user=mysql --datadir=/usr/local/mysql/data/mysql
+如果执行时报：
+FATAL ERROR: please install the following Perl modules before executing ./scripts/mysql_install_db:
+Data::Dumper
+说明少模块了    安装下在的模块：
+yum install perl-Data-Dumper.x86_64
+	
+		
 ~~~
 
 ~~~
@@ -89,8 +96,12 @@ service mysqld start
 > 加入环境变量，编辑 /etc/profile，这样可以在任何地方用mysql命令了
 
 ```
-export PATH=$PATH:/usr/local/mysql/bin
-source /etc/profile
+1. 每次重启后又要重新设置一次：
+	export PATH=$PATH:/usr/local/mysql/bin
+	source /etc/profile
+2. 直接加入到配制文件里面
+	vim /etc/profile
+	source /etc/profile
 ```
 
 ```
@@ -126,9 +137,10 @@ source /etc/profile
 select user,host,password from user;
 
 2)新建一个root用户，并给此用户赋予所有数据库及其所有对象的操作权限，这个赋值语句的%代表支持人一主机连接到mysql服务器。赋值语句为：(一般会在连接服务不成功权限问题时会用)
-
-	1: grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
-	2: flush privileges;	刷新权限之后就可以使用了 
+	先进入mysql   
+		mysql -uroot -p
+		1: grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+		2: flush privileges;	刷新权限之后就可以使用了 
 
 3)连接前先关闭防火墙：（service iptables stop 即时生效，重启虚拟机后失效）（chkconfig iptables off 重启后生效，永久关闭防火墙）
 
@@ -151,6 +163,5 @@ select user,host,password from user;
 	说明是环境变量的问题：
 		export PATH=$PATH:/usr/local/mysql/bin
 		source /etc/profile
-
 ```
 
