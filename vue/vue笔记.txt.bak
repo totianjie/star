@@ -4,19 +4,11 @@
 		a: {b: 1}
 	    };
 	},
-	watch: {	// 监听对象当中某个值变化
+	watch: {
 		'a.b': function() {},
 		deep: true
 	},
-	或者:  监听整个对象
-	watch: {
-		'goodsListInfo': {
-			handler: function () {
-				console.log(999888);
-			},
-			deep: true
-		}
-	}
+
 
 utilrd /s xxx	rm -r xxx		删除xxx目录
 del xxx.txt	rm xxx.txt	删除xxx.txt文件

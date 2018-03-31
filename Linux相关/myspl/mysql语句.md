@@ -206,3 +206,15 @@ SQL标准写法：
 ------------------------------------------------------------------------------
 ```
 
+> sql语句分页查询，同时把表中总数查询出来
+
+```
+sql = `select *,(select count(product_id) from goods)as count from goods order by sale_price ${sort} limit ${pageIndex * pageSize}, ${pageSize}`;
+
+注：(select count(product_id) from goods)as count ==>> 记录总数量
+
+方法二：
+	select count(id) from goods; ===>> 拿到总数量在做下一步分页查询
+上两种方法数据量少时是可以用的，数据量一大就不行了
+```
+
