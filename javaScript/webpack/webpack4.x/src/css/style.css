@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    background: #ccc;
+}
+
+.div {
+    width: 100px;
+    height: 100px;
+    background: url(./../images/1.jpg) no-repeat;
+    background-size: 100%;
+    transform: rotate(50deg)
+}
+
+.div2 {
+    width: 12px;
+}
+
+.aaa {
+    width: 15px;
+}

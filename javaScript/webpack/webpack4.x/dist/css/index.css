@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  background: #ccc;
+}
+
+.div {
+  width: 100px;
+  height: 100px;
+  background: url(../images/7ab872ed43eee77e0edb78645f84ec66.jpg) no-repeat;
+  background-size: 100%;
+  -webkit-transform: rotate(50deg);
+  -moz-transform: rotate(50deg);
+  -ms-transform: rotate(50deg);
+  transform: rotate(50deg);
+}
+
+.div2 {
+  width: 12px;
+}
+
+.less li {
+  line-height: 20px;
+  border-bottom: 1px dashed #399;
+}
+
+.sass li {
+  line-height: 20px;
+  border-bottom: 1px solid #f60;
+}
