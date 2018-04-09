@@ -251,7 +251,25 @@ function getPos (obj) {
     }
     return {left: l, top: t};
 }
+// 添加 style
+export function setStyle (element, styleName, value) {
+    if (!element || !styleName) return;
 
+    if (typeof styleName === 'object') {
+        for (var prop in styleName) {
+            if (styleName.hasOwnProperty(prop)) {
+                setStyle(element, prop, styleName[prop]);
+            }
+        }
+    } else {
+        // if (styleName === 'opacity' && (myBrowser() === 'IE8')) {
+        if (styleName === 'opacity') { // 只有在ie9以下才需要  所以用的时候还得改一下
+            element.style.filter = isNaN(value) ? '' : 'alpha(opacity=' + value * 100 + ')';
+        } else {
+            element.style[styleName] = value;
+        }
+    }
+};
 /** ==================== 获取元素偏移量 位置 ==================== */
 /**
  * 通过向上迭代offsetParent,可以计算出相对于document的偏移量，也就是相对与页面的偏移量。
