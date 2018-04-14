@@ -305,3 +305,47 @@
     <div id="pay_nhCharts" style="width:500px; height:500px;"></div>
 </body>
 </html>
+
+
+
+设置每每柱子不一样的颜色
+  series: [{
+            name: '手机品牌',
+            type: 'bar',
+            data: [19, 15, 40, 32],
+            //设置柱子的宽度
+            barWidth : 30,
+            //配置样式
+            itemStyle: {   
+                //通常情况下：
+                normal:{  
+　　　　　　　　　　　　//每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                    color: function (params){
+                        var colorList = ['rgb(164,205,238)','rgb(42,170,227)','rgb(25,46,94)','rgb(195,229,235)'];
+                        return colorList[params.dataIndex];
+                    }
+                },
+                //鼠标悬停时：
+                emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+        }],
+        
+柱子堆叠的设置  主要是配合stack  这个字段
+series: [
+        {
+            name:'邮件营销',
+            type:'line',
+            stack: '总量',
+            data:[120, 132, 101, 134]
+        },
+        {
+            name:'联盟广告',
+            type:'line',
+            stack: '总量',
+            data:[220, 182, 191]
+        }
+    ]
