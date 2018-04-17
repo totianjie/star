@@ -1,0 +1,152 @@
+app.title = '柱形图';
+  option = {
+    title: {//图表标题
+      text:'3月份深圳公立医院临床路径必做项目缺失病例数统计',//标题的内容
+      x:'left',//标题显示位置,分别有'left', 'center', 'right'
+      textStyle:{//标题样式
+        color:'#666',
+        fontSize:16
+      },
+      top:70, //标题字体向下移,
+      left:30 //标题字体向左移,
+    },
+    color: ['#FF6B8E','#FFD773','#7098FF'],//柱状的颜色
+    tooltip: {//提示框的阴影
+      trigger: 'axis',
+      axisPointer: {// 坐标轴指示器，坐标轴触发有效
+        type: 'shadow'// 默认为直线，可选为：'line' | 'shadow'
+      }
+    },
+    legend: {//右边图例组件
+      type: 'scroll',//可滚动翻页的图例。当图例数量较多时可以使用
+      //右边图例名称的显示
+      data:['临床路径必做检验缺失','临床路径必做检查缺失','临床路径必用药缺失'],
+      textStyle: {//右边图例样式
+        color: '#999',//右边图例字体颜色
+        fontSize: 13//右边图例字体大小
+      },
+      orient:'vertical',//图例列表的布局朝向,分别有水平'horizontal',垂直'vertical'
+      right:200,//图例组件离容器右侧的距离
+      top:110,//图例组件离容器上侧的距离
+      bottom:20,//图例组件离容器下侧的距
+    },
+    grid: {//grid组件
+      top:'20%',//grid 组件离容器上边的距离
+      left: '8%',//grid 组件离容器左侧的距离
+      right: '15%',//grid 组件离容器右侧的距离
+      bottom: '18%',//x轴刻度标签名与grid组件的距离
+      containLabel: false // 区域是否包含坐标轴的刻度标签
+    },
+    toolbox: {
+      show: true,
+      orient: 'vertical',
+      left: 'right',
+      top: 'center',
+      feature: {
+        mark: {show: true},
+        dataView: {show: true, readOnly: false},
+        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+        restore: {show: true},
+        saveAsImage: {show: true}
+      }
+    },
+    calculable: true,
+    xAxis: {
+      type: 'category',
+      name:'医院名称',//x坐标轴名称
+      nameGap:19,//x坐标轴名称与轴线之间的距离
+      nameTextStyle:{//x坐标轴名称文字样式
+        color:'#666',
+        fontSize:12
+      },
+      axisTick: {//是否显示刻度
+        show: false
+      },
+      data: [//x轴刻度标签名称
+        '深圳市人民医院',
+        '深圳市第二人民医院',
+        '深圳市康宁医院',
+        '深圳市儿童医院',
+        '深圳市第三人民医院',
+        '深圳市第四人民医院',
+        '深圳市第六人民医院'
+      ],
+      axisLabel:{//坐标轴刻度标签的相关设置
+        show:true,//是否显示刻度标签
+        rotate:-30,//旋转的角度从 -90 度到 90 度
+        color:'#666',//标签的颜色
+        fontSize:12,//标签的字体大小
+        interval:0,//设置成 0 强制显示所有标签
+      },
+      axisLine:{//刻度线的样式
+        lineStyle:{
+          color:'#999',
+          fontSize:12
+        }
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name:'缺失例数',
+      nameGap:19,
+      nameTextStyle:{
+        color:'#666',
+        fontSize:12
+      },
+      axisLine:{//刻度线的样式
+        lineStyle:{
+          color:'#999',
+          fontSize:12
+        }
+      },
+      min:0,//y 轴最小刻度值
+      max:1000,//y 轴最大刻度值
+      axisTick:{//坐标轴刻度相关设置
+        show:false//是否显示刻度
+      },
+      splitLine:{//分隔线
+        show:false//是否显示分隔线
+      }
+    },
+    dataZoom:{//用于区域缩放(滚动条)
+      type:'slider',
+      show: true,
+      realtime: true,//拖动时，是否实时更新系列的视图
+      x: 100,
+      height: 6,
+      startValue: 0,//柱状从下标0开始显示数值
+      endValue: 4//柱状显示条数结束数值
+    },
+    series: [
+      {
+        name: '临床路径必做检验缺失',
+        type: 'bar',//类型为:柱状图
+        barWidth:12,//柱条的宽度,不设时自适应,支持设置成相对于类目宽度的百分比
+        barGap: 0,
+        itemStyle:{//柱状样式
+          barBorderRadius:8//柱状倒角（顺时针左上，右上，右下，左下）
+        },
+        data: [320, 332, 301, 334, 390, 400, 200]
+      },
+      {
+        name: '临床路径必做检查缺失',
+        type: 'bar',//类型为:柱状图
+        barWidth:12,//柱条的宽度,不设时自适应,支持设置成相对于类目宽度的百分比
+        barGap: 0,
+        itemStyle:{//柱状样式
+          barBorderRadius:8//柱状倒角（顺时针左上，右上，右下，左下）
+        },
+        data: [220, 182, 191, 234, 290, 160, 350]
+      },
+      {
+        name: '临床路径必用药缺失',
+        type: 'bar',
+        barWidth:12,//柱条的宽度,不设时自适应,支持设置成相对于类目宽度的百分比
+        barGap: 0,
+        itemStyle:{//柱状样式
+          barBorderRadius:8//柱状倒角（顺时针左上，右上，右下，左下[0,0,8,8]）
+        },
+        data: [150, 232, 201, 154, 190, 260, 180]
+      }
+    ]
+  };
