@@ -1,0 +1,83 @@
+app.title = '坐标轴刻度与标签对齐';
+a
+option = {
+    tooltip : {
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        },
+    },
+    legend: {//右边图例组件
+        type: 'scroll',//可滚动翻页的图例。当图例数量较多时可以使用
+        //右边图例名称的显示
+        textStyle: {//右边图例样式
+          color: '#999',//右边图例字体颜色
+          fontSize: 13//右边图例字体大小
+        },
+        orient:'horizontal',//图例列表的布局朝向,分别有水平'horizontal',垂直'vertical'
+        x : 'center',//图例组件离容器在中间显示
+        y : 'bottom',//图例组件离容器在底部显示
+        icon:'circle',//图例为圆点
+        // right:200,//图例组件离容器右侧的距离
+        // left:0,//图例组件离容器上侧的距离
+        bottom:200,//图例组件离容器下侧的距
+        data:['aa','bb','cc','ee','ff','gg']
+      },
+    grid: {//grid组件
+      top:'28%',//grid 组件离容器上边的距离
+      left: '8%',//grid 组件离容器左侧的距离
+      right: '15%',//grid 组件离容器右侧的距离
+      bottom: '10%',//x轴刻度标签名与grid组件的距离
+      containLabel: false // 区域是否包含坐标轴的刻度标签
+    },
+    xAxis:{
+        type : 'value',
+        name:'不合理用药例数',
+          nameGap:19,//x坐标轴名称与轴线之间的距离
+          nameTextStyle:{//x坐标轴名称文字样式
+            color:'#666',
+            fontSize:14
+        },
+        splitLine:{//分隔线
+           show:true,//是否显示分隔线
+           lineStyle:{
+               type:'dashed'//分隔线为虚线
+           }
+        },
+        // boundaryGap: ['20%', '20%']
+    },
+    yAxis:{
+        type : 'category',
+        name:'医院',
+        nameGap:19,//x坐标轴名称与轴线之间的距离
+        nameTextStyle:{//x坐标轴名称文字样式
+            color:'#666',
+            fontSize:14
+        },
+        // data : ['aa','bb','dd', 'ee'],
+        axisTick: {
+            alignWithLabel: true,
+            show: false,//是否显示刻度
+            
+        },
+        axisLabel:{
+            show:false
+        },
+     },
+    series : [
+        {
+            name:'aa',
+            type:'bar',
+            barWidth:12,//柱条的宽度,不设时自适应,支持设置成相对于类目宽度的百分比
+            barGap: 5,//柱形之间间隔
+            // barCategoryGap:'5%',//类目间柱形距离，默认为类目间距的20%，可设固定值
+            itemStyle:{//柱状样式
+              normal:{
+                  barBorderRadius:8,
+                  color: 'red'
+              }
+          },
+            data:[12]
+          
+        }
+    ]
+};
