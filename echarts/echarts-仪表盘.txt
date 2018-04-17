@@ -1,0 +1,117 @@
+option = {
+    tooltip : {
+        // formatter: "{a} <br/>{b} : {c}%"
+    },
+    toolbox: {
+        feature: {
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    series: [
+        {
+            name: '业务指1标',
+            type: 'gauge',
+            radius: '75%',// 仪表的半径 默认75%
+            clockwise:true, // 是否顺时钟走刻度  默认true
+            min:0, // 最大值
+            max:100, // 最小值 
+	    // 开始角度   不是必须的
+	    //startAngle: 180,
+ 	   //结束角度。  不是必须的
+	    //endAngle: 0,
+            splitNumber: 10,  // 仪表大刻度比例分割 默认是10
+            axisLine: { // 仪表盘轴线相关配置。
+                show: true,// 测试无效
+                lineStyle: { // 样式
+                    color:[[0.1, '#399'], [0.8, '#f60'], [1, '#67f']], // 分段颜色
+                    width: 30, // 轴宽  圆轴的厚度  默认是30
+                },
+                shadowBlur: 90, // 测试无效
+                shadowColor: '#000', // 测试无效
+                shadowOffsetX: 60,// 测试无效
+                shadowOffsetY: 29,// 测试无效
+                opacity:0,// 测试无效
+            },
+            splitLine: { // 分隔线样式（大刻度样式）
+                show: true, // 是否显示大刻度  默认true
+                length: 20, // 大刻度的长度   默认30 
+                lineStyle: {
+                    color: '#000', // 线颜色
+                    width: 8, // 线宽 
+                    type: 'solid', // 线的类型 solid dashed dotted
+                 
+                    
+                }
+                
+            },
+            axisTick: { // 小刻度样式
+                show: true, // 是否显示刻度  默认true
+                splitNumber: 5, // 小刻度比例分割  默认是5
+                length: 8, // 刻度长度
+                lineStyle: { // 样式
+                    color: '#fff',
+                    width: 2, // 线宽 默认1
+                    type: 'solid', // 线的类型 solid dashed dotted
+                }
+            },
+            axisLabel: { // 刻度标签样式 （刻度上的数字样式）
+                show: true, // 是否显示标签（刻度上的数字）
+                distance: 20, // 文字与刻度的距离 默认是5
+                formatter: function (val) {
+                    return val + '%';
+                },
+                // color: 'red'  如果不设置就默认是跟着仪表盘轴色
+                fontSize:16, // 默认是12  
+                
+            },
+            pointer: { // 仪表盘指针样式
+                show: true, // 默认true
+                length: '80%', // 指针长度  默认80% 
+                width: 8, // 指针宽度默认是8 
+                itemStyle: { // 里面的样式都无效
+                },
+            },
+            emphasis: { // 鼠标移入时指针样式
+                itemStyle: { 
+                    color: '#ccc'
+                }  
+            },
+            title: { // 标题样式
+                show: true, // 默认true
+                offsetCenter: [0, '-110%'], // 对于仪表盘中心的偏移位置，数组第一项是水平方向的偏移，第二项是垂直方向的偏移。可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
+                color: '#ccc',
+                textShadowColor: '#000',
+                textShadowBlur: 2,
+                textShadowOffsetX: 1,
+                textShadowOffsetY: 1
+                
+            },
+            detail: { // 仪表盘详细信息(指针下面的数字样式)
+                show: true, // 默认true
+                formatter:'{value}%', // 给一fn可以格式化
+                offsetCenter:[0, '40%'], // 位置
+                color: '#ccc',
+                
+            },
+            tooltip: { // 提示框样式
+                // position: [], // 提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。 支持数字[10,10]跟百分比['50%', '50%']
+                // formatter: fn | string, // 比较麻烦 改变提示框内的排版
+                backgroundColor: '#ccc', // 背景色  默认是rgba(50,50,50,0.7)
+                borderColor: '#333', // 默认是#333
+                borderWidth: 1, // 默认是0
+                padding: 5, // 默认是5 可以给个数组 指定四个方向 [1,2,3,4]
+                textStyle: { // 提示框文本样式
+                    // color: ''
+                },
+                extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);', // 额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：
+            },
+            data: [{value: 0.3, name: '完成率'}]
+        }
+    ]
+};
+
+// setInterval(function () {
+//     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+//     myChart.setOption(option, true);
+// },2000);
