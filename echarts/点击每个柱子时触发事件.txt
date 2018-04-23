@@ -1,0 +1,18 @@
+var echartsBar = echarts.init(document.getElementById('side_bar'));
+	// 做点击事件  其实也可以直接做echartsBar.on('click', fn); ==> 但是这样做的坏处是， 如果数据值为零  柱子就没有高度   会点不到  不会触发事件						
+echartsBar.getZr().on('click',params=>{
+  // 点击时的x轴和y轴  坐标
+  const pointInPixel= [params.offsetX, params.offsetY];
+  // 判断是否是在图片的区域内
+  if (echartsBar.containPixel('grid',pointInPixel)) {  
+  // 返回的是一个数组  
+   console.log(echartsBar.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY]));
+    // 拿到是第几个点击的  x轴的话取数组第0个  如果是侧边柱就取数组第1个
+    let yIndex=echartsBar.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[1];
+    /*事件处理代码书写位置*/
+    // 拿到是第几个点击的了应该做点什么...
+  }
+});
+
+echartsBar.clear();//画之前先清除
+echartsBar.setOption(sideBarOption,true);//默认是合并的，设置true后就不会出现合并的现象
