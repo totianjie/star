@@ -44,42 +44,71 @@ function isIos () {
     return bSing;
 }
 // 判断浏览器
-function myBrowser (){
-    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-    var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
-    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器
-    var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
-    var isSafari = userAgent.indexOf("Safari") > -1; //判断是否Safari浏览器
-    var isChrome = userAgent.indexOf("Chrome") > -1; //判断是否Safari浏览器
-    if (isIE) {
-        var IE5 = IE55 = IE6 = IE7 = IE8 = false;
-        var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
-        reIE.test(userAgent);
-        var fIEVersion = parseFloat(RegExp["$1"]);
-        IE55 = fIEVersion == 5.5;
-        IE6 = fIEVersion == 6.0;
-        IE7 = fIEVersion == 7.0;
-        IE8 = fIEVersion == 8.0;
-        if (IE55) {
-            return "IE55";
+function myBrowser () {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+        // var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE浏览器
+        var isIE = IETester(); // 不传参数返回当前IE版本，如果不是IE内核浏览器，返回false
+        var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器
+        var isSafari = userAgent.indexOf("Safari") > -1; //判断是否Safari浏览器
+        var isChrome = userAgent.indexOf("Chrome") > -1; //判断是否Safari浏览器
+
+        if (isIE) {
+            return 'IE' + isIE;
+            /*var IE5 = IE55 = IE6 = IE7 = IE8 = IE9 = IE10 = IE11 = false;
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            IE55 = fIEVersion == 5.5;
+            IE6 = fIEVersion == 6.0;
+            IE7 = fIEVersion == 7.0;
+            IE8 = fIEVersion == 8.0;
+            IE8 = fIEVersion == 8.0;
+            IE9 = fIEVersion == 9.0;
+            IE10 = fIEVersion == 10.0;
+            IE11 = fIEVersion == 11.0;
+
+            // alert(fIEVersion);
+            if (IE55) {
+                return "IE55";
+            }
+            if (IE6) {
+                return "IE6";
+            }
+            if (IE7) {
+                return "IE7";
+            }
+            if (IE8) {
+                return "IE8";
+            }
+            if (IE9) {
+                return "IE9";
+            }
+            if (IE10) {
+                return "IE10";
+            }
+            if (IE11) {
+                return "IE11";
+            }*/
+        }//isIE end
+        if (isFF) {
+            return "FF";
         }
-        if (IE6) {
-            return "IE6";
+        if (isOpera) {
+            return "Opera";
         }
-        if (IE7) {
-            return "IE7";
+        if (isChrome) {
+            return 'Chrome';
         }
-        if (IE8) {
-            return "IE8";
+
+        function IETester (userAgent) {
+            var UA = userAgent || navigator.userAgent;
+            if (/msie/i.test(UA)) {
+                return UA.match(/msie (\d+\.\d+)/i)[1];
+            } else if (~UA.toLowerCase().indexOf('trident') && ~UA.indexOf('rv')) {
+                return UA.match(/rv:(\d+\.\d+)/)[1];
+            }
+            return false;
         }
-    }//isIE end
-    if (isFF) {
-        return "FF";
+
     }
-    if (isOpera) {
-        return "Opera";
-    }
-    if (isChrome) {
-        return 'Chrome';
-    }
-}
