@@ -182,6 +182,30 @@ function resetDataFormat (d) {
         return {nodelist: arr1, data: arr2};
     }
 }
+// id  pid   变为children格式
+function parentId2Children (data, {id = 'id', pid = 'parentId', childrenName = 'children'} = {}) {
+    if (data.length === 0) {
+        return false;
+    }
+    let newData = deepCopy(data);
+    let parents = newData.filter((parentItem) => !(newData.find((item) => parentItem[pid] === item[id])));
+    return _fn(parents, newData);
+
+    function _fn (parentArr, oldArr) {
+        parentArr.forEach((item, index) => {
+            let children = oldArr.filter((item2, i) => {
+                return item[id] === item2[pid];
+            });
+
+            if (children.length > 0) {
+                item[childrenName] = _fn(children, oldArr);
+            } else {
+                item[childrenName] = [];
+            }
+        });
+        return parentArr;
+    }
+}
 
 // 查看每一个数组是否有child 如果没有就加一个
 function seachChildrenList (json) {
@@ -588,7 +612,7 @@ function bind (fn, thisArg) {
         return fn.apply(thisArg, args);
     };
 }
-
+p
 
 
 
