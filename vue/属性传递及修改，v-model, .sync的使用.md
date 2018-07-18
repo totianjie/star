@@ -1,0 +1,107 @@
+##### 组件间双向数据绑定， 通过绑定自定义事伯改变数据
+
+.sycn方式
+```
+   :title.sync="title"  单个值的传入
+   v-bind.sync="doc"    doc是一个对象，这样是把一个对象中所有属性都传入进去  doc = {a: 12, b: 5}  如果是v-model文件要想把一整个对象传入就一定要用v-bind="json"
+   
+   接收：
+      props: {
+        title: String,
+        a: Number, // doc对象中的属性
+        b: [String, Number] // doc对象中的属性
+      }
+    改变
+      this.$emit('update:title', '改变title'); // update:值  格式是定死的
+      this.$emit('update:a', this.a+=5); // 就这样改变就好，父级的值也会相应的改变
+      原理就是：派发了一个自定义事件，在中间帮赋了一次值     
+                其实是：   <text-document
+                              v-bind:title="doc.title"
+                              v-on:update:title="doc.title = $event"
+                            ></text-document>
+```
+v-model方式
+```
+  v-model="title" // 值的传入
+  如果要把一个对象全部属性都传入，  b-bind="json"  不可使用简洁方式 :="json"
+  接收
+  props: {
+    value: String
+  },
+  model: { // 默认是oninput事件， 这里可以改变一个事件的名称
+    prop: 'change-title',
+    event: 'balabala'
+  },
+  
+  改变：
+    this.$emit('input', '改变title'); // 如果 model 中没有设置，oninput就是默认的方式
+    this.$emit('change-title', 'title-aa'); // 这是model中改变了prop的自定义事件名
+```
+
+// Sync.vue
+```javascript
+<template>
+    <div>
+        <span>{{title}}</span>
+        <span @click='update'>更新数据</span>
+        <hr>
+        {{a}}
+        {{b}}
+        <hr>
+    </div>
+</template>
+<script>
+export default {
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        // a: {
+        //     type: Number,
+        //     default: 0
+        // },
+        // b: {
+        //     type: Number,
+        //     default: 0
+        // }
+        a: Number,
+        b: Number
+    },
+    methods: {
+        update () {
+            this.$emit('update:title', `update-${this.title}`);
+            this.$emit('update:a', 300);
+        }
+    }
+};
+</script>
+```
+
+// TestVueSync.vue
+```javascript
+<template>
+    <div>
+        <sync
+            :title.sync="title"
+            v-bind.sync="doc"
+        />
+    </div>
+</template>
+<script>
+import Sync from './Sync.vue';
+export default {
+    data () {
+        return {
+            title: 'test-sync',
+            doc: { a: 121, b: 5 }
+        };
+    },
+    components: { Sync }
+};
+</script>
+```
+
+
+
+
