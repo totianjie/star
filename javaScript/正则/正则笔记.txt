@@ -126,6 +126,51 @@
 		var res=re.test(str);  test返回的是true  和false
 
 ====================================================
+1. 命名捕获
+	语法:  (?<名字>)
+
+	let str = '2018-03-20';
+	let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+	let {year, month ,day} = str.match(reg).groups;
+	console.log(year, month, day);
+反向引用:
+	\1  \2     $1  $2
+反向引用命名捕获:
+	语法:  \k<名字>
+
+	let reg = /^(?<Strive>welcome)-\k<Strive>$/;
+
+	匹配: ‘welcome-welcome’
+
+	-------------------------------------------------
+
+	let reg = /^(?<Strive>welcome)-\k<Strive>-\1$/;
+
+	匹配: 'welcome-welcome-welcome'
+
+替换:
+	$<名字>
+
+	let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+	str = str.replace(reg,'$<day>/$<month>/$<year>');
+	console.log(str);
+
+	----------------------------------------
+	str = str.replace(reg, (...args)=>{
+		//console.log(args)
+		let {year, month, day} = args[args.length-1];
+
+		return `${day}/${month}/${year}`;
+	});
+
+	console.log(str);
+
+2.   dotAll 模式	s
+
+	之前 '.' 在正则里表示匹配任意东西， 但是不包括 \n 
+
+   let reg = /\w+/gims;
+====================================================
 
 ****正则表达式的方法****
 test
