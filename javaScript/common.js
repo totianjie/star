@@ -182,6 +182,38 @@ function resetDataFormat (d) {
         return {nodelist: arr1, data: arr2};
     }
 }
+// 通过子 级id  查找父级
+// 查找某个东西 找到返回true, 和当前找到的对象
+// changeKey  可选 ==> 如果传的话会把整条条上的这个key变为true
+function findInArr (arr, id, findKey, changeKey) {
+    if (!Array.isArray(arr) || (Array.isArray(arr) && arr.length === 0)) {
+        return false;
+    }
+    return _fn(arr);
+
+    function _fn (a) {
+        let len = a.length;
+        for (let i = 0; i < len; i++) {
+            if (a[i][findKey] === id) {
+                if (changeKey !== undefined) {
+                    a[i][changeKey] = true;
+                }
+                return {bOk: true, data: a[i]};
+            } else {
+                if (a[i].hasOwnProperty('children') && (a[i].children.length > 0)) {
+                    let result = _fn(a[i].children);
+                    if (result.bOk) {
+                        if (changeKey !== undefined) {
+                            a[i][changeKey] = true;
+                        }
+                        return result;
+                    }
+                }
+            }
+        }
+        return {bOk: false, data: {}};
+    }
+}
 // id  pid   变为children格式
 function parentId2Children (data, {id = 'id', pid = 'parentId', childrenName = 'children'} = {}) {
     if (data.length === 0) {
