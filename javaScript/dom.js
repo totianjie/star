@@ -438,5 +438,13 @@ var EventUtil = {
             } else {
                 event.cancelBubble = true;
             }
+        },
+        // 取得键码
+        getCharCode: function(event){ // 取得了字符编码之后，就可以使用String.fromCharCode()将其转换成实际的字符
+            if (typeof event.charCode == "number"){
+                return event.charCode;
+            } else {
+                return event.keyCode;
         }
+}
     };
