@@ -445,6 +445,6 @@ var EventUtil = {
                 return event.charCode;
             } else {
                 return event.keyCode;
+            }
         }
-}
     };
