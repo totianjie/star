@@ -446,5 +446,18 @@ var EventUtil = {
             } else {
                 return event.keyCode;
             }
+        },
+        // 获取复制或剪切的数据
+        getClipboardText: function (event) {
+            var clipboardData = (event.clipboardData || window.clipboardData);
+            return clipboardData.getData("text");
+        },
+        // 设置复制或剪切的数据
+        setClipboardText: function (event, value) {
+            if (event.clipboardData) {
+                return event.clipboardData.setData("text/plain", value);
+            } else if (window.clipboardData) {
+                return window.clipboardData.setData("text", value);
+            }
         }
     };
