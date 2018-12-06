@@ -270,6 +270,25 @@ export function setStyle (element, styleName, value) {
         }
     }
 };
+// 转义  元素的innerHTML内容即为转义后的字符 其实用正则会更好一点
+function htmlEncode (str) {
+    var ele = document.createElement('span')
+    ele.appendChild(document.createTextNode(str));
+    return ele.innerHTML;
+}
+// 解析
+function htmlDecode (str) {
+    var ele = document.createElement('span')
+    ele.innerHTML = str;
+    return ele.textContent;
+}
+/* 
+ps:
+    let text = '<script>alert(1)<\/script>';
+    let res = htmlEncode(text); // &lt;script&gt;alert(1)&lt;/script&gt;
+    console.log(res);
+    console.log(htmlDecode(res)); // <script>alert(1)<\/script>
+ */
 /** ==================== 获取元素偏移量 位置 ==================== */
 /**
  * 通过向上迭代offsetParent,可以计算出相对于document的偏移量，也就是相对与页面的偏移量。
