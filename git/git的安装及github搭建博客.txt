@@ -104,7 +104,7 @@ GIT 			分布式代码管理工具
 			输入
 				git clone 地址
 
-	3.创建博客
+	3.创建博客 (https://pages.github.com/ 打开此网站，按上面的步骤就可完成，亲测，可以用)
 		名字有要求:
 			用户名.github.com
 			填写描述
